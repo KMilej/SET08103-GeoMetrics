@@ -1,7 +1,10 @@
 ---
-name: Epic Task Name
+name: Epic
+about: A high-level unit of work to be tracked in the Engineering project
 type: Epic
-
+title: ''
+labels: ''
+assignees: ''
 
 ---
 

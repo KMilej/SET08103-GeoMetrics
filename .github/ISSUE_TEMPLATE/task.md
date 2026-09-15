@@ -1,6 +1,10 @@
 ---
-name: Task Name
+name: Task
+about: A self-contained unit of work
 type: Task
+title: ''
+labels: ''
+assignees: ''
 
 ---
 
