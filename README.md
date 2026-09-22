@@ -9,4 +9,7 @@ adding badges to workflow
 
 [![LICENSE](https://img.shields.io/github/license/<tysjestbogiem>/devops.svg?style=flat-square)](https://github.com/<tysjestbogiem>/devops/blob/master/LICENSE)
 
-[![Releases](https://img.shields.io/github/release/<tysjestbogiem>/devops/all.svg?style=flat-square)](https://github.com/<github-username>/devops/releases)
+[![Releases](https://img.shields.io/github/release/<tysjestbogiem>/devops/all.svg?style=flat-square)](https://github.com/<tysjestbogiem>/devops/releases)
+
+# DevOps
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/<tysjestbogiem>/<SET08103-GeoMetrics>/<action name taken from main.yml>/<develop>?style=flat-square)
