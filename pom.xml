@@ -29,6 +29,7 @@
     </properties>-->
 
     <build>
+        <finalName>semApp</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -37,12 +38,13 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.napier.devops.App</mainClass>
+                            <mainClass>com.napier.sem.App</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
                     <execution>
