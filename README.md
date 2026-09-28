@@ -1,13 +1,16 @@
-# SET08103-GeoMatrics
+This is a test read me document.
+The main read me document is README.md
 
-[![GeoMetrics Build](https://github.com/KMilej/SET08103-GeoMetrics/actions/workflows/main.yml/badge.svg?branch=Owen)](https://github.com/KMilej/SET08103-GeoMetrics/actions/workflows/main.yml)
 
-[![GeoMetrics Build](https://github.com/KMilej/SET08103-GeoMetrics/actions/workflows/main.yml/badge.svg?branch=Owen)](https://github.com/KMilej/SET08103-GeoMetrics/actions/workflows/main.yml)
+Hello world!
 
-[![LICENSE](https://img.shields.io/github/license/KMilej/SET08103-GeoMetrics.svg?style=flat-square)](https://github.com/KMilej/SET08103-GeoMetrics/blob/main/LICENSE)
+![workflow](https://github.com/OwenFleming88/sem/actions/workflows/main.yml/badge.svg)
 
-[![Releases](https://img.shields.io/github/release/KMilej/SET08103-GeoMetrics/all.svg?style=flat-square)](https://github.com/KMilej/SET08103-GeoMetrics/releases)
+[![LICENSE](https://img.shields.io/github/license/OwenFleming88/sem.svg?style=flat-square)](https://github.com/OwenFleming88/sem/blob/master/LICENSE)
+
+[![Releases](https://img.shields.io/github/release/OwenFleming88/sem/all.svg?style=flat-square)](https://github.com/OwenFleming88/sem/tree/master/releases)
 
 Master Build Status : ![GitHub Workflow Status(branch)](https://img.shields.io/github/actions/workflow/status/OwenFleming88/sem/main.yml?branch=master&style=flat-square)
 
 Develop Build Status : ![GitHub Workflow Status(branch)](https://img.shields.io/github/actions/workflow/status/OwenFleming88/sem/main.yml?branch=develop&style=flat-square)
+
