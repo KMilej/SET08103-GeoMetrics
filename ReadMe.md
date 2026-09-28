@@ -1,4 +1,4 @@
-This is a test read me document 
+This is a test read me document.
 The main read me document is README.md
 
 
