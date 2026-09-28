@@ -1,3 +1,7 @@
+This is a test read me document 
+The main read me document is README.md
+
+
 Hello world!
 
 ![workflow](https://github.com/OwenFleming88/sem/actions/workflows/main.yml/badge.svg)
