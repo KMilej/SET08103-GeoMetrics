@@ -1,4 +1,4 @@
-name: A workflow for my test App for martyna branch only 
+name: GeoMetrics Build
 on: push
 
 jobs:
