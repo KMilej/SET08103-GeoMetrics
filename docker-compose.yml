@@ -1,10 +1,11 @@
 services:
   app:
     build: .
+    command: ["db:3306", "30000", "${APP_MODE:-menu}"]
     depends_on:
       - db
 
   db:
     build: ./db
     ports:
-      - "33060:3306"
+      - "33065:3306"

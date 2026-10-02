@@ -20,7 +20,7 @@ jobs:
         run: mvn package
 
       - name: Run docker compose
-        run: docker compose up --build --abort-on-container-exit --exit-code-from app
+        run: APP_MODE=check docker compose up --build --abort-on-container-exit --exit-code-from app
 
       - name: View logs
         if: always()
