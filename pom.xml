@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- SET08103 GeoMetrics - Lab 01 and Lab 02 foundation. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.napier</groupId>
-    <artifactId>geometrics</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <groupId>com.napier.sem</groupId>
+    <artifactId>group-project</artifactId>
+    <version>0.1.0.2</version>
 
     <properties>
-        <maven.compiler.release>21</maven.compiler.release>
+        <maven.compiler.release>23</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -21,20 +22,15 @@
             <version>3.6.4</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.13.0</version>
-            </plugin>
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.4.2</version>
                 <executions>
                     <execution>
                         <id>default-jar</id>
+                        <!--  skip building the default-jar -->
                         <phase>none</phase>
                     </execution>
                 </executions>
@@ -42,12 +38,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.7.1</version>
+                <version>3.3.0</version>
                 <configuration>
-                    <finalName>geometrics</finalName>
+                    <finalName>semApp-${project.version}</finalName>
                     <archive>
                         <manifest>
-                            <mainClass>com.napier.geometrics.App</mainClass>
+                            <mainClass>com.napier.sem.App</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -65,6 +61,7 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 </project>

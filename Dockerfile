@@ -1,7 +1,4 @@
-# SET08103 GeoMetrics - Java 21 runtime image.
-FROM amazoncorretto:21
-
-WORKDIR /app
-COPY target/geometrics.jar geometrics.jar
-
-ENTRYPOINT ["java", "-jar", "geometrics.jar"]
+FROM amazoncorretto:23
+COPY ./target/semApp-0.1.0.2.jar /tmp/semApp-0.1.0.2.jar
+WORKDIR /tmp
+ENTRYPOINT ["java", "-jar", "semApp-0.1.0.2.jar"]

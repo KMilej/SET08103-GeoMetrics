@@ -1,60 +1,35 @@
-# SET08103 GeoMetrics - Lab 01 and Lab 02 continuous integration.
 name: GeoMetrics Build
-
-on:
-  push:
-  workflow_dispatch:
-  schedule:
-    - cron: "17 3 * * *"
-      timezone: "Europe/London"
-
-permissions:
-  contents: read
+on: push
 
 jobs:
   build:
-    name: Build and run
+    name: GeoMetrics build action
     runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Set up JDK 21
+      - name: Set up JDK 23
         uses: actions/setup-java@v5
         with:
-          distribution: temurin
-          java-version: "21"
-          cache: maven
+          java-version: '23'
+          distribution: 'temurin'
 
-      - name: Build executable JAR
-        run: mvn --batch-mode clean package
-
-      - name: Verify executable JAR
-        run: test -f target/geometrics.jar
-
-      - name: Start MongoDB
+      - name: Setup network
         run: |
           docker network create --driver bridge se-methods
-          docker run --detach --name mongo-dbserver --network se-methods mongo:8.0
+          docker pull mongo
+          docker run -d --name mongo-dbserver --network se-methods mongo
 
-      - name: Build application image
-        run: docker build --tag geometrics .
+      - name: Build with Maven
+        run: mvn package
 
-      - name: Run application
-        run: docker run --name geometrics-container --network se-methods geometrics
+      - name: Build
+        run: docker build -t geometrics .
 
-      - name: Show application output
+      - name: Run image
+        run: docker run --network se-methods --name geometrics-container geometrics
+
+      - name: View logs
         run: docker logs geometrics-container
-
-      - name: Show diagnostic logs
-        if: failure()
-        run: |
-          docker logs mongo-dbserver || true
-          docker logs geometrics-container || true
-
-      - name: Clean up Docker resources
-        if: always()
-        run: |
-          docker rm --force geometrics-container mongo-dbserver || true
-          docker network rm se-methods || true
