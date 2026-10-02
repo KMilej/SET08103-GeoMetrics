@@ -1,0 +1,10 @@
+services:
+  app:
+    build: .
+    depends_on:
+      - db
+
+  db:
+    build: ./db
+    ports:
+      - "33060:3306"
