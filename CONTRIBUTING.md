@@ -13,7 +13,7 @@ Do not work directly on the `main` branch. Create a separate branch for each tas
 The branch name should start with one of the following prefixes:
 
 - `feature/` — for a new feature, for example `feature/login-page`,
-- `docs/` — for documentation changes, for example `docs/update-readme`,
+- `use-cases` — for documentation changes, for example `use-cases`,
 - `refactor/` — for improving the code structure without changing its behaviour`.
 
 ## 3. Make and test your changes
