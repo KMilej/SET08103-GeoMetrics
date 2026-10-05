@@ -38,8 +38,6 @@ Build the application, start the database in the background and open the report 
 The database keeps running after you exit the application until you stop it below.
 The application waits about 5 seconds before attempting to connect to the database.
 
-*For macOS and Windows (PowerShell or Command Prompt). Run each command in order, and run the last command after exiting the application:*
-
 ```sh
 mvn clean package
 docker compose up --build -d db
@@ -50,11 +48,11 @@ docker compose down
 *Alternatively, use `docker ps` to find the container name, then run `docker stop <container_name>` to stop it manually. Press `Ctrl+C` to interrupt the application running in the terminal.*
 
 View logs and stop containers:
+
 `View logs before stopping and removing the containers.`
 
 ```sh
 docker compose logs
-docker compose down
 ```
 
 ## Reporting Issues
