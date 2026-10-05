@@ -17,6 +17,8 @@ The menu has six categories. Select a category, then a report using its displaye
 Enter `0` in a category to go back, or `0` in the main menu to exit.
 Reports currently display "not implemented yet" while the database queries are being developed.
 
+*On Windows, copy and run one command line at a time. Wait for each command to finish before running the next. Do not paste the whole command block at once.*
+
 ### Run with automatic shutdown
 
 Start the database and open the report menu. When the application exits, the containers
