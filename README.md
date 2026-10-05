@@ -1,62 +1,60 @@
-# SET08103-GeoMatrics
+# GeoMetrics - Java & MySQL Reporting Application
 
-Master Build Status [![build](https://github.com/KMilej/SET08103-GeoMetrics/actions/workflows/main.yml/badge.svg?branch=develop)](https://github.com/KMilej/SET08103-GeoMetrics/actions/workflows/main.yml)
+[![Main Build](https://github.com/KMilej/SET08103-GeoMetrics/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/KMilej/SET08103-GeoMetrics/actions/workflows/main.yml?query=branch%3Amain) [![Develop Build](https://github.com/KMilej/SET08103-GeoMetrics/actions/workflows/main.yml/badge.svg?branch=develop)](https://github.com/KMilej/SET08103-GeoMetrics/actions/workflows/main.yml?query=branch%3Adevelop) [![License](https://img.shields.io/github/license/KMilej/SET08103-GeoMetrics.svg?style=flat-square)](https://github.com/KMilej/SET08103-GeoMetrics/blob/main/LICENSE) [![Release](https://img.shields.io/github/release/KMilej/SET08103-GeoMetrics/all.svg?style=flat-square)](https://github.com/KMilej/SET08103-GeoMetrics/releases)
 
-License [![LICENSE](https://img.shields.io/github/license/KMilej/SET08103-GeoMetrics.svg?style=flat-square)](https://github.com/KMilej/SET08103-GeoMetrics/blob/main/LICENSE)
+This project provides a Java console application for querying the MySQL world database and generating reports on countries, cities, capital cities, population statistics and languages.
 
-Release [![Releases](https://img.shields.io/github/release/KMilej/SET08103-GeoMetrics/all.svg?style=flat-square)](https://github.com/KMilej/SET08103-GeoMetrics/releases)
+## Requirements:
 
-Develop Build Status ![develop](https://github.com/KMilej/SET08103-GeoMetrics/actions/workflows/main.yml/badge.svg?branch=develop)
+- JDK 23 (for building the application with Maven)
+- Maven
+- Docker Desktop installed and running
 
+## Try it yourself using Docker
 
-## MySQL world database (Lab 03a and Lab 07)
+Run the commands from the project directory `../SET08103-GeoMetrics`. Choose one of the options below.
+The menu has six categories. Select a category, then a report using its displayed number.
+Enter `0` in a category to go back, or `0` in the main menu to exit.
+Reports currently display "not implemented yet" while the database queries are being developed.
 
-The supplied `db/world.sql` is imported by the MySQL container on first
-initialisation. The application connects to `world` and displays reports 1-32 in a console menu.
-Enter a number to select a report, or 0 to exit. Reports are currently placeholders
-and print "not implemented yet". Invalid input returns to the menu.
+### Run with automatic shutdown
 
-With Docker Desktop running and JDK 23 or newer available to Maven:
+Start the database and open the report menu. When the application exits, the containers
+are stopped and removed automatically. Build the application first with `mvn clean package`.
+
+*For macOS shells and Windows PowerShell:*
+
+```sh
+mvn clean package
+docker compose up --build -d db
+docker compose run --build --rm app; docker compose down
+```
+
+### Build and run with manual shutdown
+
+Build the application, start the database in the background and open the report menu.
+The database keeps running after you exit the application until you stop it below.
+The application waits about 5 seconds before attempting to connect to the database.
+
+*For macOS and Windows (PowerShell or Command Prompt). Run each command in order, and run the last command after exiting the application:*
 
 ```sh
 mvn clean package
 docker compose up --build -d db
 docker compose run --build --rm app
+docker compose down
 ```
 
-The menu repeats after each selection. GitHub Actions sets
-`APP_MODE=check` to pass `check` as the third argument, which checks the
-country count and exits without reading input. To run the same check locally:
-
-```sh
-APP_MODE=check docker compose up --build --abort-on-container-exit --exit-code-from app
-```
-
-The expected country count is 239.
-
-To run App from IntelliJ, start just the database:
-
-```sh
-docker compose up --build -d db
-```
-
-Run `com.napier.sem.App` after the database has initialised. With no arguments it
-uses `localhost:33060` and zero delay. Containers use arguments `db:3306 30000`,
-following Lab 07; there are up to ten connection attempts.
-Local lab credentials: user `root`, password `example`, database `world`.
-These credentials and disabled TLS follow the local laboratory examples.
+*Alternatively, use `docker ps` to find the container name, then run `docker stop <container_name>` to stop it manually. Press `Ctrl+C` to interrupt the application running in the terminal.*
 
 View logs and stop containers:
+`View logs before stopping and removing the containers.`
 
 ```sh
 docker compose logs
 docker compose down
 ```
 
-SQL scripts run only when MySQL initialises an empty data directory. Editing
-`world.sql` does not reimport an existing database. The supplied script drops and
-recreates `world`, so use it only for this coursework database.
+## Reporting Issues
 
-mvn clean package
-docker compose up --build -d db
-docker compose run --build --rm app
+If you encounter any problems while following this guide, or have any other concerns, please let us know by opening an issue [here](https://github.com/KMilej/SET08103-GeoMetrics/issues) and we will be happy to assist you.

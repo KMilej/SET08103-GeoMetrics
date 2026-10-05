@@ -1,7 +1,7 @@
 services:
   app:
     build: .
-    command: ["db:3306", "30000", "${APP_MODE:-menu}"]
+    command: ["db:3306", "5000", "${APP_MODE:-menu}"]
     depends_on:
       - db
 
