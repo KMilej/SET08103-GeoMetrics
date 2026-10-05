@@ -42,20 +42,20 @@ User selects 'Generate a Language Report'
 ## EXTENSIONS
 
 2a. **Total world population is not available**:
-    a. The system displays error message 'World population is unavailable'
-    b. The system prompts the user to exit the program.
+    1. The system displays error message 'World population is unavailable'
+    2. The system prompts the user to exit the program.
 
 3a. **No relevant country or language percentage data is found for one or more selected language**:
-    a. The system excludes the affected language(s) from the calculation.
-    b. The system continues with available data.
+    1. The system excludes the affected language(s) from the calculation.
+    2. The system continues with available data.
 
 3b. **No relevant country or language percentage data is found for all selected language**:
-    a. The system displays a message 'No language data is available for selected languages'
-    b. The system prompts the user to exit the program.
+    1. The system displays a message 'No language data is available for selected languages'
+    2. The system prompts the user to exit the program.
  
 4a. **System cannot calculate the total number of speakers**:
-    a. The system displays error message 'Unable to calculate total number of speakers'
-    b. The system prompts the user to exit the program.
+    1. The system displays error message 'Unable to calculate total number of speakers'
+    2. The system prompts the user to exit the program.
 
 
 ## SUB-VARIATIONS
