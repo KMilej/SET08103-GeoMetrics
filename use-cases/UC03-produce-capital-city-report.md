@@ -38,13 +38,14 @@ The analyst requests a capital city report.
 
 1. Analyst requests a capital city report.
 2. Analyst specifies the geographical scope of the report.
-3. Analyst specifies whether the report should contain all capital cities or the top N capital cities.
-4. If a Top N report is requested, the analyst specifies the value of N.
-5. GeoMetrics retrieves the capital cities matching the selected geographical scope.
-6. GeoMetrics orders the capital cities from largest to smallest population.
-7. If Top N was selected, GeoMetrics limits the results to the requested number of capital cities.
-8. GeoMetrics produces the capital city report.
-9. GeoMetrics presents the report to the analyst.
+3. If the scope is a continent or region, the analyst specifies the required continent or region.
+4. Analyst specifies whether the report should contain all capital cities or the top N capital cities.
+5. If a Top N report is requested, the analyst specifies the value of N.
+6. GeoMetrics retrieves the capital cities matching the selected geographical scope.
+7. GeoMetrics orders the capital cities from largest to smallest population.
+8. If Top N was selected, GeoMetrics limits the results to the requested number of capital cities.
+9. GeoMetrics produces the capital city report.
+10. GeoMetrics presents the report to the analyst.
 
 ## EXTENSIONS
 
@@ -60,15 +61,13 @@ The analyst requests a capital city report.
 
 ## SUB-VARIATIONS
 
-1. Geographical scope:
-    1. World.
-    2. Continent.
-    3. Region.
-
-2. Report size:
-    1. All capital cities.
-    2. Top N capital cities.
+1. All capital cities worldwide.
+2. All capital cities in a selected continent.
+3. All capital cities in a selected region.
+4. Top N capital cities worldwide.
+5. Top N capital cities in a selected continent.
+6. Top N capital cities in a selected region.
 
 ## SCHEDULE
 
-**DUE DATE **:
+**DUE DATE: **:
