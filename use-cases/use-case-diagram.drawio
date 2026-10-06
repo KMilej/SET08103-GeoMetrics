@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" compressed="false">
+  <diagram id="geometrics-use-cases" name="Use Cases">
+    <mxGraphModel dx="1040" dy="880" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1040" pageHeight="880" math="0" shadow="0" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="heading" value="GeoMetrics — Use Case Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=26;fontStyle=1;fontColor=#172554;" vertex="1" parent="1">
+          <mxGeometry x="40" y="15" width="960" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Six user goals covering all 32 report options" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=15;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="40" y="55" width="960" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="system" value="GeoMetrics" style="rounded=0;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;fillColor=#ffffff;strokeColor=#334155;strokeWidth=2;fontFamily=Arial;fontSize=22;fontStyle=1;fontColor=#172554;align=center;verticalAlign=top;spacingTop=12;" vertex="1" parent="1">
+          <mxGeometry x="310" y="105" width="690" height="725" as="geometry" />
+        </mxCell>
+        <mxCell id="User" value="GeoMetrics user" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#ffffff;strokeColor=#172554;strokeWidth=3;fontFamily=Arial;fontSize=19;fontStyle=1;fontColor=#172554;" vertex="1" parent="1">
+          <mxGeometry x="130" y="362" width="70" height="148" as="geometry" />
+        </mxCell>
+        <mxCell id="association-UC01" value="" style="edgeStyle=none;rounded=0;html=1;startArrow=none;endArrow=none;strokeColor=#64748b;strokeWidth=1.8;exitX=1;exitY=0.46;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="User" target="UC01">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="association-UC02" value="" style="edgeStyle=none;rounded=0;html=1;startArrow=none;endArrow=none;strokeColor=#64748b;strokeWidth=1.8;exitX=1;exitY=0.46;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="User" target="UC02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="association-UC03" value="" style="edgeStyle=none;rounded=0;html=1;startArrow=none;endArrow=none;strokeColor=#64748b;strokeWidth=1.8;exitX=1;exitY=0.46;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="User" target="UC03">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="association-UC04" value="" style="edgeStyle=none;rounded=0;html=1;startArrow=none;endArrow=none;strokeColor=#64748b;strokeWidth=1.8;exitX=1;exitY=0.46;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="User" target="UC04">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="association-UC05" value="" style="edgeStyle=none;rounded=0;html=1;startArrow=none;endArrow=none;strokeColor=#64748b;strokeWidth=1.8;exitX=1;exitY=0.46;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="User" target="UC05">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="association-UC06" value="" style="edgeStyle=none;rounded=0;html=1;startArrow=none;endArrow=none;strokeColor=#64748b;strokeWidth=1.8;exitX=1;exitY=0.46;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="User" target="UC06">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UC01" value="&lt;b style=&quot;font-size:16px&quot;&gt;UC01&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:19px&quot;&gt;Produce a Country Report&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px;color:#475569&quot;&gt;Reports 1–6&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.8;fontFamily=Arial;fontSize=19;fontColor=#172554;align=center;verticalAlign=middle;" vertex="1" parent="system">
+          <mxGeometry x="60.0" y="69.0" width="570.0" height="92.0" as="geometry" />
+        </mxCell>
+        <mxCell id="UC02" value="&lt;b style=&quot;font-size:16px&quot;&gt;UC02&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:19px&quot;&gt;Produce a City Report&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px;color:#475569&quot;&gt;Reports 7–16&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.8;fontFamily=Arial;fontSize=19;fontColor=#172554;align=center;verticalAlign=middle;" vertex="1" parent="system">
+          <mxGeometry x="60.0" y="179.0" width="570.0" height="92.0" as="geometry" />
+        </mxCell>
+        <mxCell id="UC03" value="&lt;b style=&quot;font-size:16px&quot;&gt;UC03&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:19px&quot;&gt;Produce a Capital City Report&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px;color:#475569&quot;&gt;Reports 17–22&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.8;fontFamily=Arial;fontSize=19;fontColor=#172554;align=center;verticalAlign=middle;" vertex="1" parent="system">
+          <mxGeometry x="60.0" y="289.0" width="570.0" height="92.0" as="geometry" />
+        </mxCell>
+        <mxCell id="UC04" value="&lt;b style=&quot;font-size:16px&quot;&gt;UC04&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:19px&quot;&gt;Produce a Population Distribution Report&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px;color:#475569&quot;&gt;Reports 23–25&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.8;fontFamily=Arial;fontSize=19;fontColor=#172554;align=center;verticalAlign=middle;" vertex="1" parent="system">
+          <mxGeometry x="60.0" y="399.0" width="570.0" height="92.0" as="geometry" />
+        </mxCell>
+        <mxCell id="UC05" value="&lt;b style=&quot;font-size:16px&quot;&gt;UC05&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:19px&quot;&gt;Retrieve Population Information&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px;color:#475569&quot;&gt;Reports 26–31&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.8;fontFamily=Arial;fontSize=19;fontColor=#172554;align=center;verticalAlign=middle;" vertex="1" parent="system">
+          <mxGeometry x="60.0" y="509.0" width="570.0" height="92.0" as="geometry" />
+        </mxCell>
+        <mxCell id="UC06" value="&lt;b style=&quot;font-size:16px&quot;&gt;UC06&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:19px&quot;&gt;Produce a Language Population Report&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px;color:#475569&quot;&gt;Report 32&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.8;fontFamily=Arial;fontSize=19;fontColor=#172554;align=center;verticalAlign=middle;" vertex="1" parent="system">
+          <mxGeometry x="60.0" y="619.0" width="570.0" height="92.0" as="geometry" />
+        </mxCell>
+        <mxCell id="footer" value="Report numbers identify menu options, not GitHub issues. The diagram describes the required scope." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=14;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="40" y="837" width="960" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
