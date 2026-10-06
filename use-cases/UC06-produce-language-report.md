@@ -2,11 +2,11 @@
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
-Produce a language distribution report showing percentage and total number of people who speaks Chinese, English, Hindi, Spanish, and Arabic listed from greatest to smallest number of speakers.
+Produce a language distribution report showing the percentage of the world population and total number of people who speaks Chinese, English, Hindi, Spanish, and Arabic listed from greatest to smallest number of speakers.
 
 
 ### Scope
-Primary
+GeoMetrics
 
 
 ### Level
