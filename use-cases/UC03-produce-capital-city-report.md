@@ -49,14 +49,14 @@ The analyst requests a capital city report.
 
 ## EXTENSIONS
 
-2. **Selected geographical scope does not exist**:
+**Selected geographical scope does not exist**:
     1. GeoMetrics informs the analyst that the selected geographical scope could not be found.
 
-4. **Invalid value of N is provided**:
+**Invalid value of N is provided**:
     1. GeoMetrics informs the analyst that the value of N is invalid.
     2. Analyst provides a valid value of N.
 
-5. **No capital cities match the selected geographical scope**:
+**No capital cities match the selected geographical scope**:
     1. GeoMetrics informs the analyst that no matching capital cities were found.
 
 ## SUB-VARIATIONS
