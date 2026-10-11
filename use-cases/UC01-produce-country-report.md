@@ -1,10 +1,10 @@
-# USE CASE: 2 View all countries by population
+# USE CASE: 2 View countries by population
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an analyst, I want to view all countries in a chosen region by population, so that I can analyse population distribution.
+As an analyst, I want to view countries in a chosen region by population, so that I can analyse population distribution.
 
 ### Scope
 
@@ -44,28 +44,27 @@ Request for report.
 
 ## MAIN SUCCESS SCENARIO
 
-1. The user selects a country report.
-2. The user enters the continent and region if required, and N for a top N report.
-3. The application gets the matching countries from the database, ordered by population from largest to smallest. For a top N report, it gets up to N top countries.
-4. The application displays the country report.
+1. The analyst selects a country report.
+2. The analyst enters the continent or region if required, and N for a top N report.
+3. The application displays the country report.
 
 ## EXTENSIONS
 
-2. Invalid location or N.
+2a. Invalid location or N.
     1. The application asks the user to enter a valid location or a positive whole number for N.
 
-3. No countries found.
+3a. No countries found.
     1. The application informs the user that no countries were found.
 
 ## SUB-VARIATIONS
 
-1. The user can select one of the following reports:
-    1. All countries in the world by population, organised from the largest population to smallest.
-    2. All countries in the continent by population, organised from the largest population to smallest.
-    3. All countries in the region by population, organised from the largest population to smallest.
-    4. Top N countries in the world, organised from the largest population to smallest.
-    5. Top N countries in the chosen continent, organised from the largest population to smallest.
-    6. Top N countries in the chosen region, organised from the largest population to smallest.
+1. The analyst can select one of the following reports:
+    1. All countries in the world by population: analyst provides nothing.
+    2. All countries in the continent by population: analyst provides name of the continent.
+    3. All countries in the region by population: analyst provides name of the region.
+    4. Top N countries in the world: analyst provides number for top N countries.
+    5. Top N countries in the chosen continent: analyst provides name of the continent and number. 
+    6. Top N countries in the chosen region: analyst provides name of the region and number.
 
 ## SCHEDULE
 
