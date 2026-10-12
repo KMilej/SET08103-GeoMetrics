@@ -8,11 +8,11 @@ As an analyst, I want to retrieve different population data based on country, ci
 
 ### Scope
 
-Geo-metrics System
+System (black-box)
 
 ### Level
 
-Primary task
+User Goal
 
 ### Preconditions
 
