@@ -56,8 +56,12 @@
 
 ## SUB-VARIATIONS
 
-None.
-
+1. The population of the world.
+2. The population of a continent.
+3. The population of a region.
+4. The population of a country.
+5. The population of a district.
+6. The population of a city.
 ## SCHEDULE
 
    Due Date TBC:
