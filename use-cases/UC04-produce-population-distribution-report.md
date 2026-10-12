@@ -1,12 +1,13 @@
 # USE CASE: UC04 - Produce Population Distribution Report
+
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
-Produce a population distribution of people living and not living in a city.
+As an analyst, I want to view a population distribution of people living and not living in a city, so that I can analyse population distribution.
 
 
 ### Scope
-Primary
+System (black-box)
 
 
 ### Level
