@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+# USE CASE: UC05 - Produce Population Distribution Report
+=======
 # USE CASE: UC04 - Produce Population Distribution Report
+>>>>>>> origin/develop
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
