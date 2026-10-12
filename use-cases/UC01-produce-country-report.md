@@ -12,7 +12,7 @@ System (black-box)
 
 ### Level
 
-Primary task
+User Goal
 
 ### Preconditions
 
