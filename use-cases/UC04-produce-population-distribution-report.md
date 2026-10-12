@@ -1,4 +1,4 @@
-# USE CASE: UC05 - Produce Population Distribution Report
+# USE CASE: UC04 - Produce Population Distribution Report
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
