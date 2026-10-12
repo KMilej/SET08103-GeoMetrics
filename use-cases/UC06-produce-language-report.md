@@ -1,4 +1,5 @@
 # USE CASE: UC06 - Produce Language Report
+
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
@@ -7,8 +8,6 @@ As an analyst, I want to view language distribution report showing the percentag
 
 ### Scope
 System (black-box)
-
-
 
 ### Level
 User Goal
