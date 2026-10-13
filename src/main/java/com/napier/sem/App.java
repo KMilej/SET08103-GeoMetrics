@@ -2,6 +2,7 @@ package com.napier.sem;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -214,8 +215,84 @@ public class App {
                 break;
             }
             case 8: {
-                // TODO: Cities in a continent.
-                System.out.println("Cities in a continent: not implemented yet");
+                // Show continent names available in the database.
+                String continentsSql = """
+                        SELECT DISTINCT Continent
+                        FROM country
+                        ORDER BY Continent
+                        """;
+
+                java.util.List<String> continents = new java.util.ArrayList<>();
+
+                try (Statement statement = con.createStatement();
+                        ResultSet result = statement.executeQuery(continentsSql)) {
+
+                    System.out.println("\nAvailable continents:");
+
+                    while (result.next()) {
+                        String continent = result.getString("Continent");
+                        continents.add(continent);
+                        System.out.println(continents.size() + ". " + continent);
+                    }
+                } catch (SQLException e) {
+                    System.err.println("Could not load continents: " + e.getMessage());
+                    break;
+                }
+
+                if (continents.isEmpty()) {
+                    System.out.println("No continents available.");
+                    break;
+                }
+
+                System.out.println("0. Back");
+                int choice = readChoice(scanner, 1, continents.size());
+
+                if (choice == -1) {
+                    return;
+                }
+                if (choice == 0) {
+                    break;
+                }
+
+                String continent = continents.get(choice - 1);
+
+                // Retrieve cities in the selected continent.
+                String citiesSql = """
+                        SELECT city.Name AS CityName,
+                               country.Name AS CountryName,
+                               city.District,
+                               city.Population
+                        FROM city
+                        JOIN country ON city.CountryCode = country.Code
+                        WHERE country.Continent = ?
+                        ORDER BY city.Population DESC, city.Name ASC, city.ID ASC
+                        """;
+
+                try (PreparedStatement statement = con.prepareStatement(citiesSql)) {
+                    statement.setString(1, continent);
+
+                    try (ResultSet result = statement.executeQuery()) {
+                        if (!result.next()) {
+                            System.out.println("No cities found in " + continent + ".");
+                            break;
+                        }
+
+                        System.out.println("\nCities in " + continent + ":");
+                        System.out.printf("%-35s %-35s %-25s %12s%n",
+                                "Name", "Country", "District", "Population");
+
+                        do {
+                            System.out.printf("%-35s %-35s %-25s %12d%n",
+                                    result.getString("CityName"),
+                                    result.getString("CountryName"),
+                                    result.getString("District"),
+                                    result.getLong("Population"));
+                        } while (result.next());
+                    }
+                } catch (SQLException e) {
+                    System.err.println("Could not produce city report: " + e.getMessage());
+                }
+
                 break;
             }
             case 9: {
