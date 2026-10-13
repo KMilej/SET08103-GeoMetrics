@@ -2,11 +2,11 @@
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
-Produce a population distribution of people living and not living in a city.
+As an analyst I want to produce a population distribution report so that I can see the number of people living and not living in a city.
 
 
 ### Scope
-Primary
+System (Black-box)
 
 
 ### Level
