@@ -1,26 +1,32 @@
-# USE CASE: 2 Produce a City Report
+# USE CASE: 2 View cities by population
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As a *GeoMetrics user* I want *to produce a city report* so that *I can compare city populations.*
+As an analyst, I want to view cities in a chosen location by population, so that I can analyse population distribution.
 
 ### Scope
 
-GeoMetrics.
+System (black-box)
 
 ### Level
 
-Primary task.
+User Goal
 
 ### Preconditions
 
-The application is connected to the world MySQL database. The database contains city and country data.
+- Analyst has access to the application.
+- The application has an active connection to the database when the use case starts.
+- The database contains city and country data.
 
 ### Success End Condition
 
-A city report is displayed, ordered by population from largest to smallest. The report contains Name, Country, District and Population.
+A report is produced that displays all or the top N (chosen by the user) cities in the world, a chosen continent, region, country, or district, organised from largest population to smallest, with the following columns:
+- Name
+- Country
+- District
+- Population
 
 ### Failed End Condition
 
@@ -28,41 +34,40 @@ No report is produced.
 
 ### Primary Actor
 
-GeoMetrics user.
+Analyst
 
 ### Trigger
 
-The user selects City Reports from the main menu.
+Request for report.
 
 ## MAIN SUCCESS SCENARIO
 
-1. The user selects a city report.
-2. The user enters the continent, region, country or district if required, and N for a top N report.
-3. The application gets the matching cities from the database, ordered by population from largest to smallest. For a top N report, it gets up to N cities.
-4. The application displays the city report.
+1. The analyst selects a city report.
+2. The analyst enters the continent, region, country or district if required, and N for a top N report.
+3. The application displays the city report.
 
 ## EXTENSIONS
 
-2. **Invalid location or N**:
+2a. Invalid location or N.
     1. The application asks the user to enter a valid location or a positive whole number for N.
 
-3. **No cities found**:
+3a. No cities found.
     1. The application informs the user that no cities were found.
 
 ## SUB-VARIATIONS
 
-1. The user can select one of the following reports:
-    1. All cities in the world.
-    2. All cities in a continent.
-    3. All cities in a region.
-    4. All cities in a country.
-    5. All cities in a district.
-    6. The top N populated cities in the world.
-    7. The top N populated cities in a continent.
-    8. The top N populated cities in a region.
-    9. The top N populated cities in a country.
-    10. The top N populated cities in a district.
+1. The analyst can select one of the following reports:
+    1. All cities in the world by population: analyst provides nothing.
+    2. All cities in the continent by population: analyst provides name of the continent.
+    3. All cities in the region by population: analyst provides name of the region.
+    4. All cities in the country by population: analyst provides name of the country.
+    5. All cities in the district by population: analyst provides name of the district.
+    6. Top N cities in the world: analyst provides number for top N cities.
+    7. Top N cities in the chosen continent: analyst provides name of the continent and number.
+    8. Top N cities in the chosen region: analyst provides name of the region and number.
+    9. Top N cities in the chosen country: analyst provides name of the country and number.
+    10. Top N cities in the chosen district: analyst provides name of the district and number.
 
 ## SCHEDULE
 
-**DUE DATE**: 13 October 2026.
+**DUE DATE**: Code Review 3
