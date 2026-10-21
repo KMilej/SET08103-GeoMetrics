@@ -1,0 +1,25 @@
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: devpassword
+      MYSQL_DATABASE: world
+    volumes:
+      - ./database/world.sql:/docker-entrypoint-initdb.d/world.sql:ro
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  app:
+    build: .
+    environment:
+      DB_URL: "jdbc:mysql://db:3306/world?allowPublicKeyRetrieval=true&useSSL=false"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
