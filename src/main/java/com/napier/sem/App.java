@@ -1,14 +1,14 @@
 package com.napier.sem;
 
 import com.napier.sem.database.DatabaseConnection;
+import com.napier.sem.repositories.CityRepository;
+import com.napier.sem.models.City;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class App
-{
-    public static void main(String[] args)
-    {
+public class App {
+    public static void main(String[] args) {
         // Load MySQL database driver
         try (Connection con = DatabaseConnection.connect();
              Statement stmt = con.createStatement();
@@ -24,8 +24,20 @@ public class App
                 );
             }
 
+            // call city report
+            CityRepository cityRepository = new CityRepository();
+
+            int count = 0;
+
+            for (City city : cityRepository.getAllCities()) {
+                if (count >= 30) break;
+
+                System.out.println(city.getName());
+                count++;
+            }
+
         } catch (Exception e) {
-            System.err.println("Application failed: " + e.getMessage());
+            e.printStackTrace();
             System.exit(1);
         }
     }
