@@ -8,10 +8,10 @@ services:
       - ./database/world.sql:/docker-entrypoint-initdb.d/world.sql:ro
       - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$$MYSQL_ROOT_PASSWORD"]
+      test: ["CMD-SHELL", "mysql -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD -D world -e 'SELECT 1 FROM country LIMIT 1' >/dev/null 2>&1"]
       interval: 5s
       timeout: 5s
-      retries: 20
+      retries: 60
 
   app:
     build: .
