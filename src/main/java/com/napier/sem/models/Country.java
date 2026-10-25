@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class Country {
     private String code;
     private String name;
-    private String continent;
+    private Continent continent;
     private String region;
     private BigDecimal surfaceArea;
     private Short indepYear;
@@ -19,7 +19,7 @@ public class Country {
     private Integer capital;
     private String code2;
 
-    public Country(String code, String name, String continent, String region, BigDecimal surfaceArea, Short indepYear, int population, BigDecimal lifeExpectancy, BigDecimal gnp, BigDecimal gnpOld, String localName, String governmentForm, String headOfState, Integer capital, String code2) {
+    public Country(String code, String name, Continent continent, String region, BigDecimal surfaceArea, Short indepYear, int population, BigDecimal lifeExpectancy, BigDecimal gnp, BigDecimal gnpOld, String localName, String governmentForm, String headOfState, Integer capital, String code2) {
         this.code = code;
         this.name = name;
         this.continent = continent;
@@ -45,7 +45,7 @@ public class Country {
         return name;
     }
 
-    public String getContinent() {
+    public Continent getContinent() {
         return continent;
     }
 
