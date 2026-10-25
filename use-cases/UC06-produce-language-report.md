@@ -1,13 +1,13 @@
 # USE CASE: UC06 - Produce Language Report
-
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
-As an analyst, I want to view language distribution report showing the percentage of the world population and total number of people who speaks Chinese, English, Hindi, Spanish, and Arabic listed from greatest to smallest number of speakers, so that I can analyse language distribution.
+As an analyst I want to produce a language distribution report so that I can show the percentage of the world population and total number of people who speaks Chinese, English, Hindi, Spanish, and Arabic listed from greatest to smallest number of speakers.
 
 
 ### Scope
-System (black-box)
+System (Black-box)
+
 
 ### Level
 User Goal

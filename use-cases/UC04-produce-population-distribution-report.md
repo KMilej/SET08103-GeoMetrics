@@ -3,11 +3,11 @@
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
-As an analyst I want to view a population distribution of people living and not living in a city report, so that I can analyse population distribution.
+As an analyst I want to produce a population distribution report so that I can see the number of people living and not living in a city.
 
 
 ### Scope
-System (black-box)
+System (Black-box)
 
 
 ### Level
