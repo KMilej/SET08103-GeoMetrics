@@ -1,9 +1,11 @@
 package com.napier.sem;
 
-import com.napier.sem.models.Continent;
+import java.sql.SQLException;
+
+import static com.napier.sem.services.CityPopulationService.getAllCitiesByPopulation;
 
 public class App {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         // UC01 - Country Reports
         System.out.println(getAllCountriesByPopulation());
         System.out.println(getCountriesByContinentByPopulation(Continent.EUROPE));
