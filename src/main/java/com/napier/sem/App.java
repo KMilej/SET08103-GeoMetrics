@@ -1,97 +1,112 @@
 package com.napier.sem;
 
-import java.sql.*;
+import com.napier.sem.database.DatabaseConnection;
+import com.napier.sem.repositories.CityRepository;
+import com.napier.sem.services.CityService;
+import com.napier.sem.services.CapitalCityService;
+import com.napier.sem.models.City;
+import com.napier.sem.models.Continent;
 
-public class App
-{
-    public static void main(String[] args)
-    {
-        // Load MySQL database driver
-        try
-        {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        }
-        catch (ClassNotFoundException e)
-        {
-            System.out.println("Could not load MySQL driver");
-            System.exit(-1);
-        }
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.SQLException;
 
-        // Connection details for IntelliJ and Docker
-        String url = System.getenv("DB_URL");
+public class App {
+    public static void main(String[] args) {
 
-        if (url == null || url.isBlank())
-        {
-            url = "jdbc:mysql://localhost:3307/world"
-                    + "?allowPublicKeyRetrieval=true&useSSL=false";
-        }
+//        CityRepository cityRepository = new CityRepository();
+        CapitalCityService capitalCityService = new CapitalCityService();
 
-        String username = "root";
-        String password = "devpassword";
+        try {
+            // First 10 capital cities
+            System.out.println("=== First 10 Cities ===");
 
-        Connection con = null;
-        int retries = 10;
+            for (City city : capitalCityService.getCapitalCities()) {
 
-        for (int i = 0; i < retries; ++i)
-        {
-            System.out.println("Connecting to database... Attempt " + (i + 1));
-
-            try
-            {
-                con = DriverManager.getConnection(url, username, password);
-
-                System.out.println("Successfully connected to MySQL!");
-                break;
+                System.out.println(city.getName() + " - " + city.getPopulation());
             }
-            catch (SQLException sqle)
-            {
-                System.out.println("Failed to connect: " + sqle.getMessage());
 
-                // Wait 2 seconds before trying again
-                try
-                {
-                    Thread.sleep(2000);
-                }
-                catch (InterruptedException ie)
-                {
-                    Thread.currentThread().interrupt();
-                    break;
-                }
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        if (con != null)
-        {
-            try
-            {
-                // Test that the world database contains data
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery(
-                        "SELECT Name FROM country LIMIT 5"
-                );
 
-                System.out.println("Countries in database:");
+            // top 15 european capital cities
+        try {
+            System.out.println("\n=== Top 15 Capital Cities in Europe ===");
 
-                while (rs.next())
-                {
-                    System.out.println(rs.getString("Name"));
-                }
-
-                rs.close();
-                stmt.close();
-
-                // Close database connection
-                con.close();
-                System.out.println("Database connection closed.");
+            for (City city : capitalCityService.getTopNCapitalCitiesByContinent(15, Continent.EUROPE)) {
+                System.out.println(city.getName() + " - " + city.getPopulation());
             }
-            catch (SQLException e)
-            {
-                System.out.println("Database query failed: " + e.getMessage());
-            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        else
-        {
-            System.out.println("Could not connect to MySQL after " + retries + " attempts.");
+
+        // Top 20 capital cities by population
+        try {
+            System.out.println("\n=== Top 20 Capitals in the World ===");
+
+            for (City city : capitalCityService.getTopNCapitalCities(20)) {
+                System.out.println(city.getName() + " - " + city.getPopulation());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        // Top 10 capital cities by population in North America - getCapitalCitiesByContinent
+        try {
+            System.out.println("\n=== Top 10 Capitals in North America===");
+
+            for (City city : capitalCityService.getCapitalCitiesByContinent(Continent.NORTH_AMERICA)) {
+
+                System.out.println(city.getName() + " - " + city.getPopulation());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Top 10 capital cities in Polynesia by population
+        try {
+            System.out.println("\n=== Top 10 Capitals in Polynesia ===");
+
+            for (City city : capitalCityService.getTopNCapitalCitiesByRegion("Polynesia", 10)) {
+                System.out.println(city.getName() + " - " + city.getPopulation());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        // Top 10 capital cities in Africa by population
+        try {
+            System.out.println("\n=== Top 10 Capitals in Africa ===");
+
+            for (City city : capitalCityService.getTopNCapitalCitiesByContinent(10, Continent.AFRICA)) {
+                System.out.println(city.getName() + " - " + city.getPopulation());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //  get top 15 capitals in Australia and New Zealand - getTopNCapitalCitiesByRegion
+
+        try {
+            System.out.println("\n=== Top 15 Capitals in Australia and New Zealand ===");
+
+            for (City city : capitalCityService.getTopNCapitalCitiesByRegion("Australia and New Zealand", 15)) {
+                System.out.println(city.getName() + " - " + city.getPopulation());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
+
