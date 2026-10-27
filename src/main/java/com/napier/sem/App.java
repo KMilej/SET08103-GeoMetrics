@@ -1,8 +1,10 @@
 package com.napier.sem;
 
+import com.napier.sem.models.Continent;
+
 import java.sql.SQLException;
 
-import static com.napier.sem.services.CityPopulationService.getAllCitiesByPopulation;
+import static com.napier.sem.services.CityReportService.*;
 
 public class App {
     public static void main(String[] args) throws SQLException {
