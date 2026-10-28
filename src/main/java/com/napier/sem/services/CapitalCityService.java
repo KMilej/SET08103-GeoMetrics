@@ -2,6 +2,7 @@ package com.napier.sem.services;
 
 import com.napier.sem.models.City;
 import com.napier.sem.models.Continent;
+import com.napier.sem.repositories.CapitalCityRepository;
 import com.napier.sem.repositories.CityRepository;
 
 import java.sql.SQLException;
@@ -9,7 +10,23 @@ import java.util.List;
 
 public class CapitalCityService {
 
-    private final CityRepository cityRepository = new CityRepository();
+    // Repository fields
+    private final CapitalCityRepository capitalCityRepository;
+    private final CityRepository cityRepository;
+
+    // Constructor for Mockito testing
+    public CapitalCityService(
+            CapitalCityRepository capitalCityRepository,
+            CityRepository cityRepository) {
+
+        this.capitalCityRepository = capitalCityRepository;
+        this.cityRepository = cityRepository;
+    }
+
+    // Default constructor for App.java
+    public CapitalCityService() {
+        this(new CapitalCityRepository(), new CityRepository());
+    }
 
     // 1. Get capital cities worldwide.
     /**
@@ -21,7 +38,7 @@ public class CapitalCityService {
      */
 
     public List<City> getCapitalCities() throws SQLException {
-        return cityRepository.getCapitalCities(0);
+        return capitalCityRepository.getCapitalCities(0);
     }
 
     // 2. Report: Top N capital cities
@@ -39,7 +56,7 @@ public class CapitalCityService {
             throw new IllegalArgumentException("Invalid input");
         }
 
-        return cityRepository.getCapitalCities(topN);
+        return capitalCityRepository.getCapitalCities(topN);
     }
 
     // 3. All capitals in a continent
@@ -54,7 +71,7 @@ public class CapitalCityService {
 
     public List<City> getCapitalCitiesByContinent(Continent continent)
             throws SQLException {
-        return cityRepository.getCapitalCitiesByContinent(continent, 0);
+        return capitalCityRepository.getCapitalCitiesByContinent(continent, 0);
     }
 
     // 4. Top N capitals in a continent
@@ -79,7 +96,7 @@ public class CapitalCityService {
             throw new IllegalArgumentException("Continent is required");
         }
 
-        return cityRepository.getCapitalCitiesByContinent(continent, topN);
+        return capitalCityRepository.getCapitalCitiesByContinent(continent, topN);
     }
 
     // 5. All capitals in a region
@@ -94,7 +111,7 @@ public class CapitalCityService {
 
     public List<City> getCapitalCitiesByRegion(String region)
             throws SQLException {
-        return cityRepository.getCapitalCitiesByRegion(region, 0);
+        return capitalCityRepository.getCapitalCitiesByRegion(region, 0);
     }
 
     // 6. Top N capitals in a region
@@ -115,10 +132,10 @@ public class CapitalCityService {
             throw new IllegalArgumentException("Invalid input");
         }
 
-        if (region == null) {
+        if (region == null || region.isBlank()) {
             throw new IllegalArgumentException("Region is required");
         }
-        return cityRepository.getCapitalCitiesByRegion(region, topN);
+        return capitalCityRepository.getCapitalCitiesByRegion(region, topN);
     }
 
 }

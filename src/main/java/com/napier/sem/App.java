@@ -11,7 +11,7 @@ import static com.napier.sem.services.CountryService.*;
 public class App {
     public static void main(String[] args) throws SQLException {
         // UC01 - Country Reports
-        System.out.println(printAllCountriesByPopulation());
+//        System.out.println(getAllCountriesByPopulation());
 //        System.out.println(getCountriesByContinentByPopulation(Continent.EUROPE));
 //        System.out.println(getCountriesByRegionByPopulation("Western Europe"));
 //        System.out.println(getTopNCountriesInWorld(10));
@@ -54,4 +54,5 @@ public class App {
 //        // UC06 - Language Population Report
 //        System.out.println(getLanguagePopulationReport());
     }
+
 }
