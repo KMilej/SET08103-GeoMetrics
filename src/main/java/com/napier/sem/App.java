@@ -19,25 +19,25 @@ public class App {
         CapitalCityService capitalCityService = new CapitalCityService();
 
         try {
-            // First 10 capital cities
-            System.out.println("=== First 10 Cities ===");
-
+            // All capital cities worldwide
+            System.out.println("=== All Capital Cities worldwide ===");
+            int count = 0;
             for (City city : capitalCityService.getCapitalCities()) {
-
-                System.out.println(city.getName() + " - " + city.getPopulation());
+                count++;
+                System.out.println(count +". " + city.getName() + " - " + city.getPopulation());
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-
             // top 15 european capital cities
         try {
             System.out.println("\n=== Top 15 Capital Cities in Europe ===");
-
+            int count = 0;
             for (City city : capitalCityService.getTopNCapitalCitiesByContinent(15, Continent.EUROPE)) {
-                System.out.println(city.getName() + " - " + city.getPopulation());
+                count++;
+                System.out.println(count +". "+ city.getName() + " - " + city.getPopulation());
             }
 
         } catch (Exception e) {
@@ -98,15 +98,17 @@ public class App {
         //  get top 15 capitals in Australia and New Zealand - getTopNCapitalCitiesByRegion
 
         try {
-            System.out.println("\n=== Top 15 Capitals in Australia and New Zealand ===");
-
-            for (City city : capitalCityService.getTopNCapitalCitiesByRegion("Australia and New Zealand", 15)) {
-                System.out.println(city.getName() + " - " + city.getPopulation());
+            System.out.println("\n=== Get Capitals in Australia and New Zealand ===");
+            int count = 0;
+            for (City city : capitalCityService.getCapitalCitiesByRegion("Australia and New Zealand")) {
+                count++;
+                System.out.println(count +". " + city.getName() + " - " + city.getPopulation());
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 }
 
