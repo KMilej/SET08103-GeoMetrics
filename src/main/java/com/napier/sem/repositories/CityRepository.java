@@ -259,4 +259,29 @@ public class CityRepository {
         return capitalCitiesByRegion;
     }
 
+    public List<City> getCityPopulation() {
+        List<City> cities = new ArrayList<>();
+
+        String sql = "SELECT ID, Name, Population FROM city ORDER BY Name";
+
+        try (Connection connect = DatabaseConnection.connect();
+             PreparedStatement stmt = connect.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                City city = new City(
+                        rs.getInt("ID"),
+                        rs.getString("Name"),
+                        rs.getInt("Population")
+                );
+
+                cities.add(city);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to fetch cities", e);
+        }
+
+        return cities;
+    }
 }

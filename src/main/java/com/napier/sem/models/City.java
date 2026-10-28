@@ -7,6 +7,10 @@ public class City {
     private String district;
     private int population;
 
+    public City(){
+
+    }
+
     public City(int id, String name, String countryCode, String district, int population){
         this.id = id;
         this.name = name;
@@ -19,6 +23,12 @@ public class City {
         this.name = name;
         this.countryCode = countryCode;
         this.district = district;
+        this.population = population;
+    }
+
+    public City(int id, String name, int population) {
+        this.id = id;
+        this.name = name;
         this.population = population;
     }
 
