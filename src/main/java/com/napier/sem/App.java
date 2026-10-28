@@ -1,6 +1,7 @@
 package com.napier.sem;
 
 import com.napier.sem.models.Continent;
+import com.napier.sem.services.CountryService;
 
 import java.sql.SQLException;
 
@@ -10,7 +11,7 @@ import static com.napier.sem.services.CountryService.*;
 public class App {
     public static void main(String[] args) throws SQLException {
         // UC01 - Country Reports
-//        System.out.println(getAllCountriesByPopulation());
+        System.out.println(printAllCountriesByPopulation());
 //        System.out.println(getCountriesByContinentByPopulation(Continent.EUROPE));
 //        System.out.println(getCountriesByRegionByPopulation("Western Europe"));
 //        System.out.println(getTopNCountriesInWorld(10));
