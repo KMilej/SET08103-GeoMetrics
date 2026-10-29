@@ -2,7 +2,7 @@ package com.napier.sem.repositories;
 
 import org.junit.jupiter.api.Test;
 
-class CityReportRepositoryIntegrationTest {
+class CityReportRepositoryTest {
 
     @Test
     void getAllCitiesByPopulation_returnsAllCitiesSortedByPopulationDescending() {
