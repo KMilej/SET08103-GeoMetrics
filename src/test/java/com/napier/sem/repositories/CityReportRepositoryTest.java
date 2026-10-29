@@ -120,7 +120,19 @@ class CityReportRepositoryTest {
         assertTrue(cities.get(0).getPopulation() >= cities.get(1).getPopulation());
     }
 
+    /**
+     * Checks the first and third cities in a top three regional result.
+     *
+     * @throws SQLException if the test cannot read the database
+     */
+    @Test
+    void getTopNCitiesByRegion_returnsThreeLargestCities() throws SQLException {
+        List<City> cities = repository.getTopNCitiesByRegion(3, "Western Europe");
 
+        assertEquals(3, cities.size());
+        assertEquals("Berlin", cities.get(0).getName());
+        assertEquals("Hamburg", cities.get(2).getName());
+    }
 
 
 

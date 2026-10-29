@@ -104,7 +104,16 @@ class CityReportServiceTest {
                 () -> CityReportService.getTopNCitiesByContinent(0, Continent.EUROPE));
     }
 
-
+    /**
+     * Checks that null and empty regions are rejected.
+     */
+    @Test
+    void getTopNCitiesByRegion_rejectsMissingRegion() {
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByRegion(2, null));
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByRegion(2, ""));
+    }
 
 
 

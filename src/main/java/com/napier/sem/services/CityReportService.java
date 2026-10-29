@@ -146,9 +146,21 @@ public class CityReportService {
         return formatCityReport(cities);
     }
 
+    /**
+     * Creates a report of the top N cities in a region.
+     *
+     * @param topN the maximum number of cities to show
+     * @param region the region name
+     * @return the report text, or a message if no cities are found
+     * @throws SQLException if the database query fails
+     * @throws IllegalArgumentException if N is not positive or the region is null or blank
+     */
     public static String getTopNCitiesByRegion(int topN, String region) throws SQLException {
-        // TODO: Build the report for the top N cities in the selected region.
-        return "";
+        checkTopN(topN);
+        checkLocation(region, "Region");
+        CityReportRepository repository = new CityReportRepository();
+        List<City> cities = repository.getTopNCitiesByRegion(topN, region);
+        return formatCityReport(cities);
     }
 
     public static String getTopNCitiesByCountry(int topN, String countryCode) throws SQLException {
