@@ -38,7 +38,14 @@ class CityReportServiceTest {
         assertTrue(report.contains("10500000"));
     }
 
-
+    /**
+     * Checks that a null continent is rejected.
+     */
+    @Test
+    void getCitiesByContinentByPopulation_rejectsNullContinent() {
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getCitiesByContinentByPopulation(null));
+    }
 
 
 

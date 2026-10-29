@@ -40,7 +40,18 @@ class CityReportRepositoryTest {
         assertEquals(10500000, cities.get(0).getPopulation());
     }
 
+    /**
+     * Checks that NORTH_AMERICA works as a continent filter.
+     *
+     * @throws SQLException if the test cannot read the database
+     */
+    @Test
+    void getCitiesByContinentByPopulation_acceptsContinentWithTwoWords() throws SQLException {
+        List<City> cities = repository.getCitiesByContinentByPopulation(Continent.NORTH_AMERICA);
 
+        assertEquals("Ciudad de México", cities.get(0).getName());
+        assertEquals("MEX", cities.get(0).getCountryCode());
+    }
 
 
 

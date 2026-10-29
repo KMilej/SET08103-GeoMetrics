@@ -50,9 +50,21 @@ public class CityReportService {
         return report.toString();
     }
 
+    /**
+     * Creates a city report for a continent.
+     *
+     * @param continent the selected continent
+     * @return the report text, or a message if no cities are found
+     * @throws SQLException if the database query fails
+     * @throws IllegalArgumentException if the continent is null
+     */
     public static String getCitiesByContinentByPopulation(Continent continent) throws SQLException {
-        // TODO: Build the report for all cities in the selected continent.
-        return "";
+        if (continent == null) {
+            throw new IllegalArgumentException("Continent cannot be null.");
+        }
+        CityReportRepository repository = new CityReportRepository();
+        List<City> cities = repository.getCitiesByContinentByPopulation(continent);
+        return formatCityReport(cities);
     }
 
     public static String getCitiesByRegionByPopulation(String region) throws SQLException {
@@ -99,5 +111,28 @@ public class CityReportService {
 
 
 
+    /**
+     * Formats cities as a table with a header and one row per city.
+     *
+     * @param cities the cities to include in their current order
+     * @return the table text, or a message if the list is empty
+     */
+    static String formatCityReport(List<City> cities) {
+        if (cities.isEmpty()) {
+            return "No cities found.";
+        }
 
+        StringBuilder report = new StringBuilder();
+        report.append(String.format(
+                "%-35s %-12s %-25s %12s%n",
+                "City", "Country Code", "District", "Population"));
+
+        for (City city : cities) {
+            report.append(String.format(
+                    "%-35s %-12s %-25s %12d%n",
+                    city.getName(), city.getCountryCode(),
+                    city.getDistrict(), city.getPopulation()));
+        }
+        return report.toString();
+    }
 }

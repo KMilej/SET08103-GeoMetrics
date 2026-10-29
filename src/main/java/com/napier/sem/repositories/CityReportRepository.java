@@ -58,8 +58,20 @@ public class CityReportRepository {
      * @throws SQLException if the database query fails
      */
     public List<City> getCitiesByContinentByPopulation(Continent continent) throws SQLException {
-        // TODO: Implement the database query and map its results to City objects.
-        throw new UnsupportedOperationException("City report not implemented yet.");
+        String sql = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population"
+                + " FROM city"
+                + " JOIN country ON city.CountryCode = country.Code"
+                + " WHERE country.Continent = ?"
+                + " ORDER BY city.Population DESC";
+
+        try (Connection connection = DatabaseConnection.connect();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, continent.name().replace("_", " "));
+
+            try (ResultSet result = statement.executeQuery()) {
+                return readCities(result);
+            }
+        }
     }
 
     /**
@@ -162,5 +174,23 @@ public class CityReportRepository {
         throw new UnsupportedOperationException("City report not implemented yet.");
     }
 
-
+    /**
+     * Creates a list of cities from database results.
+     *
+     * @param result the rows returned by the query
+     * @return the cities read from the results
+     * @throws SQLException if reading the results fails
+     */
+    private List<City> readCities(ResultSet result) throws SQLException {
+        List<City> cities = new ArrayList<>();
+        while (result.next()) {
+            cities.add(new City(
+                    result.getInt("ID"),
+                    result.getString("Name"),
+                    result.getString("CountryCode"),
+                    result.getString("District"),
+                    result.getInt("Population")));
+        }
+        return cities;
+    }
 }

@@ -19,7 +19,7 @@ public class App {
 
         // // UC02 - City Reports
         System.out.println(getAllCitiesByPopulation());
-        // System.out.println(getCitiesByContinentByPopulation(Continent.EUROPE));
+        System.out.println(getCitiesByContinentByPopulation(Continent.EUROPE));
         // System.out.println(getCitiesByRegionByPopulation("Western Europe"));
         // System.out.println(getCitiesByCountryByPopulation("GBR"));
         // System.out.println(getCitiesByDistrictByPopulation("Scotland"));
