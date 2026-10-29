@@ -60,7 +60,16 @@ class CityReportServiceTest {
         assertEquals("No cities found.", report);
     }
 
-
+    /**
+     * Checks that empty and whitespace-only country codes are rejected.
+     */
+    @Test
+    void getCitiesByCountryByPopulation_rejectsEmptyCountryCode() {
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getCitiesByCountryByPopulation(""));
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getCitiesByCountryByPopulation("   "));
+    }
 
 
 

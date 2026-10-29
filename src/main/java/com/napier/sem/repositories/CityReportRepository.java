@@ -106,8 +106,19 @@ public class CityReportRepository {
      * @throws SQLException if the database query fails
      */
     public List<City> getCitiesByCountryByPopulation(String countryCode) throws SQLException {
-        // TODO: Implement the database query and map its results to City objects.
-        throw new UnsupportedOperationException("City report not implemented yet.");
+        String sql = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population"
+                + " FROM city"
+                + " WHERE city.CountryCode = ?"
+                + " ORDER BY city.Population DESC";
+
+        try (Connection connection = DatabaseConnection.connect();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, countryCode);
+
+            try (ResultSet result = statement.executeQuery()) {
+                return readCities(result);
+            }
+        }
     }
 
     /**

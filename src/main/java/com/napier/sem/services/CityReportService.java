@@ -82,9 +82,19 @@ public class CityReportService {
         return formatCityReport(cities);
     }
 
+    /**
+     * Creates a city report for a country.
+     *
+     * @param countryCode the country code, for example GBR
+     * @return the report text, or a message if no cities are found
+     * @throws SQLException if the database query fails
+     * @throws IllegalArgumentException if the country code is null or blank
+     */
     public static String getCitiesByCountryByPopulation(String countryCode) throws SQLException {
-        // TODO: Build the report for all cities in the selected country.
-        return "";
+        checkLocation(countryCode, "Country code");
+        CityReportRepository repository = new CityReportRepository();
+        List<City> cities = repository.getCitiesByCountryByPopulation(countryCode);
+        return formatCityReport(cities);
     }
 
     public static String getCitiesByDistrictByPopulation(String district) throws SQLException {

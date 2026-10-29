@@ -67,7 +67,19 @@ class CityReportRepositoryTest {
         assertEquals("DEU", cities.get(0).getCountryCode());
     }
 
+    /**
+     * Checks the number of British cities and the first and last country codes.
+     *
+     * @throws SQLException if the test cannot read the database
+     */
+    @Test
+    void getCitiesByCountryByPopulation_filtersByCountryCode() throws SQLException {
+        List<City> cities = repository.getCitiesByCountryByPopulation("GBR");
 
+        assertEquals(81, cities.size());
+        assertEquals("GBR", cities.get(0).getCountryCode());
+        assertEquals("GBR", cities.get(cities.size() - 1).getCountryCode());
+    }
 
 
 
