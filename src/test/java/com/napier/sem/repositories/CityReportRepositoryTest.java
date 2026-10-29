@@ -134,7 +134,19 @@ class CityReportRepositoryTest {
         assertEquals("Hamburg", cities.get(2).getName());
     }
 
+    /**
+     * Checks that the country filter also works for France.
+     *
+     * @throws SQLException if the test cannot read the database
+     */
+    @Test
+    void getTopNCitiesByCountry_acceptsAnotherCountryCode() throws SQLException {
+        List<City> cities = repository.getTopNCitiesByCountry(2, "FRA");
 
+        assertEquals(2, cities.size());
+        assertEquals("Paris", cities.get(0).getName());
+        assertEquals("FRA", cities.get(1).getCountryCode());
+    }
 
 
 }

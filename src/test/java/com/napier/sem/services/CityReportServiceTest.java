@@ -115,7 +115,20 @@ class CityReportServiceTest {
                 () -> CityReportService.getTopNCitiesByRegion(2, ""));
     }
 
+    /**
+     * Checks that a top one report includes London but not Birmingham.
+     *
+     * @throws SQLException if the test cannot read the database
+     */
+    @Test
+    @EnabledIfEnvironmentVariable(named = "RUN_CITY_INTEGRATION_TESTS", matches = "true")
+    void getTopNCitiesByCountry_printsOnlyRequestedCity() throws SQLException {
+        String report = CityReportService.getTopNCitiesByCountry(1, "GBR");
 
+        assertTrue(report.contains("London"));
+        assertTrue(report.contains("7285000"));
+        assertFalse(report.contains("Birmingham"));
+    }
 
 
 }
