@@ -4,6 +4,7 @@ import com.napier.sem.models.Continent;
 import com.napier.sem.repositories.PopulationRepository;
 import com.napier.sem.repositories.PopulationRepository.PopulationDistributionData;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class PopulationDistributionService {
@@ -12,40 +13,49 @@ public class PopulationDistributionService {
             new PopulationRepository();
 
     /**
-     * Retrieves population distribution for a continent.
+     * Retrieves opulation of people, people living in cities, and people
+     * not living in cities in each continent.
      *
      * @param continent the selected continent
-     * @throws IllegalArgumentException if continent is empty
      * @return population distribution data
+     * @throws IllegalArgumentException if continent is null
+     * @throws SQLException if a database access error occurs
      */
     public static String getUrbanAndRuralPopulationByContinent(
-            Continent continent) {
+            Continent continent) throws SQLException {
 
         if (continent == null) {
-            throw new IllegalArgumentException("Continent cannot be null");
+            throw new IllegalArgumentException(
+                    "Continent is required"
+            );
         }
 
-        List<PopulationDistributionData> data = repository.getPopulationDistributionData(
-                "CONTINENT",
-                continent.name().replace("_", " ")
-        );
+        List<PopulationDistributionData> data =
+                repository.getPopulationDistributionData (
+                    "CONTINENT",
+                    continent.name().replace("_", " ")
+                );
 
         return formatPopulationDistributionTable(data);
     }
 
     /**
-     * Retrieves population distribution for a region.
+     * Retrieves  population of people, people living in cities,
+     * and people not living in cities in each region.
      *
      * @param region the selected region
-     * @throws IllegalArgumentException if region is empty
      * @return population distribution data
+     * @throws IllegalArgumentException if region is null or blank
+     * @throws SQLException if a database access error occurs
      */
 
     public static String getUrbanAndRuralPopulationByRegion(
-            String region) {
+            String region) throws SQLException{
 
         if (region == null || region.isBlank()) {
-            throw new IllegalArgumentException("Region is required");
+            throw new IllegalArgumentException(
+                    "Region is required"
+            );
         }
 
         List<PopulationDistributionData> data =
@@ -55,25 +65,28 @@ public class PopulationDistributionService {
     }
 
     /**
-     * Retrieves population distribution for a country.
+     * Retrieves population of people, people living in cities,
+     * and people not living in cities in a country.
      *
      * @param countryCode the selected country code
-     * @throws IllegalArgumentException if country code is empty
      * @return population distribution data
+     * @throws IllegalArgumentException if country code is null or blank
+     * @throws SQLException if a database access error occurs
      */
     public static String getUrbanAndRuralPopulationByCountry(
-            String countryCode) {
+            String countryCode) throws SQLException{
 
         if (countryCode == null || countryCode.isBlank()) {
-            throw new IllegalArgumentException("Country Code cannot be null");
+            throw new IllegalArgumentException(
+                    "Country Code is required"
+            );
         }
 
-        List<PopulationDistributionData> data =
-                repository.getPopulationDistributionData("COUNTRY", countryCode);
+        List<PopulationDistributionData>
+                data = repository.getPopulationDistributionData
+                ("COUNTRY", countryCode);
 
-        return formatPopulationDistributionTable(
-                data.stream().toList()
-        );
+        return formatPopulationDistributionTable(data);
     }
 
 

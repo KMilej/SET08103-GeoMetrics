@@ -5,6 +5,8 @@ import com.napier.sem.database.DatabaseConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.SQLException;
+
 
 public class PopulationRepository {
 
@@ -29,9 +31,10 @@ public class PopulationRepository {
      * @return a list of population data
      * @throws IllegalArgumentException if the scope is invalid
      * @throws RuntimeException if a database error occurs
+     * @throws SQLException if a database access error occurs
      */
     public List<PopulationDistributionData> getPopulationDistributionData(
-            String scope, String location) {
+            String scope, String location)  throws SQLException {
 
         if (location == null || location.isBlank()) {
             throw new IllegalArgumentException(
@@ -85,7 +88,7 @@ public class PopulationRepository {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException(
+            throw new SQLException(
                     "Failed to fetch population distribution data", e
             );
         }
