@@ -27,7 +27,7 @@ public class App {
         System.out.println(getTopNCitiesByContinent(10, Continent.EUROPE));
         System.out.println(getTopNCitiesByRegion(10, "Western Europe"));
         System.out.println(getTopNCitiesByCountry(10, "GBR"));
-        // System.out.println(getTopNCitiesByDistrict(10, "Scotland"));
+        System.out.println(getTopNCitiesByDistrict(10, "Scotland"));
         //
         // // UC03 - Capital City Reports
         // System.out.println(getAllCapitalCitiesByPopulation());

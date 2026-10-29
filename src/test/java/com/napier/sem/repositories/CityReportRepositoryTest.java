@@ -148,5 +148,17 @@ class CityReportRepositoryTest {
         assertEquals("FRA", cities.get(1).getCountryCode());
     }
 
+    /**
+     * Checks that requesting ten Scottish cities returns the four available cities.
+     *
+     * @throws SQLException if the test cannot read the database
+     */
+    @Test
+    void getTopNCitiesByDistrict_returnsFewerCitiesWhenNIsTooLarge() throws SQLException {
+        List<City> cities = repository.getTopNCitiesByDistrict(10, "Scotland");
 
+        assertEquals(4, cities.size());
+        assertEquals("Dundee", cities.get(3).getName());
+        assertEquals("Scotland", cities.get(3).getDistrict());
+    }
 }

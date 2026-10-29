@@ -130,5 +130,14 @@ class CityReportServiceTest {
         assertFalse(report.contains("Birmingham"));
     }
 
-
+    /**
+     * Checks that negative N and a blank district are rejected.
+     */
+    @Test
+    void getTopNCitiesByDistrict_rejectsInvalidNAndBlankDistrict() {
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByDistrict(-2, "Scotland"));
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByDistrict(2, "   "));
+    }
 }

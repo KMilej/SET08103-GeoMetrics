@@ -180,9 +180,21 @@ public class CityReportService {
         return formatCityReport(cities);
     }
 
+    /**
+     * Creates a report of the top N cities in a district.
+     *
+     * @param topN the maximum number of cities to show
+     * @param district the district name
+     * @return the report text, or a message if no cities are found
+     * @throws SQLException if the database query fails
+     * @throws IllegalArgumentException if N is not positive or the district is null or blank
+     */
     public static String getTopNCitiesByDistrict(int topN, String district) throws SQLException {
-        // TODO: Build the report for the top N cities in the selected district.
-        return "";
+        checkTopN(topN);
+        checkLocation(district, "District");
+        CityReportRepository repository = new CityReportRepository();
+        List<City> cities = repository.getTopNCitiesByDistrict(topN, district);
+        return formatCityReport(cities);
     }
 
     /**
