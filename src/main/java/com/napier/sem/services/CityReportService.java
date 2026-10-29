@@ -67,9 +67,19 @@ public class CityReportService {
         return formatCityReport(cities);
     }
 
+    /**
+     * Creates a city report for a region.
+     *
+     * @param region the region name, for example Western Europe
+     * @return the report text, or a message if no cities are found
+     * @throws SQLException if the database query fails
+     * @throws IllegalArgumentException if the region is null or blank
+     */
     public static String getCitiesByRegionByPopulation(String region) throws SQLException {
-        // TODO: Build the report for all cities in the selected region.
-        return "";
+        checkLocation(region, "Region");
+        CityReportRepository repository = new CityReportRepository();
+        List<City> cities = repository.getCitiesByRegionByPopulation(region);
+        return formatCityReport(cities);
     }
 
     public static String getCitiesByCountryByPopulation(String countryCode) throws SQLException {
@@ -109,7 +119,18 @@ public class CityReportService {
 
 
 
-
+    /**
+     * Checks that a location has been provided.
+     *
+     * @param location the location to check
+     * @param name the field name used in the error message
+     * @throws IllegalArgumentException if the location is null or blank
+     */
+    private static void checkLocation(String location, String name) {
+        if (location == null || location.isBlank()) {
+            throw new IllegalArgumentException(name + " cannot be empty.");
+        }
+    }
 
     /**
      * Formats cities as a table with a header and one row per city.

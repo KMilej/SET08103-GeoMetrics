@@ -53,7 +53,19 @@ class CityReportRepositoryTest {
         assertEquals("MEX", cities.get(0).getCountryCode());
     }
 
+    /**
+     * Checks results for the Western Europe region.
+     *
+     * @throws SQLException if the test cannot read the database
+     */
+    @Test
+    void getCitiesByRegionByPopulation_returnsWesternEuropeanCities() throws SQLException {
+        List<City> cities = repository.getCitiesByRegionByPopulation("Western Europe");
 
+        assertEquals(186, cities.size());
+        assertEquals("Berlin", cities.get(0).getName());
+        assertEquals("DEU", cities.get(0).getCountryCode());
+    }
 
 
 

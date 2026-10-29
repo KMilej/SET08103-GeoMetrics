@@ -47,7 +47,18 @@ class CityReportServiceTest {
                 () -> CityReportService.getCitiesByContinentByPopulation(null));
     }
 
+    /**
+     * Checks the message returned when no cities match the region.
+     *
+     * @throws SQLException if the test cannot read the database
+     */
+    @Test
+    @EnabledIfEnvironmentVariable(named = "RUN_CITY_INTEGRATION_TESTS", matches = "true")
+    void getCitiesByRegionByPopulation_reportsNoCitiesForUnknownRegion() throws SQLException {
+        String report = CityReportService.getCitiesByRegionByPopulation("Unknown region");
 
+        assertEquals("No cities found.", report);
+    }
 
 
 
