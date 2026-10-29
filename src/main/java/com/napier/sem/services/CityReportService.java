@@ -97,9 +97,19 @@ public class CityReportService {
         return formatCityReport(cities);
     }
 
+    /**
+     * Creates a city report for a district.
+     *
+     * @param district the district name, for example Scotland
+     * @return the report text, or a message if no cities are found
+     * @throws SQLException if the database query fails
+     * @throws IllegalArgumentException if the district is null or blank
+     */
     public static String getCitiesByDistrictByPopulation(String district) throws SQLException {
-        // TODO: Build the report for all cities in the selected district.
-        return "";
+        checkLocation(district, "District");
+        CityReportRepository repository = new CityReportRepository();
+        List<City> cities = repository.getCitiesByDistrictByPopulation(district);
+        return formatCityReport(cities);
     }
 
     public static String getTopNCitiesInWorld(int topN) throws SQLException {

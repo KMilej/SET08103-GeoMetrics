@@ -81,7 +81,17 @@ class CityReportRepositoryTest {
         assertEquals("GBR", cities.get(cities.size() - 1).getCountryCode());
     }
 
+    /**
+     * Checks that an unknown district returns an empty list.
+     *
+     * @throws SQLException if the test cannot read the database
+     */
+    @Test
+    void getCitiesByDistrictByPopulation_returnsEmptyListForUnknownDistrict() throws SQLException {
+        List<City> cities = repository.getCitiesByDistrictByPopulation("Unknown district");
 
+        assertTrue(cities.isEmpty());
+    }
 
 
 

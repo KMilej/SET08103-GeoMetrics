@@ -22,7 +22,7 @@ public class App {
         System.out.println(getCitiesByContinentByPopulation(Continent.EUROPE));
         System.out.println(getCitiesByRegionByPopulation("Western Europe"));
         System.out.println(getCitiesByCountryByPopulation("GBR"));
-        // System.out.println(getCitiesByDistrictByPopulation("Scotland"));
+        System.out.println(getCitiesByDistrictByPopulation("Scotland"));
         // System.out.println(getTopNCitiesInWorld(10));
         // System.out.println(getTopNCitiesByContinent(10, Continent.EUROPE));
         // System.out.println(getTopNCitiesByRegion(10, "Western Europe"));

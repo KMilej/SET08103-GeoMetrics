@@ -71,7 +71,16 @@ class CityReportServiceTest {
                 () -> CityReportService.getCitiesByCountryByPopulation("   "));
     }
 
-
+    /**
+     * Checks that null and whitespace-only districts are rejected.
+     */
+    @Test
+    void getCitiesByDistrictByPopulation_rejectsMissingDistrict() {
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getCitiesByDistrictByPopulation(null));
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getCitiesByDistrictByPopulation("   "));
+    }
 
 
 
