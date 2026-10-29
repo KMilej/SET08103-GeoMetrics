@@ -18,16 +18,16 @@ public class App {
         // System.out.println(getTopNCountriesByRegion(10, "Western Europe"));
 
         // // UC02 - City Reports
-        System.out.println(getAllCitiesByPopulation());
-        System.out.println(getCitiesByContinentByPopulation(Continent.EUROPE));
-        System.out.println(getCitiesByRegionByPopulation("Western Europe"));
-        System.out.println(getCitiesByCountryByPopulation("GBR"));
-        System.out.println(getCitiesByDistrictByPopulation("Scotland"));
-        System.out.println(getTopNCitiesInWorld(10));
-        System.out.println(getTopNCitiesByContinent(10, Continent.EUROPE));
-        System.out.println(getTopNCitiesByRegion(10, "Western Europe"));
-        System.out.println(getTopNCitiesByCountry(10, "GBR"));
-        System.out.println(getTopNCitiesByDistrict(10, "Scotland"));
+        // System.out.println(getAllCitiesByPopulation());
+        // System.out.println(getCitiesByContinentByPopulation(Continent.EUROPE));
+        // System.out.println(getCitiesByRegionByPopulation("Western Europe"));
+        // System.out.println(getCitiesByCountryByPopulation("GBR"));
+        // System.out.println(getCitiesByDistrictByPopulation("Scotland"));
+        // System.out.println(getTopNCitiesInWorld(10));
+        // System.out.println(getTopNCitiesByContinent(10, Continent.EUROPE));
+        // System.out.println(getTopNCitiesByRegion(10, "Western Europe"));
+        // System.out.println(getTopNCitiesByCountry(10, "GBR"));
+        // System.out.println(getTopNCitiesByDistrict(10, "Scotland"));
         //
         // // UC03 - Capital City Reports
         // System.out.println(getAllCapitalCitiesByPopulation());
