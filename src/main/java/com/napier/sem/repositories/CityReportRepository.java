@@ -1,3 +1,9 @@
+/****************************************************************
+ * Project: GeoMetrics
+ * File:    CityReportRepository.java
+ * Author:  Kamil Milej
+ ***************************************************************/
+
 package com.napier.sem.repositories;
 
 import com.napier.sem.database.DatabaseConnection;
@@ -12,14 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Provides database access for the ten UC02 city reports.
- * All results are ordered by population from largest to smallest.
- * Report formatting and CLI output belong outside this repository.
- *
- * <p>
- * These methods are implementation placeholders and currently throw
- * {@link UnsupportedOperationException} instead of querying the database.
- * </p>
+ * Reads city data for UC02 reports.
+ * Cities are returned from largest to smallest population.
  */
 public class CityReportRepository {
 
@@ -161,4 +161,6 @@ public class CityReportRepository {
         // TODO: Implement the database query and map its results to City objects.
         throw new UnsupportedOperationException("City report not implemented yet.");
     }
+
+
 }

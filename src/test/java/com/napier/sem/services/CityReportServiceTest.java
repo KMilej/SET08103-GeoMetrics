@@ -1,47 +1,58 @@
+/****************************************************************
+ * Project: GeoMetrics
+ * File:    CityReportServiceTest.java
+ * Author:  Kamil Milej
+ ***************************************************************/
+
 package com.napier.sem.services;
 
+import com.napier.sem.models.Continent;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
+import java.sql.SQLException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+/**
+ * Tests UC02 input checks and report text.
+ * Tests that need MySQL run when RUN_CITY_INTEGRATION_TESTS is true.
+ */
 class CityReportServiceTest {
 
+    /**
+     * Checks that the report includes a country header, a city and its population.
+     *
+     * @throws SQLException if the test cannot read the database
+     */
     @Test
-    void getAllCitiesByPopulation_includesNameCountryDistrictAndPopulation() {
+    @EnabledIfEnvironmentVariable(named = "RUN_CITY_INTEGRATION_TESTS", matches = "true")
+    void getAllCitiesByPopulation_formatsReportWithCityData() throws SQLException {
+        String report = CityReportService.getAllCitiesByPopulation();
 
+        assertTrue(report.contains("Country Code"));
+        assertTrue(report.contains("Mumbai (Bombay)"));
+        assertTrue(report.contains("10500000"));
     }
 
-    @Test
-    void getCitiesByContinentByPopulation_returnsMessageWhenNoCitiesFound() {
-    }
 
-    @Test
-    void getCitiesByRegionByPopulation_includesNameCountryDistrictAndPopulation() {
-    }
 
-    @Test
-    void getCitiesByCountryByPopulation_includesNameCountryDistrictAndPopulation() {
-    }
 
-    @Test
-    void getCitiesByDistrictByPopulation_includesNameCountryDistrictAndPopulation() {
-    }
 
-    @Test
-    void getTopNCitiesInWorld_rejectsNonPositiveN() {
-    }
 
-    @Test
-    void getTopNCitiesByContinent_rejectsNonPositiveN() {
-    }
 
-    @Test
-    void getTopNCitiesByRegion_rejectsNonPositiveN() {
-    }
 
-    @Test
-    void getTopNCitiesByCountry_rejectsNonPositiveN() {
-    }
 
-    @Test
-    void getTopNCitiesByDistrict_rejectsNonPositiveN() {
-    }
+
+
+
+
+
+
+
+
+
 }

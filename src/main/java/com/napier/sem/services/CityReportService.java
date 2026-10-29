@@ -1,3 +1,9 @@
+/****************************************************************
+ * Project: GeoMetrics
+ * File:    CityReportService.java
+ * Author:  Kamil Milej
+ ***************************************************************/
+
 package com.napier.sem.services;
 
 import com.napier.sem.models.City;
@@ -7,9 +13,18 @@ import com.napier.sem.repositories.CityReportRepository;
 import java.sql.SQLException;
 import java.util.List;
 
-/** UC02 city reports. Each method returns report text for the CLI to print. */
+/**
+ * Creates text reports for UC02 cities, ordered by population.
+ * Checks the input before requesting data from the repository.
+ */
 public class CityReportService {
 
+    /**
+     * Creates a report of all cities in the world.
+     *
+     * @return the report text, or a message if no cities are found
+     * @throws SQLException if the database query fails
+     */
     public static String getAllCitiesByPopulation() throws SQLException {
         CityReportRepository repository = new CityReportRepository();
         List<City> cities = repository.getAllCitiesByPopulation();
@@ -79,4 +94,10 @@ public class CityReportService {
         // TODO: Build the report for the top N cities in the selected district.
         return "";
     }
+
+
+
+
+
+
 }
