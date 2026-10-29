@@ -127,9 +127,23 @@ public class CityReportService {
         return formatCityReport(cities);
     }
 
+    /**
+     * Creates a report of the top N cities in a continent.
+     *
+     * @param topN the maximum number of cities to show
+     * @param continent the selected continent
+     * @return the report text, or a message if no cities are found
+     * @throws SQLException if the database query fails
+     * @throws IllegalArgumentException if N is not positive or the continent is null
+     */
     public static String getTopNCitiesByContinent(int topN, Continent continent) throws SQLException {
-        // TODO: Build the report for the top N cities in the selected continent.
-        return "";
+        checkTopN(topN);
+        if (continent == null) {
+            throw new IllegalArgumentException("Continent cannot be null.");
+        }
+        CityReportRepository repository = new CityReportRepository();
+        List<City> cities = repository.getTopNCitiesByContinent(topN, continent);
+        return formatCityReport(cities);
     }
 
     public static String getTopNCitiesByRegion(int topN, String region) throws SQLException {

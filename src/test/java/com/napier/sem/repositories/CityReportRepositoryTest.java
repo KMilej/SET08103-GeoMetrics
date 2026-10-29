@@ -106,7 +106,19 @@ class CityReportRepositoryTest {
         assertEquals("Mumbai (Bombay)", cities.get(0).getName());
     }
 
+    /**
+     * Checks the limit and population order of two European cities.
+     *
+     * @throws SQLException if the test cannot read the database
+     */
+    @Test
+    void getTopNCitiesByContinent_ordersTwoCitiesByPopulation() throws SQLException {
+        List<City> cities = repository.getTopNCitiesByContinent(2, Continent.EUROPE);
 
+        assertEquals(2, cities.size());
+        assertEquals("Moscow", cities.get(0).getName());
+        assertTrue(cities.get(0).getPopulation() >= cities.get(1).getPopulation());
+    }
 
 
 

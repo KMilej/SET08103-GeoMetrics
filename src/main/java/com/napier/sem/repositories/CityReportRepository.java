@@ -176,8 +176,22 @@ public class CityReportRepository {
      * @throws SQLException if the database query fails
      */
     public List<City> getTopNCitiesByContinent(int topN, Continent continent) throws SQLException {
-        // TODO: Implement the database query and map its results to City objects.
-        throw new UnsupportedOperationException("City report not implemented yet.");
+        String sql = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population"
+                + " FROM city"
+                + " JOIN country ON city.CountryCode = country.Code"
+                + " WHERE country.Continent = ?"
+                + " ORDER BY city.Population DESC"
+                + " LIMIT ?";
+
+        try (Connection connection = DatabaseConnection.connect();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, continent.name().replace("_", " "));
+            statement.setInt(2, topN);
+
+            try (ResultSet result = statement.executeQuery()) {
+                return readCities(result);
+            }
+        }
     }
 
     /**

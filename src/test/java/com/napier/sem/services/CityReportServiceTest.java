@@ -93,7 +93,16 @@ class CityReportServiceTest {
                 () -> CityReportService.getTopNCitiesInWorld(-1));
     }
 
-
+    /**
+     * Checks that a null continent and zero N are rejected.
+     */
+    @Test
+    void getTopNCitiesByContinent_rejectsInvalidParameters() {
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByContinent(2, null));
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByContinent(0, Continent.EUROPE));
+    }
 
 
 
