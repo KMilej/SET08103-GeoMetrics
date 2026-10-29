@@ -6,6 +6,7 @@ class CityReportServiceTest {
 
     @Test
     void getAllCitiesByPopulation_includesNameCountryDistrictAndPopulation() {
+
     }
 
     @Test
