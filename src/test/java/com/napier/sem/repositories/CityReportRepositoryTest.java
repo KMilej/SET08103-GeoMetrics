@@ -93,7 +93,18 @@ class CityReportRepositoryTest {
         assertTrue(cities.isEmpty());
     }
 
+    /**
+     * Checks that requesting one city returns the most populated city.
+     *
+     * @throws SQLException if the test cannot read the database
+     */
+    @Test
+    void getTopNCitiesInWorld_limitsResultToOneCity() throws SQLException {
+        List<City> cities = repository.getTopNCitiesInWorld(1);
 
+        assertEquals(1, cities.size());
+        assertEquals("Mumbai (Bombay)", cities.get(0).getName());
+    }
 
 
 

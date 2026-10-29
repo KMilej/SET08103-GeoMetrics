@@ -112,9 +112,19 @@ public class CityReportService {
         return formatCityReport(cities);
     }
 
+    /**
+     * Creates a report of the top N cities in the world.
+     *
+     * @param topN the maximum number of cities to show
+     * @return the report text, or a message if no cities are found
+     * @throws SQLException if the database query fails
+     * @throws IllegalArgumentException if N is zero or negative
+     */
     public static String getTopNCitiesInWorld(int topN) throws SQLException {
-        // TODO: Build the report for the top N cities worldwide.
-        return "";
+        checkTopN(topN);
+        CityReportRepository repository = new CityReportRepository();
+        List<City> cities = repository.getTopNCitiesInWorld(topN);
+        return formatCityReport(cities);
     }
 
     public static String getTopNCitiesByContinent(int topN, Continent continent) throws SQLException {
@@ -137,7 +147,17 @@ public class CityReportService {
         return "";
     }
 
-
+    /**
+     * Checks that N is positive.
+     *
+     * @param topN the requested number of cities
+     * @throws IllegalArgumentException if N is zero or negative
+     */
+    private static void checkTopN(int topN) {
+        if (topN <= 0) {
+            throw new IllegalArgumentException("N must be a positive whole number.");
+        }
+    }
 
     /**
      * Checks that a location has been provided.

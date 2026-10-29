@@ -82,7 +82,16 @@ class CityReportServiceTest {
                 () -> CityReportService.getCitiesByDistrictByPopulation("   "));
     }
 
-
+    /**
+     * Checks that zero and negative values of N are rejected.
+     */
+    @Test
+    void getTopNCitiesInWorld_rejectsZeroAndNegativeN() {
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesInWorld(0));
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesInWorld(-1));
+    }
 
 
 
