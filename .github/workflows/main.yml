@@ -24,6 +24,11 @@ jobs:
           RUN_CITY_INTEGRATION_TESTS: "true"
         run: mvn -Dtest=CityReportRepositoryTest,CityReportServiceTest test
 
+      - name: Run Country report tests
+        env:
+          RUN_COUNTRY_INTEGRATION_TESTS: "true"
+        run: mvn -Dtest=CountryRepositoryTest,CountryServiceTest,ContinentTest test
+
       - name: Build with Maven
         run: mvn package
 
