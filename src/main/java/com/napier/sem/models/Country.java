@@ -17,6 +17,7 @@ public class Country {
     private String governmentForm;
     private String headOfState;
     private Integer capital;
+    private String capitalName;
     private String code2;
 
     public Country(String code, String name, Continent continent, String region, BigDecimal surfaceArea, Short indepYear, int population, BigDecimal lifeExpectancy, BigDecimal gnp, BigDecimal gnpOld, String localName, String governmentForm, String headOfState, Integer capital, String code2) {
@@ -35,6 +36,16 @@ public class Country {
         this.headOfState = headOfState;
         this.capital = capital;
         this.code2 = code2;
+    }
+
+    public Country(String code, String name, Continent continent, String region, int population, String capitalName) {
+        this.code = code;
+        this.name = name;
+        this.continent = continent;
+        this.region = region;
+        this.population = population;
+        this.capitalName = capitalName;
+
     }
 
     public String getCode() {
@@ -91,6 +102,10 @@ public class Country {
 
     public Integer getCapital() {
         return capital;
+    }
+
+    public String getCapitalName() {
+        return capitalName;
     }
 
     public String getCode2() {
