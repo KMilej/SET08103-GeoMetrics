@@ -38,7 +38,7 @@ public class CountryRepository {
                                co.Region, 
                                co.Population, 
                                ci.Name AS Capital 
-                        FROM country co JOIN city ci on ci.ID = co.Capital 
+                        FROM country co LEFT JOIN city ci on ci.ID = co.Capital 
                         ORDER BY co.Population DESC
                 """;
 
@@ -86,7 +86,7 @@ public class CountryRepository {
                            co.Region, 
                            co.Population, 
                            ci.Name AS Capital 
-                    FROM country co JOIN city ci on ci.ID = co.Capital 
+                    FROM country co LEFT JOIN city ci on ci.ID = co.Capital 
                     WHERE co.Continent = ?
                     ORDER BY co.Population DESC
             """;
@@ -139,7 +139,7 @@ public class CountryRepository {
                            co.Region, 
                            co.Population, 
                            ci.Name AS Capital 
-                    FROM country co JOIN city ci on ci.ID = co.Capital 
+                    FROM country co LEFT JOIN city ci on ci.ID = co.Capital 
                     WHERE co.Region = ?
                     ORDER BY co.Population DESC
             """;
@@ -192,7 +192,7 @@ public class CountryRepository {
                        co.Region, 
                        co.Population, 
                        ci.Name AS Capital 
-                FROM country co JOIN city ci on ci.ID = co.Capital
+                FROM country co LEFT JOIN city ci on ci.ID = co.Capital
                 ORDER BY co.Population DESC
                 LIMIT ?
         """;
@@ -256,7 +256,7 @@ public class CountryRepository {
                    co.Region, 
                    co.Population, 
                    ci.Name AS Capital 
-            FROM country co JOIN city ci on ci.ID = co.Capital
+            FROM country co LEFT JOIN city ci on ci.ID = co.Capital
             WHERE co.Continent = ? 
             ORDER BY co.Population DESC
             LIMIT ?
@@ -319,7 +319,7 @@ public class CountryRepository {
                co.Region, 
                co.Population, 
                ci.Name AS Capital 
-        FROM country co JOIN city ci on ci.ID = co.Capital
+        FROM country co LEFT JOIN city ci on ci.ID = co.Capital
         WHERE co.Region = ? 
         ORDER BY co.Population DESC
         LIMIT ?
@@ -352,5 +352,6 @@ public class CountryRepository {
         }
         return topCountries;
     }
+
 }
 
