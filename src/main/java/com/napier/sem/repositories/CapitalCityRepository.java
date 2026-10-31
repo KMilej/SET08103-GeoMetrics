@@ -91,7 +91,7 @@ public class CapitalCityRepository {
         try (Connection connect = DatabaseConnection.connect();
              PreparedStatement stmt = connect.prepareStatement(sql)) {
 
-            stmt.setString(1, continent.name().replace("_", " "));
+            stmt.setString(1, continent.toString());
             if (topN > 0) {
                 stmt.setInt(2, topN);
             }

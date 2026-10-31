@@ -12,23 +12,18 @@ public class CapitalCityService {
 
     // Repository fields
     private final CapitalCityRepository capitalCityRepository;
-    private final CityRepository cityRepository;
 
     // Constructor for Mockito testing
-    public CapitalCityService(
-            CapitalCityRepository capitalCityRepository,
-            CityRepository cityRepository) {
-
+    public CapitalCityService(CapitalCityRepository capitalCityRepository) {
         this.capitalCityRepository = capitalCityRepository;
-        this.cityRepository = cityRepository;
     }
 
     // Default constructor for App.java
     public CapitalCityService() {
-        this(new CapitalCityRepository(), new CityRepository());
+        this(new CapitalCityRepository());
     }
 
-    // 1. Get capital cities worldwide.
+    // Method 1. Get capital cities worldwide
     /**
      * Retrieves all capital cities worldwide,
      * ordered by population from largest to smallest.
@@ -41,7 +36,7 @@ public class CapitalCityService {
         return capitalCityRepository.getCapitalCities(0);
     }
 
-    // 2. Report: Top N capital cities
+    // Method 2.  Top N capital cities
     /**
      * Retrieves the top N most populated capital cities worldwide,
      * ordered by population from largest to smallest.
@@ -59,7 +54,7 @@ public class CapitalCityService {
         return capitalCityRepository.getCapitalCities(topN);
     }
 
-    // 3. All capitals in a continent
+    // Method 3. All capitals in a continent
     /**
      * Retrieves all capital cities in a specified continent,
      * ordered by population from largest to smallest.
@@ -71,10 +66,15 @@ public class CapitalCityService {
 
     public List<City> getCapitalCitiesByContinent(Continent continent)
             throws SQLException {
+
+        if (continent == null) {
+            throw new IllegalArgumentException("Continent is required");
+        }
+
         return capitalCityRepository.getCapitalCitiesByContinent(continent, 0);
     }
 
-    // 4. Top N capitals in a continent
+    // Method 4. Top N capitals in a continent
     /**
      * Retrieves the top N capital cities in a given continent,
      * ordered by population in descending order.
@@ -99,7 +99,7 @@ public class CapitalCityService {
         return capitalCityRepository.getCapitalCitiesByContinent(continent, topN);
     }
 
-    // 5. All capitals in a region
+    // Method 5. All capitals in a region
     /**
      * Retrieves all capital cities in a specified region,
      * ordered by population from largest to smallest.
@@ -114,7 +114,7 @@ public class CapitalCityService {
         return capitalCityRepository.getCapitalCitiesByRegion(region, 0);
     }
 
-    // 6. Top N capitals in a region
+    // Methods 6. Top N capitals in a region
     /**
      * Retrieves the top N most populated capital cities in a specified region,
      * ordered by population from largest to smallest.
