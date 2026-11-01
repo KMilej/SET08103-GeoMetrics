@@ -7,10 +7,13 @@ import com.napier.sem.reports.ReportFormatter;
 import java.sql.SQLException;
 import java.util.List;
 
-import static com.napier.sem.App.capitalCityService;
-
 public class CapitalCityReportService {
-    // UC03 - HELPER METHODS
+
+    // Shared capital city service
+    private static final CapitalCityService capitalCityService =
+            new CapitalCityService();
+
+    // UC03 - Capital City Reports
 
     // 1. All capital cities in the world
     public static String printAllCapitalCitiesByPopulation()
@@ -23,6 +26,7 @@ public class CapitalCityReportService {
                 cities
         );
     }
+
 
 
     // 2. All capital cities in a continent
