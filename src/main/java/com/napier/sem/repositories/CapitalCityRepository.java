@@ -12,7 +12,7 @@ public class CapitalCityRepository {
     // 1. Get capital cities
 
     /**
-     /**
+     * /**
      * Retrieves capital cities worldwide from the database,
      * ordered by population from largest to smallest.
      *
@@ -26,14 +26,11 @@ public class CapitalCityRepository {
         List<City> capitalCities = new ArrayList<>();
 
         String sql = """
-                SELECT city.ID,
-                       city.Name,
-                       city.CountryCode,
-                       city.District,
-                       city.Population
-                FROM city
-                JOIN country ON city.ID = country.Capital
-                ORDER BY city.Population DESC
+                     SELECT city.*,
+                country.Name AS CountryName
+                 FROM city
+                 JOIN country ON city.ID = country.Capital
+                 ORDER BY city.Population DESC
                 """ + (topN > 0 ? " LIMIT ?" : "");
 
         try (Connection connect = DatabaseConnection.connect();
@@ -53,6 +50,8 @@ public class CapitalCityRepository {
                             rs.getInt("Population")
                     );
 
+                    // Add the full country name
+                    city.setCountryName(rs.getString("CountryName"));
                     capitalCities.add(city);
                 }
             }
@@ -68,11 +67,11 @@ public class CapitalCityRepository {
      * ordered by population from largest to smallest.
      *
      * @param continent the continent to retrieve capital cities from
-     * @param topN the maximum number of capital cities to retrieve;
-     *             0 or a negative value returns all capital cities
+     * @param topN      the maximum number of capital cities to retrieve;
+     *                  0 or a negative value returns all capital cities
      * @return a list of capital cities in the specified continent
      * @throws NullPointerException if continent is null
-     * @throws SQLException if a database access error occurs
+     * @throws SQLException         if a database access error occurs
      */
 
     public List<City> getCapitalCitiesByContinent(Continent continent, int topN)
@@ -81,12 +80,13 @@ public class CapitalCityRepository {
         List<City> capitalCitiesByContinent = new ArrayList<>();
 
         String sql = """
-        SELECT city.*
-        FROM city
-        JOIN country ON city.ID = country.Capital
-        WHERE country.Continent = ?
-        ORDER BY city.Population DESC
-        """ + (topN > 0 ? " LIMIT ?" : "");
+                 SELECT city.*,
+                country.Name AS CountryName
+                 FROM city
+                 JOIN country ON city.ID = country.Capital
+                 WHERE country.Continent = ?
+                 ORDER BY city.Population DESC
+                """ + (topN > 0 ? " LIMIT ?" : "");
 
         try (Connection connect = DatabaseConnection.connect();
              PreparedStatement stmt = connect.prepareStatement(sql)) {
@@ -106,6 +106,8 @@ public class CapitalCityRepository {
                             rs.getInt("Population")
                     );
 
+                    // Add the full country name
+                    city.setCountryName(rs.getString("CountryName"));
                     capitalCitiesByContinent.add(city);
                 }
             }
@@ -115,13 +117,14 @@ public class CapitalCityRepository {
     }
 
     // 3. Get capital cities by region
+
     /**
      * Retrieves capital cities in a specified region from the database,
      * ordered by population from largest to smallest.
      *
      * @param region the region to retrieve capital cities from
-     * @param topN the maximum number of capital cities to retrieve;
-     *             0 or a negative value returns all capital cities
+     * @param topN   the maximum number of capital cities to retrieve;
+     *               0 or a negative value returns all capital cities
      * @return a list of capital cities in the specified region
      * @throws SQLException if a database access error occurs
      */
@@ -132,12 +135,13 @@ public class CapitalCityRepository {
         List<City> capitalCitiesByRegion = new ArrayList<>();
 
         String sql = """
-        SELECT city.*
-        FROM city
-        JOIN country ON city.ID = country.Capital
-        WHERE country.Region = ?
-        ORDER BY city.Population DESC
-        """ + (topN > 0 ? " LIMIT ?" : "");
+                SELECT city.*,
+                       country.Name AS CountryName
+                FROM city
+                JOIN country ON city.ID = country.Capital
+                WHERE country.Region = ?
+                ORDER BY city.Population DESC
+                """ + (topN > 0 ? " LIMIT ?" : "");
 
         try (Connection connect = DatabaseConnection.connect();
              PreparedStatement stmt = connect.prepareStatement(sql)) {
@@ -156,7 +160,7 @@ public class CapitalCityRepository {
                             rs.getString("District"),
                             rs.getInt("Population")
                     );
-
+                    city.setCountryName(rs.getString("CountryName"));
                     capitalCitiesByRegion.add(city);
                 }
             }

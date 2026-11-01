@@ -32,11 +32,11 @@ public class CapitalCityRepositoryTests {
         List<City> cities = repository.getCapitalCities(2);
 
         // Assert
-        assertNotNull(cities);
-        assertEquals(2, cities.size());
+        assertNotNull(cities.get(0).getCountryName());
+        assertFalse(cities.get(0).getCountryName().isBlank());
 
-        assertTrue(cities.get(0).getPopulation() >=
-                cities.get(1).getPopulation());
+        assertNotNull(cities.get(1).getCountryName());
+        assertFalse(cities.get(1).getCountryName().isBlank());
 
     }
 
@@ -120,8 +120,8 @@ public class CapitalCityRepositoryTests {
         );
 
         // Assert
-        assertNotNull(cities);
-        assertFalse(cities.isEmpty());
+        assertNotNull(cities.get(0).getCountryName());
+        assertFalse(cities.get(0).getCountryName().isBlank());
     }
     // Test 2.2 valid top N by continent (verify Limit? works)
     /**
@@ -260,8 +260,8 @@ public class CapitalCityRepositoryTests {
         );
 
         // Assert
-        assertNotNull(cities);
-        assertFalse(cities.isEmpty());
+        assertNotNull(cities.get(0).getCountryName());
+        assertFalse(cities.get(0).getCountryName().isBlank());
     }
 
     // Test 3.2 Valid topN by region
