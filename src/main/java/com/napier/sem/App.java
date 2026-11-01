@@ -14,8 +14,19 @@ import java.sql.Statement;
 import java.sql.SQLException;
 import java.util.List;
 
+
 public class App {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
+
+        PopulationService populationService = new PopulationService();
+
+        long worldPop = populationService.getWorldPopulation();
+        long continentPop = populationService.getContinentPopulation(Continent.EUROPE);
+        long regionPop = populationService.getRegionPopulation("Western Europe");
+        long countryPop = populationService.getCountryPopulation("United Kingdom");
+        long districtPop = populationService.getDistrictPopulation("Scotland");
+        List<City> cities = populationService.getCityPopulation("Edinburgh");
+
        /*
         // UC01 - Country Reports
         System.out.println(getAllCountriesByPopulation());Collapse annotationCheck failure on line R8Check failure: cannot find symbolGeoMetrics Build / GeoMetrics build actionView details
@@ -52,57 +63,33 @@ public class App {
            */
 
         // UC05 - Population Information Report
+
+
+        // ==========================================
+        //              POPULATION REPORTS
+        // ==========================================
         System.out.println("==================================================");
-        System.out.println("          POPULATION INFORMATION REPORT           ");
+        System.out.println("               POPULATION REPORT                  ");
         System.out.println("==================================================");
 
-        try {
-            // 1. World Population
-            int worldPop = getWorldPopulation();
-            System.out.printf("%-25s : %,d%n", "World Population", worldPop);
+        System.out.printf("%-30s %,d%n", "World Total Population:", worldPop);
+        System.out.printf("%-30s %,d%n", "Europe Continent Population:", continentPop);
+        System.out.printf("%-30s %,d%n", "Western Europe Region:", regionPop);
+        System.out.printf("%-30s %,d%n", "United Kingdom Population:", countryPop);
+        System.out.printf("%-30s %,d%n", "Scotland District Population:", districtPop);
 
-            // 2. Continent Population
-            int continentPop = getContinentPopulation(Continent.EUROPE);
-            System.out.printf("%-25s : %,d%n", "Continent (Europe)", continentPop);
+        System.out.println("\n--------------------------------------------------");
+        System.out.println("               CITY BREAKDOWN                     ");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("%-30s %-15s%n", "City Name", "Population");
+        System.out.println("--------------------------------------------------");
 
-            // 3. Region Population
-            int regionPop = getRegionPopulation("Western Europe");
-            System.out.printf("%-25s : %,d%n", "Region (Western Europe)", regionPop);
-
-            // 4. Country Population
-            int countryPop = getCountryPopulation("GBR");
-            System.out.printf("%-25s : %,d%n", "Country (GBR)", countryPop);
-
-            // 5. District Population
-            int districtPop = getDistrictPopulation("Scotland");
-            System.out.printf("%-25s : %,d%n", "District (Scotland)", districtPop);
-
-            System.out.println("--------------------------------------------------");
-            System.out.println("SPECIFIC CITY DETAILS:");
-            System.out.println("--------------------------------------------------");
-            System.out.printf("%-10s | %-20s | %-15s%n", "ID", "City Name", "Population");
-            System.out.println("--------------------------------------------------");
-
-            // 6. City Population (Prints details for each matching city)
-            List<City> cities = getCityPopulation("Edinburgh");
-            if (cities == null || cities.isEmpty()) {
-                System.out.println("No details found for the requested city.");
-            } else {
-                for (City city : cities) {
-                    System.out.printf("%-10d | %-20s | %,15d%n",
-                            city.getId(),
-                            city.getName(),
-                            city.getPopulation()
-                    );
-                }
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Error generating population report: " + e.getMessage());
+        for (City city : cities) {
+            System.out.printf("%-30s %,d%n", city.getName(), city.getPopulation());
         }
-
         System.out.println("==================================================");
-        /*
+
+       /*
         // UC06 - Language Population Report
         System.out.println(getLanguagePopulationReport());
          */
@@ -115,27 +102,27 @@ public class App {
         return myPop.getCityPopulation(cityName);
     }
 
-    private static int getDistrictPopulation(String districtName) {
+    private static long getDistrictPopulation(String districtName) {
         PopulationService myPop = new PopulationService();
         return myPop.getDistrictPopulation(districtName);
     }
 
-    private static int getCountryPopulation(String countryName) {
+    private static long getCountryPopulation(String countryName) {
         PopulationService myPop = new PopulationService();
         return myPop.getCountryPopulation(countryName);
     }
 
-    private static int getRegionPopulation(String regionName) {
+    private static long getRegionPopulation(String regionName) {
         PopulationService myPop = new PopulationService();
         return myPop.getRegionPopulation(regionName);
     }
 
-    private static int getContinentPopulation(Continent continentName) {
+    private static long getContinentPopulation(Continent continentName) {
         PopulationService myPop = new PopulationService();
         return myPop.getContinentPopulation(continentName);
     }
 
-    private static int getWorldPopulation() {
+    private static long getWorldPopulation() {
         PopulationService myPop = new PopulationService();
         return myPop.getWorldPopulation();
     }

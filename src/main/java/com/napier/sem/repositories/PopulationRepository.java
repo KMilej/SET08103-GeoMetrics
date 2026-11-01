@@ -9,24 +9,33 @@ import java.util.List;
 
 
 public class PopulationRepository {
-
-    // 1. Fixed: Returns a List<City> to match the internal list creation and 'cities' ordering.
-    // If you only want one city by name, you need a WHERE clause instead.
+    /**
+     *  Retrieves a city from the database
+     *  to match the internal list creation and 'cities' ordering.
+     *
+     * @return a cities population
+     * @throws RuntimeException if a database access error occurs
+     */
     public List<City> getCityPopulation(String cityName) {
         List<City> cities = new ArrayList<>();
-        String sql = "SELECT ID, Name, Population FROM city ORDER BY Name WHERE Name = 'Edinbrugh'";
+        // Fixed: Moved WHERE before ORDER BY
+        String sql = "SELECT ID, Name, Population FROM city WHERE Name = ? ORDER BY Name";
 
         try (Connection connect = DatabaseConnection.connect();
-             PreparedStatement stmt = connect.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+             PreparedStatement stmt = connect.prepareStatement(sql)) { // Removed executeQuery from try-with-resources
 
-            while (rs.next()) {
-                City city = new City(
-                        rs.getInt("ID"),
-                        rs.getString("Name"),
-                        rs.getInt("Population")
-                );
-                cities.add(city);
+            // Fixed: Set the cityName parameter into the statement
+            stmt.setString(1, cityName);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    City city = new City(
+                            rs.getInt("ID"),
+                            rs.getString("Name"),
+                            rs.getInt("Population")
+                    );
+                    cities.add(city);
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException("Failed to fetch cities", e);
@@ -34,7 +43,14 @@ public class PopulationRepository {
         return cities;
     }
 
-    // 2. Fixed: Corrected SQL aggregation syntax. Returns a single long total.
+
+    /**
+     *  Retrieves the population of the world from the database
+     *  sum will add all the population data together
+     *
+     * @return the worlds population
+     * @throws RuntimeException if a database access error occurs
+     */
     public long getWorldPopulation() {
         String sql = "SELECT SUM(Population) AS TotalPopulation FROM country";
 
@@ -51,7 +67,13 @@ public class PopulationRepository {
         return 0;
     }
 
-    // 3. Fixed: Added WHERE clause to filter by region name.
+    /**
+     *  Retrieves a region from the database
+     *  to match the internal list creation and 'region' ordering.
+     *
+     * @return a region's population
+     * @throws RuntimeException if a database access error occurs
+     */
     public long getRegionPopulation(String regionName) {
         String sql = "SELECT SUM(Population) AS TotalPopulation FROM country WHERE Region = ?";
 
@@ -70,7 +92,13 @@ public class PopulationRepository {
         return 0;
     }
 
-    // 4. Fixed: Added WHERE clause to filter by continent name.
+    /**
+     *  Retrieves a continent from the database
+     *  to match the internal list creation and 'continent' ordering.
+     *
+     * @return a continent population
+     * @throws RuntimeException if a database access error occurs
+     */
     public long getContinentPopulation(String continentName) {
         String sql = "SELECT SUM(Population) AS TotalPopulation FROM country WHERE Continent = ?";
 
@@ -89,7 +117,13 @@ public class PopulationRepository {
         return 0;
     }
 
-    // 5. Fixed: Queries the 'city' table instead of 'country' and filters by district name.
+    /**
+     *  Retrieves a district from the database
+     *  to match the internal list creation and 'district' ordering.
+     *
+     * @return a district's population
+     * @throws RuntimeException if a database access error occurs
+     */
     public long getDistrictPopulation(String districtName) {
         String sql = "SELECT SUM(Population) AS TotalPopulation FROM city WHERE District = ?";
 

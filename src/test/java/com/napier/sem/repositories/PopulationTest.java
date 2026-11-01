@@ -40,17 +40,17 @@ public class PopulationTest {
     public void testGetWorldPopulation_Success() throws SQLException {
         // Arrange
         when(mockResultSet.next()).thenReturn(true);
-        when(mockResultSet.getInt("Total")).thenReturn(1000000);
+        when(mockResultSet.getLong("Total")).thenReturn(1000000L); // Changed to getLong
 
         // Mocking the static connection manager method
         try (MockedStatic<DatabaseConnection> mockedDb = Mockito.mockStatic(DatabaseConnection.class)) {
             mockedDb.when(DatabaseConnection::connect).thenReturn(mockConnection);
 
             // Act
-            int population = populationService.getWorldPopulation();
+            long population = populationService.getWorldPopulation();
 
             // Assert
-            assertEquals(1000000, population);
+            assertEquals(1000000L, population);
         }
     }
 
@@ -58,16 +58,16 @@ public class PopulationTest {
     public void testGetContinentPopulation_Success() throws SQLException {
         // Arrange
         when(mockResultSet.next()).thenReturn(true);
-        when(mockResultSet.getInt("Total")).thenReturn(500000);
+        when(mockResultSet.getLong("Total")).thenReturn(500000L); // Changed to getLong
 
         try (MockedStatic<DatabaseConnection> mockedDb = Mockito.mockStatic(DatabaseConnection.class)) {
             mockedDb.when(DatabaseConnection::connect).thenReturn(mockConnection);
 
             // Act
-            int population = populationService.getContinentPopulation(Continent.EUROPE);
+            long population = populationService.getContinentPopulation(Continent.EUROPE);
 
             // Assert
-            assertEquals(500000, population);
+            assertEquals(500000L, population);
             verify(mockStatement, times(1)).setString(1, "EUROPE");
         }
     }
@@ -76,16 +76,16 @@ public class PopulationTest {
     public void testGetRegionPopulation_Success() throws SQLException {
         // Arrange
         when(mockResultSet.next()).thenReturn(true);
-        when(mockResultSet.getInt("Total")).thenReturn(250000);
+        when(mockResultSet.getLong("Total")).thenReturn(250000L); // Changed to getLong
 
         try (MockedStatic<DatabaseConnection> mockedDb = Mockito.mockStatic(DatabaseConnection.class)) {
             mockedDb.when(DatabaseConnection::connect).thenReturn(mockConnection);
 
             // Act
-            int population = populationService.getRegionPopulation("Western Europe");
+            long population = populationService.getRegionPopulation("Western Europe");
 
             // Assert
-            assertEquals(250000, population);
+            assertEquals(250000L, population);
             verify(mockStatement, times(1)).setString(1, "Western Europe");
         }
     }
@@ -94,16 +94,16 @@ public class PopulationTest {
     public void testGetCountryPopulation_Success() throws SQLException {
         // Arrange
         when(mockResultSet.next()).thenReturn(true);
-        when(mockResultSet.getInt("Total")).thenReturn(60000);
+        when(mockResultSet.getLong("Total")).thenReturn(60000L); // Changed to getLong
 
         try (MockedStatic<DatabaseConnection> mockedDb = Mockito.mockStatic(DatabaseConnection.class)) {
             mockedDb.when(DatabaseConnection::connect).thenReturn(mockConnection);
 
             // Act
-            int population = populationService.getCountryPopulation("GBR");
+            long population = populationService.getCountryPopulation("GBR");
 
             // Assert
-            assertEquals(60000, population);
+            assertEquals(60000L, population);
             verify(mockStatement, times(1)).setString(1, "GBR");
         }
     }
@@ -112,16 +112,16 @@ public class PopulationTest {
     public void testGetDistrictPopulation_Success() throws SQLException {
         // Arrange
         when(mockResultSet.next()).thenReturn(true);
-        when(mockResultSet.getInt("Total")).thenReturn(5000);
+        when(mockResultSet.getLong("Total")).thenReturn(5000L); // Changed to getLong
 
         try (MockedStatic<DatabaseConnection> mockedDb = Mockito.mockStatic(DatabaseConnection.class)) {
             mockedDb.when(DatabaseConnection::connect).thenReturn(mockConnection);
 
             // Act
-            int population = populationService.getDistrictPopulation("Scotland");
+            long population = populationService.getDistrictPopulation("Scotland");
 
             // Assert
-            assertEquals(5000, population);
+            assertEquals(5000L, population);
             verify(mockStatement, times(1)).setString(1, "Scotland");
         }
     }
@@ -129,10 +129,8 @@ public class PopulationTest {
     @Test
     public void testGetWorldPopulation_ThrowsRuntimeExceptionOnSQLException() throws SQLException {
         // Arrange
-        when(mockConnection.prepareStatement(anyString())).thenThrow(new SQLException("Database offline"));
-
         try (MockedStatic<DatabaseConnection> mockedDb = Mockito.mockStatic(DatabaseConnection.class)) {
-            mockedDb.when(DatabaseConnection::connect).thenReturn(mockConnection);
+            mockedDb.when(DatabaseConnection::connect).thenThrow(new SQLException("Database offline"));
 
             // Act & Assert
             assertThrows(RuntimeException.class, () -> {
