@@ -3,10 +3,14 @@ package com.napier.sem.repositories;
 import com.napier.sem.models.Continent;
 import com.napier.sem.services.PopulationService;
 import com.napier.sem.database.DatabaseConnection;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,26 +21,34 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-public class PopulationTest {
+    public class PopulationTest {
 
-    private PopulationService populationService;
-    private Connection mockConnection;
-    private PreparedStatement mockStatement;
-    private ResultSet mockResultSet;
+        private PopulationService populationService;
+        private Connection mockConnection;
+        private PreparedStatement mockStatement;
+        private ResultSet mockResultSet;
+        private AutoCloseable closeable; // Add this line
 
-    //set up for each test
-    @BeforeEach
-    public void setUp() throws SQLException {
-        populationService = new PopulationService();
-        mockConnection = mock(Connection.class);
-        mockStatement = mock(PreparedStatement.class);
-        mockResultSet = mock(ResultSet.class);
+        @BeforeEach
+        public void setUp() throws SQLException {
+            // Initialize Mockito session cleanly
+            closeable = MockitoAnnotations.openMocks(this);
 
-        // Wiring up standard JDBC mock behavior
-        when(mockConnection.prepareStatement(anyString())).thenReturn(mockStatement);
-        when(mockStatement.executeQuery()).thenReturn(mockResultSet);
-    }
+            populationService = new PopulationService();
+            mockConnection = mock(Connection.class);
+            mockStatement = mock(PreparedStatement.class);
+            mockResultSet = mock(ResultSet.class);
 
+            // Wiring up standard JDBC mock behavior
+            lenient().when(mockConnection.prepareStatement(anyString())).thenReturn(mockStatement);
+            lenient().when(mockStatement.executeQuery()).thenReturn(mockResultSet);
+        }
+
+
+        @AfterEach
+        public void tearDown() throws Exception {
+            closeable.close();
+        }
     /**
      * test if the right world population has been fetched correctly
      *

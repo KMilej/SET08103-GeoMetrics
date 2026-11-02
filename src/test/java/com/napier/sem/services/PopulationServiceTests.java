@@ -5,7 +5,10 @@ import com.napier.sem.models.Continent;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.MockedStatic;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
+
 class PopulationServiceTest {
 
     private PopulationService populationService;
@@ -24,6 +28,7 @@ class PopulationServiceTest {
     private Connection mockConnection;
     private PreparedStatement mockPreparedStatement;
     private ResultSet mockResultSet;
+    private AutoCloseable closeable; // Added to manage the Mockito session lifecycle
 
     /**
      * Initializes the service under test and creates default stubbed chains
@@ -33,6 +38,9 @@ class PopulationServiceTest {
      */
     @BeforeEach
     void setUp() throws SQLException {
+        // Open the Mockito session to process annotations cleanly without strict rules
+        closeable = MockitoAnnotations.openMocks(this);
+
         populationService = new PopulationService();
 
         // Set up standard JDBC mocks
@@ -44,9 +52,9 @@ class PopulationServiceTest {
         mockedDatabaseConnection = mockStatic(DatabaseConnection.class);
         mockedDatabaseConnection.when(DatabaseConnection::connect).thenReturn(mockConnection);
 
-        // Define default chain behavior for PreparedStatement and ResultSet
-        when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
-        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+        // Fixed: Wrapped with lenient() so exception tests don't break on unused stubs
+        lenient().when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
+        lenient().when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
     }
 
     /**
@@ -54,10 +62,13 @@ class PopulationServiceTest {
      * prevent environment leakages across the test execution lifecycle.
      */
     @AfterEach
-    void tearDown() {
+    void tearDown() throws Exception {
         // Deregister the static mock block to prevent memory leaks across test files
         mockedDatabaseConnection.close();
+        // Close the mock session to release framework resources cleanly
+        closeable.close();
     }
+
 
     /**
      * Verifies that {@link PopulationService#getCountryPopulation(String)} retrieves
