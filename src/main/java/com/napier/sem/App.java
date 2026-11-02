@@ -1,31 +1,19 @@
 package com.napier.sem;
 
-import com.napier.sem.database.DatabaseConnection;
-import com.napier.sem.repositories.CityRepository;
 import com.napier.sem.services.CityService;
 import com.napier.sem.services.CapitalCityService;
 import com.napier.sem.models.City;
 import com.napier.sem.models.Continent;
 import com.napier.sem.services.PopulationService;
+import com.napier.sem.services.PopulationService.*;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+
 import java.sql.SQLException;
 import java.util.List;
 
 
 public class App {
     public static void main(String[] args) throws SQLException {
-
-        PopulationService populationService = new PopulationService();
-
-        long worldPop = populationService.getWorldPopulation();
-        long continentPop = populationService.getContinentPopulation(Continent.EUROPE);
-        long regionPop = populationService.getRegionPopulation("Western Europe");
-        long countryPop = populationService.getCountryPopulation("United Kingdom");
-        long districtPop = populationService.getDistrictPopulation("Scotland");
-        List<City> cities = populationService.getCityPopulation("Edinburgh");
 
        /*
         // UC01 - Country Reports
@@ -68,26 +56,14 @@ public class App {
         // ==========================================
         //              POPULATION REPORTS
         // ==========================================
-        System.out.println("==================================================");
-        System.out.println("               POPULATION REPORT                  ");
-        System.out.println("==================================================");
+        PopulationService populationService = new PopulationService();
+        populationService.getWorldPopulation();
+        populationService.getContinentPopulation(Continent.EUROPE);
+        populationService.getRegionPopulation("Western Europe");
+        populationService.getCountryPopulation("United Kingdom");
+        populationService.getDistrictPopulation("Scotland");
+        populationService.getCityPopulation("Edinburgh");
 
-        System.out.printf("%-30s %,d%n", "World Total Population:", worldPop);
-        System.out.printf("%-30s %,d%n", "Europe Continent Population:", continentPop);
-        System.out.printf("%-30s %,d%n", "Western Europe Region:", regionPop);
-        System.out.printf("%-30s %,d%n", "United Kingdom Population:", countryPop);
-        System.out.printf("%-30s %,d%n", "Scotland District Population:", districtPop);
-
-        System.out.println("\n--------------------------------------------------");
-        System.out.println("               CITY BREAKDOWN                     ");
-        System.out.println("--------------------------------------------------");
-        System.out.printf("%-30s %-15s%n", "City Name", "Population");
-        System.out.println("--------------------------------------------------");
-
-        for (City city : cities) {
-            System.out.printf("%-30s %,d%n", city.getName(), city.getPopulation());
-        }
-        System.out.println("==================================================");
 
        /*
         // UC06 - Language Population Report
@@ -97,33 +73,4 @@ public class App {
 
 
 
-    private static List<City> getCityPopulation(String cityName) throws SQLException {
-        PopulationService myPop = new PopulationService();
-        return myPop.getCityPopulation(cityName);
-    }
-
-    private static long getDistrictPopulation(String districtName) {
-        PopulationService myPop = new PopulationService();
-        return myPop.getDistrictPopulation(districtName);
-    }
-
-    private static long getCountryPopulation(String countryName) {
-        PopulationService myPop = new PopulationService();
-        return myPop.getCountryPopulation(countryName);
-    }
-
-    private static long getRegionPopulation(String regionName) {
-        PopulationService myPop = new PopulationService();
-        return myPop.getRegionPopulation(regionName);
-    }
-
-    private static long getContinentPopulation(Continent continentName) {
-        PopulationService myPop = new PopulationService();
-        return myPop.getContinentPopulation(continentName);
-    }
-
-    private static long getWorldPopulation() {
-        PopulationService myPop = new PopulationService();
-        return myPop.getWorldPopulation();
-    }
 }
