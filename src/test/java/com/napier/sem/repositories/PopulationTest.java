@@ -24,6 +24,7 @@ public class PopulationTest {
     private PreparedStatement mockStatement;
     private ResultSet mockResultSet;
 
+    //set up for each test
     @BeforeEach
     public void setUp() throws SQLException {
         populationService = new PopulationService();
@@ -36,6 +37,11 @@ public class PopulationTest {
         when(mockStatement.executeQuery()).thenReturn(mockResultSet);
     }
 
+    /**
+     * test if the right world population has been fetched correctly
+     *
+     * @throws SQLException
+     */
     @Test
     public void testGetWorldPopulation_Success() throws SQLException {
         // Arrange
@@ -54,6 +60,11 @@ public class PopulationTest {
         }
     }
 
+    /**
+     * test if the right continent population has been fetched correctly
+     *
+     * @throws SQLException
+     */
     @Test
     public void testGetContinentPopulation_Success() throws SQLException {
         // Arrange
@@ -72,6 +83,11 @@ public class PopulationTest {
         }
     }
 
+    /**
+     * test if the right region population has been fetched correctly
+     *
+     * @throws SQLException
+     */
     @Test
     public void testGetRegionPopulation_Success() throws SQLException {
         // Arrange
@@ -90,6 +106,11 @@ public class PopulationTest {
         }
     }
 
+    /**
+     * test if the right country population has been fetched correctly
+     *
+     * @throws SQLException
+     */
     @Test
     public void testGetCountryPopulation_Success() throws SQLException {
         // Arrange
@@ -108,6 +129,11 @@ public class PopulationTest {
         }
     }
 
+    /**
+     * test if the right district population has been fetched correctly
+     *
+     * @throws SQLException
+     */
     @Test
     public void testGetDistrictPopulation_Success() throws SQLException {
         // Arrange
@@ -126,6 +152,11 @@ public class PopulationTest {
         }
     }
 
+    /**
+     * test rhe runtime exception works correctly when trying to fetch the world population
+     *
+     * @throws SQLException
+     */
     @Test
     public void testGetWorldPopulation_ThrowsRuntimeExceptionOnSQLException() throws SQLException {
         // Arrange
