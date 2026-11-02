@@ -29,8 +29,7 @@ public class PopulationRepository {
      * @param scope the geographical scope
      * @param location the continent, region or country code
      * @return a list of population data
-     * @throws IllegalArgumentException if the scope is invalid
-     * @throws RuntimeException if a database error occurs
+     * @throws IllegalArgumentException if the location or scope is null or empty
      * @throws SQLException if a database access error occurs
      */
     public List<PopulationDistributionData> getPopulationDistributionData(
@@ -40,6 +39,10 @@ public class PopulationRepository {
             throw new IllegalArgumentException(
                     "Location cannot be empty"
             );
+        }
+
+        if (scope == null) {
+            throw new IllegalArgumentException("Scope cannot be null");
         }
 
         String filter = switch (scope) {

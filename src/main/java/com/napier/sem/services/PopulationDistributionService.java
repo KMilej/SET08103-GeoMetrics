@@ -96,7 +96,7 @@ public class PopulationDistributionService {
      * @param data the population data to display
      * @return formatted population distribution report
      */
-    private static String formatPopulationDistributionTable(
+    static String formatPopulationDistributionTable(
             List<PopulationDistributionData> data) {
 
         // Check if there is no data
@@ -125,21 +125,42 @@ public class PopulationDistributionService {
 
             long total = row.totalPopulation();
             long city = row.cityPopulation();
-            long nonCity = total - city;
 
-            double cityPercent = total > 0
-                    ? (double) city / total * 100
-                    : 0;
+            // Check if population data is invalid
+            boolean invalid = total <= 0 || city < 0 || city > total;
 
-            double nonCityPercent = total > 0
-                    ? (double) nonCity / total * 100
-                    : 0;
+            String cityText;
+            String nonCityText;
+            String cityPercent;
+            String nonCityPercent;
+
+            if (invalid) {
+                cityText = "N/A";
+                nonCityText = "N/A";
+                cityPercent = "N/A";
+                nonCityPercent = "N/A";
+            } else {
+                // Valid population data
+                long nonCity = total - city;
+
+                cityText = String.format("%,d", city);
+                nonCityText = String.format("%,d", nonCity);
+
+                cityPercent = String.format(
+                        "%.2f%%", (double) city / total * 100
+                );
+
+                nonCityPercent = String.format(
+                        "%.2f%%", (double) nonCity / total * 100
+                );
+
+            }
 
             table.append(String.format(
-                    "%-40.40s | %,18d | %,18d | %11.2f%% | %11.2f%%%n",
+                    "%-40.40s | %18s | %18s | %12s | %12s%n",
                     row.location(),
-                    city,
-                    nonCity,
+                    cityText,
+                    nonCityText,
                     cityPercent,
                     nonCityPercent
             ));
