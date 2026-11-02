@@ -15,15 +15,16 @@ import java.util.List;
 
 public class PopulationService {
 
-    private final PopReportRepository populationRepository = new PopReportRepository();
+    // Made static so it can be accessed by static methods
+    private static final PopReportRepository populationRepository = new PopReportRepository();
 
     /**
-     * Calls the repository to fetch a specific city, prints a formatted report, and returns the list.
+     * Calls the repository to fetch a specific city, prints a formatted report, and returns an empty string
+     * so that Main's System.out.println leaves no duplicate trace.
      *
-     * @return a specific city's population
      * @throws SQLException if a database access error occurs
      */
-    public List<City> getCityPopulation(String cityName) throws SQLException {
+    public static String getCityPopulation(String cityName) throws SQLException {
         List<City> cities = populationRepository.getCityPopulation(cityName);
 
         System.out.println("\n========================================================================");
@@ -41,17 +42,15 @@ public class PopulationService {
                         city.getPopulation());
             }
         }
-        System.out.println("========================================================================\n");
+        System.out.print("========================================================================");
 
-        return cities;
+        return "";
     }
 
     /**
-     * Calls the repository to fetch for an aggregated population of a specific country and prints a report.
-     *
-     * @return a specific country's population
+     * Calls the repository to fetch for an aggregated population of a specific country, prints a report, and returns an empty string.
      */
-    public long getCountryPopulation(String countryName) {
+    public static String getCountryPopulation(String countryName) {
         String sql = "SELECT SUM(Population) AS Total FROM country WHERE Name = ?";
         long population = 0;
 
@@ -68,15 +67,13 @@ public class PopulationService {
         }
 
         printAggregatedReport("COUNTRY", countryName, population);
-        return population;
+        return "";
     }
 
     /**
-     * Calls the repository to fetch for an aggregated population of a specific district and prints a report.
-     *
-     * @return a specific district's population
+     * Calls the repository to fetch for an aggregated population of a specific district, prints a report, and returns an empty string.
      */
-    public long getDistrictPopulation(String districtName) {
+    public static String getDistrictPopulation(String districtName) {
         String sql = "SELECT SUM(Population) AS Total FROM city WHERE District = ?";
         long population = 0;
 
@@ -93,15 +90,13 @@ public class PopulationService {
         }
 
         printAggregatedReport("DISTRICT", districtName, population);
-        return population;
+        return "";
     }
 
     /**
-     * Calls the repository to fetch for an aggregated population of the whole world and prints a report.
-     *
-     * @return the world's population
+     * Calls the repository to fetch for an aggregated population of the whole world, prints a report, and returns an empty string.
      */
-    public long getWorldPopulation() {
+    public static String getWorldPopulation() {
         String sql = "SELECT SUM(Population) AS Total FROM country";
         long population = 0;
 
@@ -116,15 +111,13 @@ public class PopulationService {
         }
 
         printAggregatedReport("GLOBAL", "Whole World", population);
-        return population;
+        return "";
     }
 
     /**
-     * Calls the repository to fetch for an aggregated population of a specific continent and prints a report.
-     *
-     * @return a specific continent's population
+     * Calls the repository to fetch for an aggregated population of a specific continent, prints a report, and returns an empty string.
      */
-    public long getContinentPopulation(Continent continentName) {
+    public static String getContinentPopulation(Continent continentName) {
         String sql = "SELECT SUM(Population) AS Total FROM country WHERE Continent = ?";
         long population = 0;
 
@@ -141,15 +134,13 @@ public class PopulationService {
         }
 
         printAggregatedReport("CONTINENT", continentName.name(), population);
-        return population;
+        return "";
     }
 
     /**
-     * Calls the repository to fetch for an aggregated population of a specific region and prints a report.
-     *
-     * @return a specific region's population
+     * Calls the repository to fetch for an aggregated population of a specific region, prints a report, and returns an empty string.
      */
-    public long getRegionPopulation(String regionName) {
+    public static String getRegionPopulation(String regionName) {
         String sql = "SELECT SUM(Population) AS Total FROM country WHERE Region = ?";
         long population = 0;
 
@@ -166,13 +157,14 @@ public class PopulationService {
         }
 
         printAggregatedReport("REGION", regionName, population);
-        return population;
+        return "";
     }
 
     /**
      * Private helper method to handle a clean, reusable layout for aggregated single-row population metrics.
+     * Made static to align with upper metrics.
      */
-    private void printAggregatedReport(String reportType, String locationName, long population) {
+    private static void printAggregatedReport(String reportType, String locationName, long population) {
         System.out.println("\n========================================================");
         System.out.printf("               %s POPULATION REPORT                    \n", reportType);
         System.out.println("========================================================");
@@ -183,9 +175,8 @@ public class PopulationService {
         } else {
             System.out.printf("%-35s %,20d\n", locationName, population);
         }
-        System.out.println("========================================================\n");
+        System.out.print("========================================================");
     }
 }
-
 
 
