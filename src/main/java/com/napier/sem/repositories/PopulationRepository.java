@@ -5,7 +5,6 @@ import com.napier.sem.database.DatabaseConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.SQLException;
 
 
 public class PopulationRepository {
@@ -98,4 +97,6 @@ public class PopulationRepository {
 
         return populationDistributionData;
     }
-}
+
+
+    }
