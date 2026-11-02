@@ -2,6 +2,7 @@ package com.napier.sem.services;
 
 import com.napier.sem.models.City;
 import com.napier.sem.models.Continent;
+import com.napier.sem.repositories.CapitalCityRepository;
 import com.napier.sem.repositories.CityRepository;
 
 import java.sql.SQLException;
@@ -9,9 +10,20 @@ import java.util.List;
 
 public class CapitalCityService {
 
-    private final CityRepository cityRepository = new CityRepository();
+    // Repository fields
+    private final CapitalCityRepository capitalCityRepository;
 
-    // 1. Get capital cities worldwide.
+    // Constructor for Mockito testing
+    public CapitalCityService(CapitalCityRepository capitalCityRepository) {
+        this.capitalCityRepository = capitalCityRepository;
+    }
+
+    // Default constructor for App.java
+    public CapitalCityService() {
+        this(new CapitalCityRepository());
+    }
+
+    // Method 1. Get capital cities worldwide
     /**
      * Retrieves all capital cities worldwide,
      * ordered by population from largest to smallest.
@@ -21,10 +33,10 @@ public class CapitalCityService {
      */
 
     public List<City> getCapitalCities() throws SQLException {
-        return cityRepository.getCapitalCities(0);
+        return capitalCityRepository.getCapitalCities(0);
     }
 
-    // 2. Report: Top N capital cities
+    // Method 2.  Top N capital cities
     /**
      * Retrieves the top N most populated capital cities worldwide,
      * ordered by population from largest to smallest.
@@ -39,10 +51,10 @@ public class CapitalCityService {
             throw new IllegalArgumentException("Invalid input");
         }
 
-        return cityRepository.getCapitalCities(topN);
+        return capitalCityRepository.getCapitalCities(topN);
     }
 
-    // 3. All capitals in a continent
+    // Method 3. All capitals in a continent
     /**
      * Retrieves all capital cities in a specified continent,
      * ordered by population from largest to smallest.
@@ -54,10 +66,15 @@ public class CapitalCityService {
 
     public List<City> getCapitalCitiesByContinent(Continent continent)
             throws SQLException {
-        return cityRepository.getCapitalCitiesByContinent(continent, 0);
+
+        if (continent == null) {
+            throw new IllegalArgumentException("Continent is required");
+        }
+
+        return capitalCityRepository.getCapitalCitiesByContinent(continent, 0);
     }
 
-    // 4. Top N capitals in a continent
+    // Method 4. Top N capitals in a continent
     /**
      * Retrieves the top N capital cities in a given continent,
      * ordered by population in descending order.
@@ -79,10 +96,10 @@ public class CapitalCityService {
             throw new IllegalArgumentException("Continent is required");
         }
 
-        return cityRepository.getCapitalCitiesByContinent(continent, topN);
+        return capitalCityRepository.getCapitalCitiesByContinent(continent, topN);
     }
 
-    // 5. All capitals in a region
+    // Method 5. All capitals in a region
     /**
      * Retrieves all capital cities in a specified region,
      * ordered by population from largest to smallest.
@@ -94,10 +111,10 @@ public class CapitalCityService {
 
     public List<City> getCapitalCitiesByRegion(String region)
             throws SQLException {
-        return cityRepository.getCapitalCitiesByRegion(region, 0);
+        return capitalCityRepository.getCapitalCitiesByRegion(region, 0);
     }
 
-    // 6. Top N capitals in a region
+    // Methods 6. Top N capitals in a region
     /**
      * Retrieves the top N most populated capital cities in a specified region,
      * ordered by population from largest to smallest.
@@ -115,10 +132,10 @@ public class CapitalCityService {
             throw new IllegalArgumentException("Invalid input");
         }
 
-        if (region == null) {
+        if (region == null || region.isBlank()) {
             throw new IllegalArgumentException("Region is required");
         }
-        return cityRepository.getCapitalCitiesByRegion(region, topN);
+        return capitalCityRepository.getCapitalCitiesByRegion(region, topN);
     }
 
 }

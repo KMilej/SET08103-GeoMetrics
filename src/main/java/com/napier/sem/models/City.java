@@ -6,6 +6,7 @@ public class City {
     private String countryCode;
     private String district;
     private int population;
+    private String countryName;
 
     public City(){
 
@@ -71,6 +72,10 @@ public class City {
     public void setPopulation(int population) {
         this.population = population;
     }
+
+    public String getCountryName() {return countryName; }
+
+    public void setCountryName(String countryName) { this.countryName = countryName; }
 
     @Override
     public String toString() {
