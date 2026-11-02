@@ -1,112 +1,80 @@
 package com.napier.sem;
 
-import com.napier.sem.database.DatabaseConnection;
-import com.napier.sem.repositories.CityRepository;
-import com.napier.sem.services.CityService;
-import com.napier.sem.services.CapitalCityService;
-import com.napier.sem.models.City;
 import com.napier.sem.models.Continent;
+import com.napier.sem.models.City;
+import com.napier.sem.services.CapitalCityService;
+import com.napier.sem.reports.ReportFormatter;
+import com.napier.sem.services.PopulationService;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import static com.napier.sem.services.CityReportService.*;
+import static com.napier.sem.services.CountryService.*;
+import static com.napier.sem.services.CapitalCityReportService.*;
+
+
 import java.sql.SQLException;
+import java.util.List;
 
 public class App {
-    public static void main(String[] args) {
 
-//        CityRepository cityRepository = new CityRepository();
-        CapitalCityService capitalCityService = new CapitalCityService();
+    public static void main(String[] args) throws SQLException {
 
-        try {
-            // First 10 capital cities
-            System.out.println("=== First 10 Cities ===");
+        // UC01 - Country Reports
+        System.out.println(printAllCountriesByPopulation());
+        System.out.println(printCountriesByContinentByPopulation(Continent.EUROPE));
+        System.out.println(printCountriesByRegionByPopulation("Western Europe"));
+        System.out.println(printTopNCountriesInWorld(10));
+        System.out.println(printTopNCountriesByContinent(10, Continent.EUROPE));
+        System.out.println(printTopNCountriesByRegion(10, "Western Europe"));
 
-            for (City city : capitalCityService.getCapitalCities()) {
+        // UC02 - City Reports
+        System.out.println(getAllCitiesByPopulation());
+        System.out.println(getCitiesByContinentByPopulation(Continent.EUROPE));
+        System.out.println(getCitiesByRegionByPopulation("Western Europe"));
+        System.out.println(getCitiesByCountryByPopulation("GBR"));
+        System.out.println(getCitiesByDistrictByPopulation("Scotland"));
+        System.out.println(getTopNCitiesInWorld(10));
+        System.out.println(getTopNCitiesByContinent(10, Continent.EUROPE));
+        System.out.println(getTopNCitiesByRegion(10, "Western Europe"));
+        System.out.println(getTopNCitiesByCountry(10, "GBR"));
+        System.out.println(getTopNCitiesByDistrict(10, "Scotland"));
 
-                System.out.println(city.getName() + " - " + city.getPopulation());
-            }
+        // UC03 - Capital City Reports
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // 1. All capital cities in the world
+        System.out.println(printAllCapitalCitiesByPopulation());
 
+        // 2. All capital cities in a continent
+        System.out.println(printCapitalCitiesByContinentByPopulation(Continent.EUROPE));
 
-            // top 15 european capital cities
-        try {
-            System.out.println("\n=== Top 15 Capital Cities in Europe ===");
+        // 3. All capital cities in a region
+        System.out.println(printCapitalCitiesByRegionByPopulation("Caribbean"));
 
-            for (City city : capitalCityService.getTopNCapitalCitiesByContinent(15, Continent.EUROPE)) {
-                System.out.println(city.getName() + " - " + city.getPopulation());
-            }
+        // 4. Top N capital cities in the world
+        System.out.println(printTopNCapitalCitiesInWorld(10));
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // 5. Top N capital cities in a continent
+        System.out.println(printTopNCapitalCitiesByContinent(10, Continent.SOUTH_AMERICA));
 
-        // Top 20 capital cities by population
-        try {
-            System.out.println("\n=== Top 20 Capitals in the World ===");
+        // 6. Top N capital cities in a region
+        System.out.println(printTopNCapitalCitiesByRegion(5, "Polynesia"));
 
-            for (City city : capitalCityService.getTopNCapitalCities(20)) {
-                System.out.println(city.getName() + " - " + city.getPopulation());
-            }
+        // UC04 - Population Distribution Reports
+        // System.out.println(getUrbanAndRuralPopulationByContinent());
+        // System.out.println(getUrbanAndRuralPopulationByRegion());
+        // System.out.println(getUrbanAndRuralPopulationByCountry());
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // UC05 - Population Information
+        PopulationService populationService = new PopulationService();
+        populationService.getWorldPopulation();
+        populationService.getContinentPopulation(Continent.EUROPE);
+        populationService.getRegionPopulation("Western Europe");
+        populationService.getCountryPopulation("United Kingdom");
+        populationService.getDistrictPopulation("Scotland");
+        populationService.getCityPopulation("Edinburgh");
+        // UC06 - Language Population Report
+        // System.out.println(getLanguagePopulationReport());
 
-
-        // Top 10 capital cities by population in North America - getCapitalCitiesByContinent
-        try {
-            System.out.println("\n=== Top 10 Capitals in North America===");
-
-            for (City city : capitalCityService.getCapitalCitiesByContinent(Continent.NORTH_AMERICA)) {
-
-                System.out.println(city.getName() + " - " + city.getPopulation());
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Top 10 capital cities in Polynesia by population
-        try {
-            System.out.println("\n=== Top 10 Capitals in Polynesia ===");
-
-            for (City city : capitalCityService.getTopNCapitalCitiesByRegion("Polynesia", 10)) {
-                System.out.println(city.getName() + " - " + city.getPopulation());
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        // Top 10 capital cities in Africa by population
-        try {
-            System.out.println("\n=== Top 10 Capitals in Africa ===");
-
-            for (City city : capitalCityService.getTopNCapitalCitiesByContinent(10, Continent.AFRICA)) {
-                System.out.println(city.getName() + " - " + city.getPopulation());
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        //  get top 15 capitals in Australia and New Zealand - getTopNCapitalCitiesByRegion
-
-        try {
-            System.out.println("\n=== Top 15 Capitals in Australia and New Zealand ===");
-
-            for (City city : capitalCityService.getTopNCapitalCitiesByRegion("Australia and New Zealand", 15)) {
-                System.out.println(city.getName() + " - " + city.getPopulation());
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
+
 }
 
