@@ -13,6 +13,14 @@ public class LanguageReportService {
     private static final LanguageRepository repository =
             new LanguageRepository();
 
+    /**
+     * Retrieve total number of
+     * English, Chinese, Hindi, Spanish, Arabic, and Portuguese
+     * speakers and their percentage of world population from the database
+     *
+     * @return the formatted language population report
+     * @throws SQLException if a database access error occurs
+     */
     public static String getLanguagePopulationReport() throws SQLException {
         // Retrieve language data
         List<LanguageData> results =
@@ -24,12 +32,12 @@ public class LanguageReportService {
 
 
     /**
-     * Retrieve and display total number of
-     * English, Chinese, Hindi, Spanish, Arabic, and Portuguese
-     * speakers and their percentage of world population,
-     * ordered from highest to lowest number of speakers
-     * in a readable table
+     * Formats the language population statistic into a readable table
+     * Displays N/A for missing data and ensure unsupported languages
+     * are excluded
      *
+     * @param results the language statistic to format
+     * @return the formatted table
      */
     public static String formatLanguageReport(List<LanguageData> results){
 

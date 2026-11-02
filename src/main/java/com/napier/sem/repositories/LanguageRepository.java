@@ -15,7 +15,7 @@ public class LanguageRepository {
      *
      * @param language the name of the language
      * @param speakers define total number of speakers
-     * @param worldPercentage the total world percentage of people who speaks the language
+     * @param worldPercentage the world percentage of people who speaks the language
      */
         public record LanguageData(
                 String language,
@@ -37,9 +37,10 @@ public class LanguageRepository {
 
 
     /**
-     * Retrieves language statistic data from the database.
+     * Retrieves language statistic data from the database
+     * ordered in descending number of speakers
      *
-     * @return a list of language statistic ordered by number of speakers
+     * @return a list of language population statistic
      * @throws SQLException if a database access error occurs
      */
     public List<LanguageData> getLanguagePopulationData ()
@@ -51,7 +52,7 @@ public class LanguageRepository {
         // Get language defined by the enum
         Language[] languages = Language.values();
 
-        // Generale SQL placeholder for the languages
+        // Generate SQL placeholder for the languages
         String placeholders = String.join(
                 ", ", Collections.nCopies(languages.length, "?")
         );

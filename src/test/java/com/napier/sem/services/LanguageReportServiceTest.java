@@ -8,13 +8,13 @@ import com.napier.sem.repositories.LanguageRepository.LanguageData;
 
 public class LanguageReportServiceTest {
 
-    // Sample valid language data for unit testing
+    // Sample data with unsupported language
     private static final List<LanguageData> MOCK_DATA = List.of(
             new LanguageData("Japanese", 30000000L, 3.25),
             new LanguageData("French", 2000000L, 2.25)
     );
 
-    // Sample invalid language data for unit testing
+    // Sample data containing invalid or missing values.
     private static final List<LanguageData> INVALID_DATA = List.of(
             new LanguageData("Simlish", 1000000000L, 15.50),
             new LanguageData("Over Percentage", 500000000L, 110.00),
