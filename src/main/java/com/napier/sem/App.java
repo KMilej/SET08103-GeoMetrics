@@ -9,6 +9,7 @@ import com.napier.sem.services.PopulationService;
 import static com.napier.sem.services.CityReportService.*;
 import static com.napier.sem.services.CountryService.*;
 import static com.napier.sem.services.CapitalCityReportService.*;
+import static com.napier.sem.services.PopulationDistributionService.*;
 
 
 import java.sql.SQLException;
@@ -59,9 +60,9 @@ public class App {
         System.out.println(printTopNCapitalCitiesByRegion(5, "Polynesia"));
 
         // UC04 - Population Distribution Reports
-        // System.out.println(getUrbanAndRuralPopulationByContinent());
-        // System.out.println(getUrbanAndRuralPopulationByRegion());
-        // System.out.println(getUrbanAndRuralPopulationByCountry());
+         System.out.println(getUrbanAndRuralPopulationByContinent(Continent.ASIA));
+         System.out.println(getUrbanAndRuralPopulationByRegion("Western Europe"));
+         System.out.println(getUrbanAndRuralPopulationByCountry("POL"));
 
         // UC05 - Population Information
         PopulationService populationService = new PopulationService();
