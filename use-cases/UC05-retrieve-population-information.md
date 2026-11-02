@@ -8,11 +8,9 @@
 
 ### Scope
 
-   Geo-metrics System 
 
 ### Level
 
-   Primary task
 
 ### Preconditions
 
@@ -63,5 +61,3 @@
 5. The population of a district.
 6. The population of a city.
 ## SCHEDULE
-
-   Due Date TBC:
