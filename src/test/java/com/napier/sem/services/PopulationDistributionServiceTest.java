@@ -12,12 +12,6 @@ class PopulationDistributionServiceTest {
     private final PopulationRepository repository =
             new PopulationRepository();
 
-    // Global expected population data shared across the test
-    private static final List<PopulationDistributionData> EXPECTED = List.of(
-            new PopulationDistributionData("Germany", 82164700L, 26245483L),
-            new PopulationDistributionData("France", 59225700L, 9244494L)
-    );
-
     // Sample valid population data for unit testing
     private static final List<PopulationDistributionData> MOCK_DATA = List.of(
             new PopulationDistributionData("United Kingdom", 60000000L, 48000000L),
