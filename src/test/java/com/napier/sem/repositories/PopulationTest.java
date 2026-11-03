@@ -12,6 +12,8 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,9 +30,14 @@ import static org.mockito.Mockito.*;
         private PreparedStatement mockStatement;
         private ResultSet mockResultSet;
         private AutoCloseable closeable; // Add this line
+        private PrintStream originalOut;
+        private PrintStream suppressedOut;
 
         @BeforeEach
         public void setUp() throws SQLException {
+            originalOut = System.out;
+            suppressedOut = new PrintStream(OutputStream.nullOutputStream());
+            System.setOut(suppressedOut);
             // Initialize Mockito session cleanly
             closeable = MockitoAnnotations.openMocks(this);
 
@@ -47,6 +54,8 @@ import static org.mockito.Mockito.*;
 
         @AfterEach
         public void tearDown() throws Exception {
+            System.setOut(originalOut);
+            suppressedOut.close();
             closeable.close();
         }
     /**

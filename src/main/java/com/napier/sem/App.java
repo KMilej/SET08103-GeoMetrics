@@ -30,12 +30,12 @@ public class App {
         System.out.println(getAllCitiesByPopulation());
         System.out.println(getCitiesByContinentByPopulation(Continent.EUROPE));
         System.out.println(getCitiesByRegionByPopulation("Western Europe"));
-        System.out.println(getCitiesByCountryByPopulation("GBR"));
+        System.out.println(getCitiesByCountryByPopulation("United Kingdom"));
         System.out.println(getCitiesByDistrictByPopulation("Scotland"));
         System.out.println(getTopNCitiesInWorld(10));
         System.out.println(getTopNCitiesByContinent(10, Continent.EUROPE));
         System.out.println(getTopNCitiesByRegion(10, "Western Europe"));
-        System.out.println(getTopNCitiesByCountry(10, "GBR"));
+        System.out.println(getTopNCitiesByCountry(10, "United Kingdom"));
         System.out.println(getTopNCitiesByDistrict(10, "Scotland"));
 
         // UC03 - Capital City Reports
@@ -61,7 +61,7 @@ public class App {
         // UC04 - Population Distribution Reports
          System.out.println(getUrbanAndRuralPopulationByContinent(Continent.ASIA));
          System.out.println(getUrbanAndRuralPopulationByRegion("Western Europe"));
-         System.out.println(getUrbanAndRuralPopulationByCountry("POL"));
+         System.out.println(getUrbanAndRuralPopulationByCountry("Poland"));
 
         // UC05 - Population Information
         PopulationService populationService = new PopulationService();

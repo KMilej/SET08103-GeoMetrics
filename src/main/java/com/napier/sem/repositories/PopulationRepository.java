@@ -26,7 +26,7 @@ public class PopulationRepository {
      * Retrieves population data for a selected geographical scope.
      *
      * @param scope the geographical scope
-     * @param location the continent, region or country code
+     * @param location the continent, region or country name
      * @return a list of population data
      * @throws IllegalArgumentException if the location or scope is null or empty
      * @throws SQLException if a database access error occurs
@@ -47,7 +47,7 @@ public class PopulationRepository {
         String filter = switch (scope) {
             case "CONTINENT" -> "c.Continent = ?";
             case "REGION" -> "c.Region = ?";
-            case "COUNTRY" -> "c.Code = ?";
+            case "COUNTRY" -> "c.Name = ?";
             default -> throw new IllegalArgumentException(
                     "Invalid scope: " + scope
             );
