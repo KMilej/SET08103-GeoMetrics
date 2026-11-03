@@ -1,29 +1,80 @@
 package com.napier.sem;
 
-import com.mongodb.MongoClient;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.MongoCollection;
-import org.bson.Document;
+import com.napier.sem.models.Continent;
+import com.napier.sem.models.City;
+import com.napier.sem.services.CapitalCityService;
+import com.napier.sem.reports.ReportFormatter;
+import com.napier.sem.services.PopulationService;
 
-public class App  {
-    public static void main(String[] args) {
-        // Connect to MongoDB on local system - we're using port 27000
-        MongoClient mongoClient = new MongoClient("mongo-dbserver");
-        // Get a database - will create when we use it
-        MongoDatabase database = mongoClient.getDatabase("mydb");
-        // Get a collection from the database
-        MongoCollection<Document> collection = database.getCollection("test");
-        // Create a document to store
-        Document doc = new Document("name", "GeoMetrics")
-                .append("class", "Software Engineering Methods")
-                .append("year", "2026")
-                .append("result", new Document("CW", 95).append("EX", 85));
-        // Add document to collection
-        collection.insertOne(doc);
+import static com.napier.sem.services.CityReportService.*;
+import static com.napier.sem.services.CountryService.*;
+import static com.napier.sem.services.CapitalCityReportService.*;
+import static com.napier.sem.services.PopulationDistributionService.*;
+import static com.napier.sem.services.LanguageReportService.getLanguagePopulationReport;
 
-        // Check document in collection
-        Document myDoc = collection.find().first();
-        System.out.println(myDoc.toJson());
-        System.out.println("Hello world!");
+
+import java.sql.SQLException;
+import static com.napier.sem.services.LanguageReportService.getLanguagePopulationReport;
+
+public class App {
+    public static void main(String[] args) throws SQLException {
+        // UC01 - Country Reports
+        System.out.println(printAllCountriesByPopulation());
+        System.out.println(printCountriesByContinentByPopulation(Continent.EUROPE));
+        System.out.println(printCountriesByRegionByPopulation("Western Europe"));
+        System.out.println(printTopNCountriesInWorld(10));
+        System.out.println(printTopNCountriesByContinent(10, Continent.EUROPE));
+        System.out.println(printTopNCountriesByRegion(10, "Western Europe"));
+
+        // UC02 - City Reports
+        System.out.println(getAllCitiesByPopulation());
+        System.out.println(getCitiesByContinentByPopulation(Continent.EUROPE));
+        System.out.println(getCitiesByRegionByPopulation("Western Europe"));
+        System.out.println(getCitiesByCountryByPopulation("GBR"));
+        System.out.println(getCitiesByDistrictByPopulation("Scotland"));
+        System.out.println(getTopNCitiesInWorld(10));
+        System.out.println(getTopNCitiesByContinent(10, Continent.EUROPE));
+        System.out.println(getTopNCitiesByRegion(10, "Western Europe"));
+        System.out.println(getTopNCitiesByCountry(10, "GBR"));
+        System.out.println(getTopNCitiesByDistrict(10, "Scotland"));
+
+        // UC03 - Capital City Reports
+
+        // 1. All capital cities in the world
+        System.out.println(printAllCapitalCitiesByPopulation());
+
+        // 2. All capital cities in a continent
+        System.out.println(printCapitalCitiesByContinentByPopulation(Continent.EUROPE));
+
+        // 3. All capital cities in a region
+        System.out.println(printCapitalCitiesByRegionByPopulation("Caribbean"));
+
+        // 4. Top N capital cities in the world
+        System.out.println(printTopNCapitalCitiesInWorld(10));
+
+        // 5. Top N capital cities in a continent
+        System.out.println(printTopNCapitalCitiesByContinent(10, Continent.SOUTH_AMERICA));
+
+        // 6. Top N capital cities in a region
+        System.out.println(printTopNCapitalCitiesByRegion(5, "Polynesia"));
+
+        // UC04 - Population Distribution Reports
+         System.out.println(getUrbanAndRuralPopulationByContinent(Continent.ASIA));
+         System.out.println(getUrbanAndRuralPopulationByRegion("Western Europe"));
+         System.out.println(getUrbanAndRuralPopulationByCountry("POL"));
+
+        // UC05 - Population Information
+        PopulationService populationService = new PopulationService();
+        populationService.getWorldPopulation();
+        populationService.getContinentPopulation(Continent.EUROPE);
+        populationService.getRegionPopulation("Western Europe");
+        populationService.getCountryPopulation("United Kingdom");
+        populationService.getDistrictPopulation("Scotland");
+        populationService.getCityPopulation("Edinburgh");
+
+        // UC06 - Language Population Report
+        System.out.println(getLanguagePopulationReport());
+
     }
+
 }

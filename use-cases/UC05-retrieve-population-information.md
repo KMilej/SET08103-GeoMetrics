@@ -51,7 +51,7 @@ A request for a certain population report
 
 ## EXTENSIONS
 
-3. If connection fails
+3. If connection fails 
     1. System will send an error back to the analyst to say there is no report to be found
 
 ## SUB-VARIATIONS
@@ -64,4 +64,4 @@ A request for a certain population report
 6. The population of a city.
 ## SCHEDULE
 
-Due Date TBC
+   Due Date TBC:
