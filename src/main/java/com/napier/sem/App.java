@@ -12,18 +12,19 @@ import static com.napier.sem.services.CapitalCityReportService.*;
 import static com.napier.sem.services.PopulationDistributionService.*;
 import static com.napier.sem.services.LanguageReportService.getLanguagePopulationReport;
 
+
 import java.sql.SQLException;
 import static com.napier.sem.services.LanguageReportService.getLanguagePopulationReport;
 
 public class App {
     public static void main(String[] args) throws SQLException {
-        // // UC01 - Country Reports
-        // System.out.println(printAllCountriesByPopulation());
-        // System.out.println(printCountriesByContinentByPopulation(Continent.EUROPE));
-        // System.out.println(printCountriesByRegionByPopulation("Western Europe"));
-        // System.out.println(printTopNCountriesInWorld(10));
-        // System.out.println(printTopNCountriesByContinent(10, Continent.EUROPE));
-        // System.out.println(printTopNCountriesByRegion(10, "Western Europe"));
+        // UC01 - Country Reports
+        System.out.println(printAllCountriesByPopulation());
+        System.out.println(printCountriesByContinentByPopulation(Continent.EUROPE));
+        System.out.println(printCountriesByRegionByPopulation("Western Europe"));
+        System.out.println(printTopNCountriesInWorld(10));
+        System.out.println(printTopNCountriesByContinent(10, Continent.EUROPE));
+        System.out.println(printTopNCountriesByRegion(10, "Western Europe"));
 
         // UC02 - City Reports
         System.out.println(getAllCitiesByPopulation());
@@ -37,43 +38,42 @@ public class App {
         System.out.println(getTopNCitiesByCountry(10, "United Kingdom"));
         System.out.println(getTopNCitiesByDistrict(10, "Scotland"));
 
-        // // UC03 - Capital City Reports
+        // UC03 - Capital City Reports
 
-        // // 1. All capital cities in the world
-        // System.out.println(printAllCapitalCitiesByPopulation());
+        // 1. All capital cities in the world
+        System.out.println(printAllCapitalCitiesByPopulation());
 
-        // // 2. All capital cities in a continent
-        // System.out.println(printCapitalCitiesByContinentByPopulation(Continent.EUROPE));
+        // 2. All capital cities in a continent
+        System.out.println(printCapitalCitiesByContinentByPopulation(Continent.EUROPE));
 
-        // // 3. All capital cities in a region
-        // System.out.println(printCapitalCitiesByRegionByPopulation("Caribbean"));
+        // 3. All capital cities in a region
+        System.out.println(printCapitalCitiesByRegionByPopulation("Caribbean"));
 
-        // // 4. Top N capital cities in the world
-        // System.out.println(printTopNCapitalCitiesInWorld(10));
+        // 4. Top N capital cities in the world
+        System.out.println(printTopNCapitalCitiesInWorld(10));
 
-        // // 5. Top N capital cities in a continent
-        // System.out.println(printTopNCapitalCitiesByContinent(10,
-        // Continent.SOUTH_AMERICA));
+        // 5. Top N capital cities in a continent
+        System.out.println(printTopNCapitalCitiesByContinent(10, Continent.SOUTH_AMERICA));
 
-        // // 6. Top N capital cities in a region
-        // System.out.println(printTopNCapitalCitiesByRegion(5, "Polynesia"));
+        // 6. Top N capital cities in a region
+        System.out.println(printTopNCapitalCitiesByRegion(5, "Polynesia"));
 
-        // // UC04 - Population Distribution Reports
-        // System.out.println(getUrbanAndRuralPopulationByContinent(Continent.ASIA));
-        // System.out.println(getUrbanAndRuralPopulationByRegion("Western Europe"));
-        System.out.println(getUrbanAndRuralPopulationByCountry("Poland"));
+        // UC04 - Population Distribution Reports
+         System.out.println(getUrbanAndRuralPopulationByContinent(Continent.ASIA));
+         System.out.println(getUrbanAndRuralPopulationByRegion("Western Europe"));
+         System.out.println(getUrbanAndRuralPopulationByCountry("Poland"));
 
-        // // UC05 - Population Information
-        // PopulationService populationService = new PopulationService();
-        // populationService.getWorldPopulation();
-        // populationService.getContinentPopulation(Continent.EUROPE);
-        // populationService.getRegionPopulation("Western Europe");
-        // populationService.getCountryPopulation("United Kingdom");
-        // populationService.getDistrictPopulation("Scotland");
-        // populationService.getCityPopulation("Edinburgh");
+        // UC05 - Population Information
+        PopulationService populationService = new PopulationService();
+        populationService.getWorldPopulation();
+        populationService.getContinentPopulation(Continent.EUROPE);
+        populationService.getRegionPopulation("Western Europe");
+        populationService.getCountryPopulation("United Kingdom");
+        populationService.getDistrictPopulation("Scotland");
+        populationService.getCityPopulation("Edinburgh");
 
-        // // UC06 - Language Population Report
-        // System.out.println(getLanguagePopulationReport());
+        // UC06 - Language Population Report
+        System.out.println(getLanguagePopulationReport());
 
     }
 
