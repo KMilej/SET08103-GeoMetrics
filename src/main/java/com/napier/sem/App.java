@@ -61,7 +61,7 @@ public class App {
         // // UC04 - Population Distribution Reports
         // System.out.println(getUrbanAndRuralPopulationByContinent(Continent.ASIA));
         // System.out.println(getUrbanAndRuralPopulationByRegion("Western Europe"));
-        // System.out.println(getUrbanAndRuralPopulationByCountry("POL"));
+        System.out.println(getUrbanAndRuralPopulationByCountry("Poland"));
 
         // // UC05 - Population Information
         // PopulationService populationService = new PopulationService();

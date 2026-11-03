@@ -9,8 +9,7 @@ import java.util.List;
 
 public class PopulationDistributionService {
 
-    private static final PopulationRepository repository =
-            new PopulationRepository();
+    private static final PopulationRepository repository = new PopulationRepository();
 
     /**
      * Retrieves opulation of people, people living in cities, and people
@@ -19,76 +18,65 @@ public class PopulationDistributionService {
      * @param continent the selected continent
      * @return population distribution data
      * @throws IllegalArgumentException if continent is null
-     * @throws SQLException if a database access error occurs
+     * @throws SQLException             if a database access error occurs
      */
     public static String getUrbanAndRuralPopulationByContinent(
             Continent continent) throws SQLException {
 
         if (continent == null) {
             throw new IllegalArgumentException(
-                    "Continent is required"
-            );
+                    "Continent is required");
         }
 
-        List<PopulationDistributionData> data =
-                repository.getPopulationDistributionData (
-                    "CONTINENT",
-                    continent.name().replace("_", " ")
-                );
-
-        return formatPopulationDistributionTable(data);
-    }
-
-    /**
-     * Retrieves  population of people, people living in cities,
-     * and people not living in cities in each region.
-     *
-     * @param region the selected region
-     * @return population distribution data
-     * @throws IllegalArgumentException if region is null or blank
-     * @throws SQLException if a database access error occurs
-     */
-
-    public static String getUrbanAndRuralPopulationByRegion(
-            String region) throws SQLException{
-
-        if (region == null || region.isBlank()) {
-            throw new IllegalArgumentException(
-                    "Region is required"
-            );
-        }
-
-        List<PopulationDistributionData> data =
-                repository.getPopulationDistributionData("REGION", region);
+        List<PopulationDistributionData> data = repository.getPopulationDistributionData(
+                "CONTINENT",
+                continent.name().replace("_", " "));
 
         return formatPopulationDistributionTable(data);
     }
 
     /**
      * Retrieves population of people, people living in cities,
-     * and people not living in cities in a country.
+     * and people not living in cities in each region.
      *
-     * @param countryCode the selected country code
+     * @param region the selected region
      * @return population distribution data
-     * @throws IllegalArgumentException if country code is null or blank
-     * @throws SQLException if a database access error occurs
+     * @throws IllegalArgumentException if region is null or blank
+     * @throws SQLException             if a database access error occurs
      */
-    public static String getUrbanAndRuralPopulationByCountry(
-            String countryCode) throws SQLException{
 
-        if (countryCode == null || countryCode.isBlank()) {
+    public static String getUrbanAndRuralPopulationByRegion(
+            String region) throws SQLException {
+
+        if (region == null || region.isBlank()) {
             throw new IllegalArgumentException(
-                    "Country Code is required"
-            );
+                    "Region is required");
         }
 
-        List<PopulationDistributionData>
-                data = repository.getPopulationDistributionData
-                ("COUNTRY", countryCode);
+        List<PopulationDistributionData> data = repository.getPopulationDistributionData("REGION", region);
 
         return formatPopulationDistributionTable(data);
     }
 
+    /**
+     * Retrieves urban and rural population data for a country.
+     *
+     * @param countryName the full country name, for example Poland
+     * @return population distribution report
+     * @throws IllegalArgumentException if country name is null or blank
+     * @throws SQLException             if a database access error occurs
+     */
+    public static String getUrbanAndRuralPopulationByCountry(
+            String countryName) throws SQLException {
+
+        if (countryName == null || countryName.isBlank()) {
+            throw new IllegalArgumentException("Country name is required");
+        }
+
+        List<PopulationDistributionData> data = repository.getPopulationDistributionData("COUNTRY", countryName);
+
+        return formatPopulationDistributionTable(data);
+    }
 
     /**
      * Formats population data into a readable table.
@@ -114,8 +102,7 @@ public class PopulationDistributionService {
                 "City Population",
                 "Non-City Pop.",
                 "City %",
-                "Non-City %"
-        ));
+                "Non-City %"));
 
         // Separator
         table.append("-".repeat(116)).append("\n");
@@ -147,12 +134,10 @@ public class PopulationDistributionService {
                 nonCityText = String.format("%,d", nonCity);
 
                 cityPercent = String.format(
-                        "%.2f%%", (double) city / total * 100
-                );
+                        "%.2f%%", (double) city / total * 100);
 
                 nonCityPercent = String.format(
-                        "%.2f%%", (double) nonCity / total * 100
-                );
+                        "%.2f%%", (double) nonCity / total * 100);
 
             }
 
@@ -162,8 +147,7 @@ public class PopulationDistributionService {
                     cityText,
                     nonCityText,
                     cityPercent,
-                    nonCityPercent
-            ));
+                    nonCityPercent));
         }
         table.append("_".repeat(116)).append("\n");
 
