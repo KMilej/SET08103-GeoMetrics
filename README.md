@@ -1,6 +1,6 @@
 # SET08103-GeoMatrics
 
-[![GeoMetrics Build](https://github.com/KMilej/SET08103-GeoMetrics/actions/workflows/main.yml/badge.svg?branch=Owen)](https://github.com/KMilej/SET08103-GeoMetrics/actions/workflows/main.yml)
+[![GeoMetrics Build](https://github.com/KMilej/SET08103-GeoMetrics/actions/workflows/main.yml/badge.svg?branch=develop)](https://github.com/KMilej/SET08103-GeoMetrics/actions/workflows/main.yml)
 
 [![GeoMetrics Build](https://github.com/KMilej/SET08103-GeoMetrics/actions/workflows/main.yml/badge.svg?branch=Owen)](https://github.com/KMilej/SET08103-GeoMetrics/actions/workflows/main.yml)
 
