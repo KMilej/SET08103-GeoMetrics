@@ -39,6 +39,7 @@ jobs:
       - name: Build with Maven
         env:
           RUN_COUNTRY_INTEGRATION_TESTS: "true"
+          RUN_CITY_INTEGRATION_TESTS: "true"
         run: mvn clean package
 
       # Run the application
