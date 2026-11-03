@@ -10,15 +10,14 @@ import static com.napier.sem.services.CityReportService.*;
 import static com.napier.sem.services.CountryService.*;
 import static com.napier.sem.services.CapitalCityReportService.*;
 import static com.napier.sem.services.PopulationDistributionService.*;
+import static com.napier.sem.services.LanguageReportService.getLanguagePopulationReport;
 
 
 import java.sql.SQLException;
-import java.util.List;
+import static com.napier.sem.services.LanguageReportService.getLanguagePopulationReport;
 
 public class App {
-
     public static void main(String[] args) throws SQLException {
-
         // UC01 - Country Reports
         System.out.println(printAllCountriesByPopulation());
         System.out.println(printCountriesByContinentByPopulation(Continent.EUROPE));
@@ -78,4 +77,3 @@ public class App {
     }
 
 }
-
