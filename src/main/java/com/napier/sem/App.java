@@ -71,8 +71,9 @@ public class App {
         populationService.getCountryPopulation("United Kingdom");
         populationService.getDistrictPopulation("Scotland");
         populationService.getCityPopulation("Edinburgh");
+
         // UC06 - Language Population Report
-        // System.out.println(getLanguagePopulationReport());
+        System.out.println(getLanguagePopulationReport());
 
     }
 

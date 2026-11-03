@@ -1,4 +1,6 @@
+
 name: GeoMetrics Build
+
 on: push
 
 jobs:
@@ -15,11 +17,12 @@ jobs:
         with:
           java-version: '23'
           distribution: 'temurin'
-      # Start MySQL before running integration tests
+
+      # Start MySQL
       - name: Start MySQL
         run: docker compose up -d db
 
-      # Wait for the database to become ready
+      # Wait for MySQL to become ready
       - name: Wait for MySQL
         run: |
           for i in {1..30}; do
@@ -32,23 +35,20 @@ jobs:
           echo "MySQL did not become ready"
           exit 1
 
-      - name: Start MySQL for city tests
-        run: docker compose up -d --wait db
-
-
-      - name: Run tests
-        run: mvn test
-
+      # Build and run tests
       - name: Build with Maven
-        run: mvn package
+        run: mvn clean package
 
+      # Run the application
       - name: Run application with MySQL
         run: docker compose up --build --abort-on-container-exit --exit-code-from app
 
+      # Show Docker logs
       - name: View logs
         if: always()
         run: docker compose logs
 
+      # Clean up containers
       - name: Stop containers
         if: always()
         run: docker compose down
