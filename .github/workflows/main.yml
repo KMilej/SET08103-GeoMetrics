@@ -22,7 +22,7 @@ jobs:
       - name: Start MySQL
         run: docker compose up -d db
 
-      # Wait for MySQL
+      # Wait for MySQL to become ready
       - name: Wait for MySQL
         run: |
           for i in {1..30}; do
