@@ -4,44 +4,44 @@
 
 ### Goal in Context
 
-   As an analyst, I want to retrieve different population data based on country, city, district, continent, region and the whole world, this is so that I can view the population of the selected city, country, etc  
+As an analyst, I want to retrieve different population data based on country, city, district, continent, region and the whole world, this is so that I can view the population of the selected city, country, etc
 
 ### Scope
 
-   Geo-metrics System 
+System (black-box)
 
 ### Level
 
-   Primary task
+User Goal
 
 ### Preconditions
 
-   - The Analyst has access to the application
-   - An active connection between the application and the database
-   - Database contains the required country data
+- The Analyst has access to the application
+- An active connection between the application and the database
+- Database contains the required country data
 
 ### Success End Condition
 
-   A Report that generates based on the analysts choice when running the application
-   The reports should be one of:
-   - Retrieve and Generate Country Population Report
-   - Retrieve and Generate District Population Report
-   -  Retrieve and Generate City Population Report
-   -  Retrieve and Generate Continent Population Report
-   -  Retrieve and Generate Region Population Report
-   -  Retrieve and Generate The Entire World Population Report
+A Report that generates based on the analysts choice when running the application
+The reports should be one of:
+- Retrieve and Generate Country Population Report
+- Retrieve and Generate District Population Report
+-  Retrieve and Generate City Population Report
+-  Retrieve and Generate Continent Population Report
+-  Retrieve and Generate Region Population Report
+-  Retrieve and Generate The Entire World Population Report
 
 ### Failed End Condition
 
-   - Any Of The Reports Don't Generate
+- Any Of The Reports Don't Generate
 
 ### Primary Actor
 
-   Analyst
+Analyst
 
 ### Trigger
 
-   A request for a certain population report
+A request for a certain population report
 
 ## MAIN SUCCESS SCENARIO
 
