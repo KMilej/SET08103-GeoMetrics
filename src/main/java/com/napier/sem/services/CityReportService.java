@@ -55,7 +55,7 @@ public class CityReportService {
      *
      * @param continent the selected continent
      * @return the report text, or a message if no cities are found
-     * @throws SQLException             if the database query fails
+     * @throws SQLException if the database query fails
      * @throws IllegalArgumentException if the continent is null
      */
     public static String getCitiesByContinentByPopulation(Continent continent) throws SQLException {
@@ -72,7 +72,7 @@ public class CityReportService {
      *
      * @param region the region name, for example Western Europe
      * @return the report text, or a message if no cities are found
-     * @throws SQLException             if the database query fails
+     * @throws SQLException if the database query fails
      * @throws IllegalArgumentException if the region is null or blank
      */
     public static String getCitiesByRegionByPopulation(String region) throws SQLException {
@@ -87,7 +87,7 @@ public class CityReportService {
      *
      * @param countryName the country name, for example United Kingdom
      * @return the report text, or a message if no cities are found
-     * @throws SQLException             if the database query fails
+     * @throws SQLException if the database query fails
      * @throws IllegalArgumentException if the country name is null or blank
      */
     public static String getCitiesByCountryByPopulation(String countryName) throws SQLException {
@@ -102,7 +102,7 @@ public class CityReportService {
      *
      * @param district the district name, for example Scotland
      * @return the report text, or a message if no cities are found
-     * @throws SQLException             if the database query fails
+     * @throws SQLException if the database query fails
      * @throws IllegalArgumentException if the district is null or blank
      */
     public static String getCitiesByDistrictByPopulation(String district) throws SQLException {
@@ -117,7 +117,7 @@ public class CityReportService {
      *
      * @param topN the maximum number of cities to show
      * @return the report text, or a message if no cities are found
-     * @throws SQLException             if the database query fails
+     * @throws SQLException if the database query fails
      * @throws IllegalArgumentException if N is zero or negative
      */
     public static String getTopNCitiesInWorld(int topN) throws SQLException {
@@ -130,12 +130,11 @@ public class CityReportService {
     /**
      * Creates a report of the top N cities in a continent.
      *
-     * @param topN      the maximum number of cities to show
+     * @param topN the maximum number of cities to show
      * @param continent the selected continent
      * @return the report text, or a message if no cities are found
-     * @throws SQLException             if the database query fails
-     * @throws IllegalArgumentException if N is not positive or the continent is
-     *                                  null
+     * @throws SQLException if the database query fails
+     * @throws IllegalArgumentException if N is not positive or the continent is null
      */
     public static String getTopNCitiesByContinent(int topN, Continent continent) throws SQLException {
         checkTopN(topN);
@@ -150,12 +149,11 @@ public class CityReportService {
     /**
      * Creates a report of the top N cities in a region.
      *
-     * @param topN   the maximum number of cities to show
+     * @param topN the maximum number of cities to show
      * @param region the region name
      * @return the report text, or a message if no cities are found
-     * @throws SQLException             if the database query fails
-     * @throws IllegalArgumentException if N is not positive or the region is null
-     *                                  or blank
+     * @throws SQLException if the database query fails
+     * @throws IllegalArgumentException if N is not positive or the region is null or blank
      */
     public static String getTopNCitiesByRegion(int topN, String region) throws SQLException {
         checkTopN(topN);
@@ -168,12 +166,11 @@ public class CityReportService {
     /**
      * Creates a report of the top N cities in a country.
      *
-     * @param topN        the maximum number of cities to show
+     * @param topN the maximum number of cities to show
      * @param countryName the country name, for example United Kingdom
      * @return the report text, or a message if no cities are found
-     * @throws SQLException             if the database query fails
-     * @throws IllegalArgumentException if N is not positive or the country name is
-     *                                  null or blank
+     * @throws SQLException if the database query fails
+     * @throws IllegalArgumentException if N is not positive or the country name is null or blank
      */
     public static String getTopNCitiesByCountry(int topN, String countryName) throws SQLException {
         checkTopN(topN);
@@ -186,12 +183,11 @@ public class CityReportService {
     /**
      * Creates a report of the top N cities in a district.
      *
-     * @param topN     the maximum number of cities to show
+     * @param topN the maximum number of cities to show
      * @param district the district name
      * @return the report text, or a message if no cities are found
-     * @throws SQLException             if the database query fails
-     * @throws IllegalArgumentException if N is not positive or the district is null
-     *                                  or blank
+     * @throws SQLException if the database query fails
+     * @throws IllegalArgumentException if N is not positive or the district is null or blank
      */
     public static String getTopNCitiesByDistrict(int topN, String district) throws SQLException {
         checkTopN(topN);
@@ -217,7 +213,7 @@ public class CityReportService {
      * Checks that a location has been provided.
      *
      * @param location the location to check
-     * @param name     the field name used in the error message
+     * @param name the field name used in the error message
      * @throws IllegalArgumentException if the location is null or blank
      */
     private static void checkLocation(String location, String name) {
