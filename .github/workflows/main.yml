@@ -22,7 +22,7 @@ jobs:
       - name: Start MySQL
         run: docker compose up -d db
 
-      # Wait for MySQL to become ready
+      # Wait for MySQL
       - name: Wait for MySQL
         run: |
           for i in {1..30}; do
@@ -37,6 +37,8 @@ jobs:
 
       # Build and run tests
       - name: Build with Maven
+        env:
+          RUN_COUNTRY_INTEGRATION_TESTS: "true"
         run: mvn clean package
 
       # Run the application
