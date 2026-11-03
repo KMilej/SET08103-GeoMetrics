@@ -32,18 +32,29 @@ public class CityReportRepository {
     public List<City> getAllCitiesByPopulation() throws SQLException {
         List<City> cities = new ArrayList<>();
 
-        String sql = "SELECT ID, Name, CountryCode, District, Population FROM city ORDER BY Population DESC";
+        String sql = """
+                SELECT city.ID, city.Name,
+                       country.Name AS CountryName,
+                       city.District, city.Population
+                FROM city
+                JOIN country ON city.CountryCode = country.Code
+                ORDER BY city.Population DESC
+                """;
 
         try (Connection connection = DatabaseConnection.connect();
                 PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet result = statement.executeQuery()) {
             while (result.next()) {
-                cities.add(new City(
-                        result.getInt("ID"),
-                        result.getString("Name"),
-                        result.getString("CountryCode"),
-                        result.getString("District"),
-                        result.getInt("Population")));
+                City city = new City();
+
+                city.setId(result.getInt("ID"));
+                city.setName(result.getString("Name"));
+                city.setCountryName(result.getString("CountryName"));
+                city.setDistrict(result.getString("District"));
+                city.setPopulation(result.getInt("Population"));
+
+                cities.add(city);
+
             }
 
         }
@@ -58,14 +69,18 @@ public class CityReportRepository {
      * @throws SQLException if the database query fails
      */
     public List<City> getCitiesByContinentByPopulation(Continent continent) throws SQLException {
-        String sql = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population"
-                + " FROM city"
-                + " JOIN country ON city.CountryCode = country.Code"
-                + " WHERE country.Continent = ?"
-                + " ORDER BY city.Population DESC";
+        String sql = """
+                SELECT city.ID, city.Name,
+                       country.Name AS CountryName,
+                       city.District, city.Population
+                FROM city
+                JOIN country ON city.CountryCode = country.Code
+                WHERE country.Continent = ?
+                ORDER BY city.Population DESC
+                """;
 
         try (Connection connection = DatabaseConnection.connect();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, continent.name().replace("_", " "));
 
             try (ResultSet result = statement.executeQuery()) {
@@ -82,14 +97,18 @@ public class CityReportRepository {
      * @throws SQLException if the database query fails
      */
     public List<City> getCitiesByRegionByPopulation(String region) throws SQLException {
-        String sql = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population"
-                + " FROM city"
-                + " JOIN country ON city.CountryCode = country.Code"
-                + " WHERE country.Region = ?"
-                + " ORDER BY city.Population DESC";
+        String sql = """
+                SELECT city.ID, city.Name,
+                       country.Name AS CountryName,
+                       city.District, city.Population
+                FROM city
+                JOIN country ON city.CountryCode = country.Code
+                WHERE country.Region = ?
+                ORDER BY city.Population DESC
+                """;
 
         try (Connection connection = DatabaseConnection.connect();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, region);
 
             try (ResultSet result = statement.executeQuery()) {
@@ -101,19 +120,25 @@ public class CityReportRepository {
     /**
      * Retrieves all cities in the selected country.
      *
-     * @param countryCode the three-letter country code, for example GBR
+     * @param countryName the full country name, for example United Kingdom
      * @return cities ordered by descending population; an empty list if none match
      * @throws SQLException if the database query fails
      */
-    public List<City> getCitiesByCountryByPopulation(String countryCode) throws SQLException {
-        String sql = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population"
-                + " FROM city"
-                + " WHERE city.CountryCode = ?"
-                + " ORDER BY city.Population DESC";
+    public List<City> getCitiesByCountryByPopulation(String countryName)
+            throws SQLException {
+        String sql = """
+                SELECT city.ID, city.Name,
+                       country.Name AS CountryName,
+                       city.District, city.Population
+                FROM city
+                JOIN country ON city.CountryCode = country.Code
+                WHERE country.Name = ?
+                ORDER BY city.Population DESC
+                """;
 
         try (Connection connection = DatabaseConnection.connect();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, countryCode);
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, countryName);
 
             try (ResultSet result = statement.executeQuery()) {
                 return readCities(result);
@@ -129,13 +154,18 @@ public class CityReportRepository {
      * @throws SQLException if the database query fails
      */
     public List<City> getCitiesByDistrictByPopulation(String district) throws SQLException {
-        String sql = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population"
-                + " FROM city"
-                + " WHERE city.District = ?"
-                + " ORDER BY city.Population DESC";
+        String sql = """
+                SELECT city.ID, city.Name,
+                       country.Name AS CountryName,
+                       city.District, city.Population
+                FROM city
+                JOIN country ON city.CountryCode = country.Code
+                WHERE city.District = ?
+                ORDER BY city.Population DESC
+                """;
 
         try (Connection connection = DatabaseConnection.connect();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, district);
 
             try (ResultSet result = statement.executeQuery()) {
@@ -152,13 +182,18 @@ public class CityReportRepository {
      * @throws SQLException if the database query fails
      */
     public List<City> getTopNCitiesInWorld(int topN) throws SQLException {
-        String sql = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population"
-                + " FROM city"
-                + " ORDER BY city.Population DESC"
-                + " LIMIT ?";
+        String sql = """
+                SELECT city.ID, city.Name,
+                       country.Name AS CountryName,
+                       city.District, city.Population
+                FROM city
+                JOIN country ON city.CountryCode = country.Code
+                ORDER BY city.Population DESC
+                LIMIT ?
+                """;
 
         try (Connection connection = DatabaseConnection.connect();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, topN);
 
             try (ResultSet result = statement.executeQuery()) {
@@ -176,15 +211,19 @@ public class CityReportRepository {
      * @throws SQLException if the database query fails
      */
     public List<City> getTopNCitiesByContinent(int topN, Continent continent) throws SQLException {
-        String sql = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population"
-                + " FROM city"
-                + " JOIN country ON city.CountryCode = country.Code"
-                + " WHERE country.Continent = ?"
-                + " ORDER BY city.Population DESC"
-                + " LIMIT ?";
+        String sql = """
+                SELECT city.ID, city.Name,
+                       country.Name AS CountryName,
+                       city.District, city.Population
+                FROM city
+                JOIN country ON city.CountryCode = country.Code
+                WHERE country.Continent = ?
+                ORDER BY city.Population DESC
+                LIMIT ?
+                """;
 
         try (Connection connection = DatabaseConnection.connect();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, continent.name().replace("_", " "));
             statement.setInt(2, topN);
 
@@ -203,15 +242,19 @@ public class CityReportRepository {
      * @throws SQLException if the database query fails
      */
     public List<City> getTopNCitiesByRegion(int topN, String region) throws SQLException {
-        String sql = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population"
-                + " FROM city"
-                + " JOIN country ON city.CountryCode = country.Code"
-                + " WHERE country.Region = ?"
-                + " ORDER BY city.Population DESC"
-                + " LIMIT ?";
+        String sql = """
+                SELECT city.ID, city.Name,
+                       country.Name AS CountryName,
+                       city.District, city.Population
+                FROM city
+                JOIN country ON city.CountryCode = country.Code
+                WHERE country.Region = ?
+                ORDER BY city.Population DESC
+                LIMIT ?
+                """;
 
         try (Connection connection = DatabaseConnection.connect();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, region);
             statement.setInt(2, topN);
 
@@ -225,20 +268,25 @@ public class CityReportRepository {
      * Retrieves the most populated cities in the selected country.
      *
      * @param topN        the maximum number of cities to return; must be positive
-     * @param countryCode the three-letter country code, for example GBR
+     * @param countryName the full country name, for example United Kingdom
      * @return at most topN cities ordered by descending population
      * @throws SQLException if the database query fails
      */
-    public List<City> getTopNCitiesByCountry(int topN, String countryCode) throws SQLException {
-        String sql = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population"
-                + " FROM city"
-                + " WHERE city.CountryCode = ?"
-                + " ORDER BY city.Population DESC"
-                + " LIMIT ?";
+    public List<City> getTopNCitiesByCountry(int topN, String countryName) throws SQLException {
+        String sql = """
+                SELECT city.ID, city.Name,
+                       country.Name AS CountryName,
+                       city.District, city.Population
+                FROM city
+                JOIN country ON city.CountryCode = country.Code
+                WHERE country.Name = ?
+                ORDER BY city.Population DESC
+                LIMIT ?
+                """;
 
         try (Connection connection = DatabaseConnection.connect();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, countryCode);
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, countryName);
             statement.setInt(2, topN);
 
             try (ResultSet result = statement.executeQuery()) {
@@ -256,14 +304,19 @@ public class CityReportRepository {
      * @throws SQLException if the database query fails
      */
     public List<City> getTopNCitiesByDistrict(int topN, String district) throws SQLException {
-        String sql = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population"
-                + " FROM city"
-                + " WHERE city.District = ?"
-                + " ORDER BY city.Population DESC"
-                + " LIMIT ?";
+        String sql = """
+                SELECT city.ID, city.Name,
+                       country.Name AS CountryName,
+                       city.District, city.Population
+                FROM city
+                JOIN country ON city.CountryCode = country.Code
+                WHERE city.District = ?
+                ORDER BY city.Population DESC
+                LIMIT ?
+                """;
 
         try (Connection connection = DatabaseConnection.connect();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, district);
             statement.setInt(2, topN);
 
@@ -283,12 +336,13 @@ public class CityReportRepository {
     private List<City> readCities(ResultSet result) throws SQLException {
         List<City> cities = new ArrayList<>();
         while (result.next()) {
-            cities.add(new City(
-                    result.getInt("ID"),
-                    result.getString("Name"),
-                    result.getString("CountryCode"),
-                    result.getString("District"),
-                    result.getInt("Population")));
+            City city = new City();
+            city.setId(result.getInt("ID"));
+            city.setName(result.getString("Name"));
+            city.setCountryName(result.getString("CountryName"));
+            city.setDistrict(result.getString("District"));
+            city.setPopulation(result.getInt("Population"));
+            cities.add(city);
         }
         return cities;
     }

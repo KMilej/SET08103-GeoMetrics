@@ -50,7 +50,7 @@ class CityReportRepositoryTest {
         List<City> cities = repository.getCitiesByContinentByPopulation(Continent.NORTH_AMERICA);
 
         assertEquals("Ciudad de México", cities.get(0).getName());
-        assertEquals("MEX", cities.get(0).getCountryCode());
+        assertEquals("Mexico", cities.get(0).getCountryName());
     }
 
     /**
@@ -64,21 +64,21 @@ class CityReportRepositoryTest {
 
         assertEquals(186, cities.size());
         assertEquals("Berlin", cities.get(0).getName());
-        assertEquals("DEU", cities.get(0).getCountryCode());
+        assertEquals("Germany", cities.get(0).getCountryName());
     }
 
     /**
-     * Checks the number of British cities and the first and last country codes.
+     * Checks the number of British cities and the first and last country names.
      *
      * @throws SQLException if the test cannot read the database
      */
     @Test
-    void getCitiesByCountryByPopulation_filtersByCountryCode() throws SQLException {
-        List<City> cities = repository.getCitiesByCountryByPopulation("GBR");
+    void getCitiesByCountryByPopulation_filtersByCountryName() throws SQLException {
+        List<City> cities = repository.getCitiesByCountryByPopulation("United Kingdom");
 
         assertEquals(81, cities.size());
-        assertEquals("GBR", cities.get(0).getCountryCode());
-        assertEquals("GBR", cities.get(cities.size() - 1).getCountryCode());
+        assertEquals("United Kingdom", cities.get(0).getCountryName());
+        assertEquals("United Kingdom", cities.get(cities.size() - 1).getCountryName());
     }
 
     /**
@@ -140,12 +140,12 @@ class CityReportRepositoryTest {
      * @throws SQLException if the test cannot read the database
      */
     @Test
-    void getTopNCitiesByCountry_acceptsAnotherCountryCode() throws SQLException {
-        List<City> cities = repository.getTopNCitiesByCountry(2, "FRA");
+    void getTopNCitiesByCountry_acceptsAnotherCountryName() throws SQLException {
+        List<City> cities = repository.getTopNCitiesByCountry(2, "France");
 
         assertEquals(2, cities.size());
         assertEquals("Paris", cities.get(0).getName());
-        assertEquals("FRA", cities.get(1).getCountryCode());
+        assertEquals("France", cities.get(1).getCountryName());
     }
 
     /**

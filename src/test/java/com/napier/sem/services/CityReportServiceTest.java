@@ -33,7 +33,7 @@ class CityReportServiceTest {
     void getAllCitiesByPopulation_formatsReportWithCityData() throws SQLException {
         String report = CityReportService.getAllCitiesByPopulation();
 
-        assertTrue(report.contains("Country Code"));
+        assertTrue(report.contains("Country Name"));
         assertTrue(report.contains("Mumbai (Bombay)"));
         assertTrue(report.contains("10500000"));
     }
@@ -61,10 +61,10 @@ class CityReportServiceTest {
     }
 
     /**
-     * Checks that empty and whitespace-only country codes are rejected.
+     * Checks that empty and whitespace-only country names are rejected.
      */
     @Test
-    void getCitiesByCountryByPopulation_rejectsEmptyCountryCode() {
+    void getCitiesByCountryByPopulation_rejectsEmptyCountryName() {
         assertThrows(IllegalArgumentException.class,
                 () -> CityReportService.getCitiesByCountryByPopulation(""));
         assertThrows(IllegalArgumentException.class,
@@ -123,7 +123,7 @@ class CityReportServiceTest {
     @Test
     @EnabledIfEnvironmentVariable(named = "RUN_CITY_INTEGRATION_TESTS", matches = "true")
     void getTopNCitiesByCountry_printsOnlyRequestedCity() throws SQLException {
-        String report = CityReportService.getTopNCitiesByCountry(1, "GBR");
+        String report = CityReportService.getTopNCitiesByCountry(1, "United Kingdom");
 
         assertTrue(report.contains("London"));
         assertTrue(report.contains("7285000"));
