@@ -18,7 +18,6 @@ class PopulationDistributionRepositoryTest {
             new PopulationDistributionData("France", 59225700L, 9244494L)
     );
 
-    //
     private final PopulationRepository repository =
             new PopulationRepository();
 
