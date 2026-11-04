@@ -9,6 +9,6 @@ Release [![Releases](https://img.shields.io/github/release/KMilej/SET08103-GeoMe
 Develop Build Status ![develop](https://github.com/KMilej/SET08103-GeoMetrics/actions/workflows/main.yml/badge.svg?branch=develop)
 
 
-[![codecov](https://codecov.io/gh/KMilej/SET08103-GeoMetrics/graph/badge.svg?token=RLPMAT0GSY)](https://codecov.io/gh/KMilej/SET08103-GeoMetrics)
+Coverage [![codecov](https://codecov.io/gh/KMilej/SET08103-GeoMetrics/graph/badge.svg?token=RLPMAT0GSY)](https://codecov.io/gh/KMilej/SET08103-GeoMetrics)
 
-![Codecov](https://img.shields.io/codecov/c/github/KMilej/SET08103-GeoMetrics/develop)
+Develop Coverage ![Codecov](https://img.shields.io/codecov/c/github/KMilej/SET08103-GeoMetrics/develop)
