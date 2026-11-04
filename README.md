@@ -11,4 +11,4 @@ Develop Build Status ![develop](https://github.com/KMilej/SET08103-GeoMetrics/ac
 
 [![codecov](https://codecov.io/gh/KMilej/SET08103-GeoMetrics/graph/badge.svg?token=RLPMAT0GSY)](https://codecov.io/gh/KMilej/SET08103-GeoMetrics)
 
-![Codecov](https://img.shields.io/codecov/c/github/KMilej/SET08103-GeoMetrics/103-sorting-out-testing-badges)
+![Codecov](https://img.shields.io/codecov/c/github/KMilej/SET08103-GeoMetrics/develop)
