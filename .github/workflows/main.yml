@@ -64,7 +64,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
           java-version: '23'
-          distribution: 'adopt'
+          distribution: 'temurin'
       - name: Unit Tests
         run: mvn -Dtest='com.napier.sem.services.CapitalCityServiceTest,com.napier.sem.services.LanguageReportServiceTest,com.napier.sem.services.PopulationDistributionServiceTest,com.napier.sem.services.PopulationServiceTest,com.napier.sem.services.CityReportServiceTest,com.napier.sem.services.CountryServiceTest' test
       - name: List dirs
@@ -88,16 +88,19 @@ jobs:
         uses: actions/setup-java@v5
         with:
           java-version: '23'
-          distribution: 'adopt'
+          distribution: 'temurin'
+
+      - name: Start MySQL and wait until healthy
+        run: docker compose up -d --wait db
       - name: Integration Tests
-        run: |
-          docker build -t database ./db
-          docker run --name world -dp 3307:3306 database
-          sleep 30
-          mvn test
-          docker stop world
-          docker rm world
-          docker image rm database
+        env:
+          RUN_COUNTRY_INTEGRATION_TESTS: "true"
+          RUN_CITY_INTEGRATION_TESTS: "true"
+        run: mvn test
+      - name: Stop MySQL
+        if: always()
+        run: docker compose down
+
       - name: CodeCov
         uses: codecov/codecov-action@v5
         with:
