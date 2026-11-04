@@ -9,6 +9,6 @@ Release [![Releases](https://img.shields.io/github/release/KMilej/SET08103-GeoMe
 Develop Build Status ![develop](https://github.com/KMilej/SET08103-GeoMetrics/actions/workflows/main.yml/badge.svg?branch=develop)
 
 
-[![codecov](https://codecov.io/github/KMilej/SET08103-GeoMetrics/graph/badge.svg?branch=103-sorting-out-testing-badges)](https://codecov.io/github/KMilej/SET08103-GeoMetrics/tree/103-sorting-out-testing-badges)
+[![codecov](https://codecov.io/gh/KMilej/SET08103-GeoMetrics/graph/badge.svg?token=RLPMAT0GSY)](https://codecov.io/gh/KMilej/SET08103-GeoMetrics)
 
 ![Codecov](https://img.shields.io/codecov/c/github/KMilej/SET08103-GeoMetrics/103-sorting-out-testing-badges)
