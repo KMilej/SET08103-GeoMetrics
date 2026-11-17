@@ -39,6 +39,22 @@ class CityReportServiceTest {
     }
 
     /**
+     * Checks that a top one report includes London but not Birmingham.
+     *
+     * @throws SQLException if the test cannot read the database
+     */
+    @Test
+    @EnabledIfEnvironmentVariable(named = "RUN_CITY_INTEGRATION_TESTS", matches = "true")
+    void getTopNCitiesByCountry_printsOnlyRequestedCity() throws SQLException {
+        String report = CityReportService.getTopNCitiesByCountry(1, "United Kingdom");
+
+        assertTrue(report.contains("London"));
+        assertTrue(report.contains("7285000"));
+        assertFalse(report.contains("Birmingham"));
+    }
+
+
+    /**
      * Checks that a null continent is rejected.
      */
     @Test
@@ -48,34 +64,25 @@ class CityReportServiceTest {
     }
 
     /**
-     * Checks the message returned when no cities match the region.
-     *
-     * @throws SQLException if the test cannot read the database
+     * Checks that empty, null and whitespace-only country names are rejected.
      */
     @Test
-    @EnabledIfEnvironmentVariable(named = "RUN_CITY_INTEGRATION_TESTS", matches = "true")
-    void getCitiesByRegionByPopulation_reportsNoCitiesForUnknownRegion() throws SQLException {
-        String report = CityReportService.getCitiesByRegionByPopulation("Unknown region");
-
-        assertEquals("No cities found.", report);
-    }
-
-    /**
-     * Checks that empty and whitespace-only country names are rejected.
-     */
-    @Test
-    void getCitiesByCountryByPopulation_rejectsEmptyCountryName() {
+    void getCitiesByCountryByPopulation_rejectsInvalidCountryName() {
         assertThrows(IllegalArgumentException.class,
                 () -> CityReportService.getCitiesByCountryByPopulation(""));
         assertThrows(IllegalArgumentException.class,
                 () -> CityReportService.getCitiesByCountryByPopulation("   "));
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getCitiesByCountryByPopulation(null));
     }
 
     /**
-     * Checks that null and whitespace-only districts are rejected.
+     * Checks that empty, null and whitespace-only districts are rejected.
      */
     @Test
-    void getCitiesByDistrictByPopulation_rejectsMissingDistrict() {
+    void getCitiesByDistrictByPopulation_rejectsInvalidDistrict() {
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getCitiesByDistrictByPopulation(""));
         assertThrows(IllegalArgumentException.class,
                 () -> CityReportService.getCitiesByDistrictByPopulation(null));
         assertThrows(IllegalArgumentException.class,
@@ -94,18 +101,33 @@ class CityReportServiceTest {
     }
 
     /**
-     * Checks that a null continent and zero N are rejected.
+     * Checks that a null continent is rejected
      */
     @Test
     void getTopNCitiesByContinent_rejectsInvalidParameters() {
         assertThrows(IllegalArgumentException.class,
                 () -> CityReportService.getTopNCitiesByContinent(2, null));
-        assertThrows(IllegalArgumentException.class,
-                () -> CityReportService.getTopNCitiesByContinent(0, Continent.EUROPE));
     }
 
     /**
-     * Checks that null and empty regions are rejected.
+     * Checks that null, whitespace and empty country are rejected.
+     *
+     */
+    @Test
+    void getTopNCitiesByCountry_rejectsInvalidParameters() {
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByCountry(2, null));
+
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByCountry(2, "    "));
+
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByCountry(2, ""));
+    }
+
+
+    /**
+     * Checks that null, whitespace and empty regions are rejected.
      */
     @Test
     void getTopNCitiesByRegion_rejectsMissingRegion() {
@@ -113,31 +135,163 @@ class CityReportServiceTest {
                 () -> CityReportService.getTopNCitiesByRegion(2, null));
         assertThrows(IllegalArgumentException.class,
                 () -> CityReportService.getTopNCitiesByRegion(2, ""));
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByRegion(2, "   "));
     }
 
     /**
-     * Checks that a top one report includes London but not Birmingham.
+     * Checks that a top N but null, whitespace-only and a blank district are rejected.
+     */
+    @Test
+    void getTopNCitiesByDistrict_rejectsNullAndBlankDistrict() {
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByDistrict(2, null));
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByDistrict(2, "   "));
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByDistrict(2, ""));
+    }
+
+    /**
+     * Checks that null, whitespace-only and blank regions are rejected.
+     */
+    @Test
+    void getCitiesByRegionByPopulation_rejectsInvalidRegion() {
+
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getCitiesByRegionByPopulation(null));
+
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getCitiesByRegionByPopulation("   "));
+
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getCitiesByRegionByPopulation(""));
+    }
+
+    /**
+     * Check for zero or negative top N cities by District
+     */
+    @Test
+    void getTopNCitiesByDistrict_invalidTopN(){
+
+        // Zero Top N
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByDistrict(
+                        0, "Scotland"));
+
+        // Negative Top N
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByDistrict(
+                        -1, "Scotland"));
+    }
+
+    /**
+     * Check for zero or negative top N cities by Country
+     */
+    @Test
+    void getTopNCitiesByCountry_invalidTopN(){
+
+        // Zero Top N
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByCountry(
+                        0, "United Kingdom"));
+
+        // Negative Top N
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByCountry(
+                        -1, "United Kingdom"));
+    }
+
+    /**
+     * Check for zero or negative top N Cities Region
+     */
+    @Test
+    void getTopNCitiesByRegion_invalidTopN(){
+
+        // Zero Top N
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByRegion(
+                        0, "Western Europe"));
+
+        // Negative Top N
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByRegion(
+                        -1, "Western Europe"));
+    }
+
+    /**
+     * Check for zero or negative top N Cities Continent
+     */
+    @Test
+    void getTopNCitiesByContinent_invalidTopN(){
+
+        // Zero Top N
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByContinent(
+                        0, Continent.EUROPE));
+
+        // Negative Top N
+        assertThrows(IllegalArgumentException.class,
+                () -> CityReportService.getTopNCitiesByContinent(
+                        -1, Continent.EUROPE));
+    }
+
+    /**
+     * Checks that non-existing country returns no cities
      *
-     * @throws SQLException if the test cannot read the database
+     * @throws SQLException if the database query fails
+     *
      */
     @Test
     @EnabledIfEnvironmentVariable(named = "RUN_CITY_INTEGRATION_TESTS", matches = "true")
-    void getTopNCitiesByCountry_printsOnlyRequestedCity() throws SQLException {
-        String report = CityReportService.getTopNCitiesByCountry(1, "United Kingdom");
+    void testUnknownCountryNames()
+            throws SQLException {
 
-        assertTrue(report.contains("London"));
-        assertTrue(report.contains("7285000"));
-        assertFalse(report.contains("Birmingham"));
+        String resultTopN = CityReportService.getTopNCitiesByCountry(
+                2, "Unknown");
+        String result = CityReportService.getCitiesByCountryByPopulation(
+                "Unknown");
+
+        assertEquals("No cities found.", resultTopN);
+        assertEquals("No cities found.", result);
     }
 
     /**
-     * Checks that negative N and a blank district are rejected.
+     * Checks that non-existing district returns no cities
+     *
+     * @throws SQLException if the database query fails
      */
     @Test
-    void getTopNCitiesByDistrict_rejectsInvalidNAndBlankDistrict() {
-        assertThrows(IllegalArgumentException.class,
-                () -> CityReportService.getTopNCitiesByDistrict(-2, "Scotland"));
-        assertThrows(IllegalArgumentException.class,
-                () -> CityReportService.getTopNCitiesByDistrict(2, "   "));
+    @EnabledIfEnvironmentVariable(named = "RUN_CITY_INTEGRATION_TESTS", matches = "true")
+    void testUnknownDistrictNames()
+            throws SQLException {
+
+        String resultTopN = CityReportService.getTopNCitiesByDistrict(
+                2, "Unknown");
+        String result = CityReportService.getCitiesByDistrictByPopulation(
+                "Unknown");
+
+        assertEquals("No cities found.", resultTopN);
+        assertEquals("No cities found.", result);
+    }
+
+    /**
+     * Checks that non-existing region returns no cities
+     *
+     * @throws SQLException if the database query fails
+     */
+    @Test
+    @EnabledIfEnvironmentVariable(named = "RUN_CITY_INTEGRATION_TESTS", matches = "true")
+    void testUnknownRegionNames()
+            throws SQLException {
+
+        String resultTopN = CityReportService.getTopNCitiesByRegion(
+                2, "Unknown");
+        String result = CityReportService.getCitiesByRegionByPopulation(
+                "Unknown");
+
+        assertEquals("No cities found.", resultTopN);
+        assertEquals("No cities found.", result);
+
     }
 }
