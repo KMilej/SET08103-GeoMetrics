@@ -96,11 +96,11 @@ import static org.mockito.Mockito.*;
             mockedDb.when(DatabaseConnection::connect).thenReturn(mockConnection);
 
             // Act
-            long population = populationService.getContinentPopulation(Continent.EUROPE);
+            long population = populationService.getContinentPopulation("Europe");
 
             // Assert
             assertEquals(500000L, population);
-            verify(mockStatement, times(1)).setString(1, "EUROPE");
+            verify(mockStatement, times(1)).setString(1, "Europe");
         }
     }
 

@@ -16,6 +16,7 @@ import static com.napier.sem.services.LanguageReportService.getLanguagePopulatio
 import java.sql.SQLException;
 import static com.napier.sem.services.LanguageReportService.getLanguagePopulationReport;
 
+
 public class App {
     public static void main(String[] args) throws SQLException {
         // UC01 - Country Reports
@@ -66,7 +67,7 @@ public class App {
         // UC05 - Population Information
         PopulationService populationService = new PopulationService();
         populationService.getWorldPopulation();
-        populationService.getContinentPopulation(Continent.EUROPE);
+        populationService.getContinentPopulation(String.valueOf(Continent.EUROPE));
         populationService.getRegionPopulation("Western Europe");
         populationService.getCountryPopulation("United Kingdom");
         populationService.getDistrictPopulation("Scotland");

@@ -205,7 +205,7 @@ class PopulationServiceTest {
     }
 
     /**
-     * Verifies that {@link PopulationService#getContinentPopulation(Continent)} retrieves
+     * Verifies that  retrieves
      * the continent population total under typical system flows.
      *
      * @throws SQLException if an unexpected database issue arises
@@ -213,23 +213,23 @@ class PopulationServiceTest {
     @Test
     void testGetContinentPopulation_Success() throws SQLException {
         // Arrange
-        Continent continent = Continent.EUROPE; // Assuming your Continent enum holds 'Europe'
+        String continent = "Europe";
         long expectedPopulation = 740_000_000L;
 
         when(mockResultSet.next()).thenReturn(true);
         when(mockResultSet.getLong("Total")).thenReturn(expectedPopulation);
 
         // Act
-        long actualPopulation = populationService.getContinentPopulation(continent);
+        long actualPopulation = populationService.getContinentPopulation(String.valueOf(continent));
 
         // Assert
         assertEquals(expectedPopulation, actualPopulation);
-        verify(mockPreparedStatement).setString(1, continent.name());
+        verify(mockPreparedStatement).setString(1, continent);
     }
 
 
     /**
-     * Verifies that {@link PopulationService#getContinentPopulation(Continent)} converts
+     * Verifies that {@link PopulationService#getContinentPopulation(String)} converts
      * an underlying {@link SQLException} into a wrapped runtime exception.
      *
      * @throws SQLException if an unexpected error mapping fails
@@ -241,7 +241,7 @@ class PopulationServiceTest {
 
         // Act & Assert
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            populationService.getContinentPopulation(Continent.ASIA);
+            populationService.getContinentPopulation(String.valueOf(Continent.ASIA));
         });
 
         assertTrue(exception.getMessage().contains("Failed to fetch continent population"));
