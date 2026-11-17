@@ -68,23 +68,23 @@ public class PopulationDistributionService {
      * Retrieves population of people, people living in cities,
      * and people not living in cities in a country.
      *
-     * @param countryCode the selected country code
+     * @param countryName the selected country name
      * @return population distribution data
-     * @throws IllegalArgumentException if country code is null or blank
+     * @throws IllegalArgumentException if country name is null or blank
      * @throws SQLException if a database access error occurs
      */
     public static String getUrbanAndRuralPopulationByCountry(
-            String countryCode) throws SQLException{
+            String countryName) throws SQLException{
 
-        if (countryCode == null || countryCode.isBlank()) {
+        if (countryName == null || countryName.isBlank()) {
             throw new IllegalArgumentException(
-                    "Country Code is required"
+                    "Country name is required"
             );
         }
 
         List<PopulationDistributionData>
                 data = repository.getPopulationDistributionData
-                ("COUNTRY", countryCode);
+                ("COUNTRY", countryName);
 
         return formatPopulationDistributionTable(data);
     }

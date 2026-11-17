@@ -112,10 +112,10 @@ class PopulationDistributionServiceTest {
     }
 
     /**
-     * Test if empty, null and whitespace country code throws an exception
+     * Test if empty, null and whitespace country name throws an exception
      */
     @Test
-    void testInvalidCountryCode() {
+    void testInvalidCountryName() {
         // Empty
         assertThrows(IllegalArgumentException.class,
                 () -> PopulationDistributionService

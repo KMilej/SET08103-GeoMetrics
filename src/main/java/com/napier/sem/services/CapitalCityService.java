@@ -3,7 +3,6 @@ package com.napier.sem.services;
 import com.napier.sem.models.City;
 import com.napier.sem.models.Continent;
 import com.napier.sem.repositories.CapitalCityRepository;
-import com.napier.sem.repositories.CityRepository;
 
 import java.sql.SQLException;
 import java.util.List;

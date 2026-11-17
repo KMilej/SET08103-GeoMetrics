@@ -35,14 +35,14 @@ public class CityReportService {
 
         StringBuilder report = new StringBuilder();
         report.append(String.format(
-                "%-35s %-12s %-25s %12s%n",
-                "City", "Country Code", "District", "Population"));
+                "%-35s %-45s %-25s %12s%n",
+                "City", "Country Name", "District", "Population"));
 
         for (City city : cities) {
             report.append(String.format(
-                    "%-35s %-12s %-25s %12d%n",
+                    "%-35s %-45s %-25s %12d%n",
                     city.getName(),
-                    city.getCountryCode(),
+                    city.getCountryName(),
                     city.getDistrict(),
                     city.getPopulation()));
         }
@@ -85,15 +85,15 @@ public class CityReportService {
     /**
      * Creates a city report for a country.
      *
-     * @param countryCode the country code, for example GBR
+     * @param countryName the country name, for example United Kingdom
      * @return the report text, or a message if no cities are found
      * @throws SQLException if the database query fails
-     * @throws IllegalArgumentException if the country code is null or blank
+     * @throws IllegalArgumentException if the country name is null or blank
      */
-    public static String getCitiesByCountryByPopulation(String countryCode) throws SQLException {
-        checkLocation(countryCode, "Country code");
+    public static String getCitiesByCountryByPopulation(String countryName) throws SQLException {
+        checkLocation(countryName, "Country name");
         CityReportRepository repository = new CityReportRepository();
-        List<City> cities = repository.getCitiesByCountryByPopulation(countryCode);
+        List<City> cities = repository.getCitiesByCountryByPopulation(countryName);
         return formatCityReport(cities);
     }
 
@@ -167,16 +167,16 @@ public class CityReportService {
      * Creates a report of the top N cities in a country.
      *
      * @param topN the maximum number of cities to show
-     * @param countryCode the country code, for example GBR
+     * @param countryName the country name, for example United Kingdom
      * @return the report text, or a message if no cities are found
      * @throws SQLException if the database query fails
-     * @throws IllegalArgumentException if N is not positive or the country code is null or blank
+     * @throws IllegalArgumentException if N is not positive or the country name is null or blank
      */
-    public static String getTopNCitiesByCountry(int topN, String countryCode) throws SQLException {
+    public static String getTopNCitiesByCountry(int topN, String countryName) throws SQLException {
         checkTopN(topN);
-        checkLocation(countryCode, "Country code");
+        checkLocation(countryName, "Country name");
         CityReportRepository repository = new CityReportRepository();
-        List<City> cities = repository.getTopNCitiesByCountry(topN, countryCode);
+        List<City> cities = repository.getTopNCitiesByCountry(topN, countryName);
         return formatCityReport(cities);
     }
 
@@ -235,13 +235,13 @@ public class CityReportService {
 
         StringBuilder report = new StringBuilder();
         report.append(String.format(
-                "%-35s %-12s %-25s %12s%n",
-                "City", "Country Code", "District", "Population"));
+                "%-35s %-45s %-25s %12s%n",
+                "City", "Country Name", "District", "Population"));
 
         for (City city : cities) {
             report.append(String.format(
-                    "%-35s %-12s %-25s %12d%n",
-                    city.getName(), city.getCountryCode(),
+                    "%-35s %-45s %-25s %12d%n",
+                    city.getName(), city.getCountryName(),
                     city.getDistrict(), city.getPopulation()));
         }
         return report.toString();

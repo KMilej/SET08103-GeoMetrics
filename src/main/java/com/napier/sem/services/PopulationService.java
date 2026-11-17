@@ -2,15 +2,11 @@ package com.napier.sem.services;
 
 import com.napier.sem.models.City;
 import com.napier.sem.models.Continent;
-import com.napier.sem.repositories.CityRepository;
-import com.napier.sem.repositories.CountryRepository;
 import com.napier.sem.repositories.PopReportRepository;
-import com.napier.sem.repositories.PopulationRepository;
 
 import com.napier.sem.database.DatabaseConnection;
 
 import java.sql.*;
-import java.util.Collections;
 import java.util.List;
 
 public class PopulationService {
