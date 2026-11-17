@@ -2,6 +2,7 @@ package com.napier.sem.services;
 
 import com.napier.sem.models.City;
 import com.napier.sem.models.Continent;
+import com.napier.sem.reports.ReportFormatter;
 import com.napier.sem.repositories.PopReportRepository;
 
 import com.napier.sem.database.DatabaseConnection;
@@ -22,22 +23,12 @@ public class PopulationService {
     public List<City> getCityPopulation(String cityName) throws SQLException {
         List<City> cities = populationRepository.getCityPopulation(cityName);
 
-        System.out.println("\n========================================================================");
-        System.out.println("                       CITY POPULATION REPORT                           ");
-        System.out.println("========================================================================");
-        System.out.printf("%-20s %-15s\n", "City Name", "Population");
-        System.out.println("------------------------------------------------------------------------");
-
-        if (cities == null || cities.isEmpty()) {
-            System.out.println("No data found for city: " + cityName);
-        } else {
-            for (City city : cities) {
-                System.out.printf("%-20s %,15d\n",
-                        city.getName(),
-                        city.getPopulation());
-            }
-        }
-        System.out.println("========================================================================\n");
+        System.out.println(
+                ReportFormatter.formatCityPopulation(
+                        cityName,
+                        cities
+                )
+        );
 
         return cities;
     }
@@ -168,18 +159,18 @@ public class PopulationService {
     /**
      * Private helper method to handle a clean, reusable layout for aggregated single-row population metrics.
      */
-    private void printAggregatedReport(String reportType, String locationName, long population) {
-        System.out.println("\n========================================================");
-        System.out.printf("               %s POPULATION REPORT                    \n", reportType);
-        System.out.println("========================================================");
-        System.out.printf("%-35s %-20s\n", "Location / Scope", "Total Population");
-        System.out.println("--------------------------------------------------------");
-        if (population == 0) {
-            System.out.printf("%-35s %-20s\n", locationName, "No data available");
-        } else {
-            System.out.printf("%-35s %,20d\n", locationName, population);
-        }
-        System.out.println("========================================================\n");
+    private void printAggregatedReport(
+            String reportType,
+            String locationName,
+            long population) {
+
+        System.out.println(
+                ReportFormatter.formatPopulation(
+                        reportType,
+                        locationName,
+                        population
+                )
+        );
     }
 }
 

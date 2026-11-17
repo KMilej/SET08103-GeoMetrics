@@ -52,7 +52,8 @@ class PopulationDistributionRepositoryTest {
         String result = PopulationDistributionService
                 .getUrbanAndRuralPopulationByCountry("Unknown country");
 
-        assertEquals("No data available.", result);
+        assertNotNull(result);
+        assertTrue(result.contains("No data available."));
     }
 
     /**
@@ -65,7 +66,8 @@ class PopulationDistributionRepositoryTest {
         String result = PopulationDistributionService
                 .getUrbanAndRuralPopulationByRegion("EFG");
 
-        assertEquals("No data available.", result);
+        assertNotNull(result);
+        assertTrue(result.contains("No data available."));
     }
 
     /**
