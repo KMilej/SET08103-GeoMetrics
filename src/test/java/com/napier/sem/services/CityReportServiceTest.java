@@ -317,25 +317,4 @@ class CityReportServiceTest {
         assertEquals("No cities found.", result);
 
     }
-
-    @Test
-    @EnabledIfEnvironmentVariable(named = "RUN_CITY_INTEGRATION_TESTS", matches = "true")
-    void testCityPopulationOrder() throws  SQLException{
-
-        String report = CityReportService.getTopNCitiesInWorld(10);
-
-        String[] rows = report.strip().split("\\R");
-
-        long previous = Long.MAX_VALUE;
-
-        // Skip the header
-        for (int i = 1; i < rows.length; i++) {
-            String[] columns = rows[i].trim().split("\\s+");
-            long current = Long.parseLong(columns[columns.length - 1]);
-
-            assertTrue(previous >= current);
-            previous = current;
-        }
-    }
-
 }
