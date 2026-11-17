@@ -7,12 +7,10 @@
 package com.napier.sem.services;
 
 import com.napier.sem.models.Continent;
-import com.napier.sem.repositories.LanguageRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 import java.sql.SQLException;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
