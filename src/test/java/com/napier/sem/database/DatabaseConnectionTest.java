@@ -37,4 +37,15 @@ class DatabaseConnectionTest {
             assertTrue(c.isValid(2), "Connection should be valid");
         }
     }
+
+
+    /**
+     * Calls the default constructor so the class line is covered.
+     * DatabaseConnection only has static methods, so nothing else creates it.
+     */
+    @Test
+    void constructor_canBeCreated() {
+        assertNotNull(new DatabaseConnection());
+    }
+
 }
