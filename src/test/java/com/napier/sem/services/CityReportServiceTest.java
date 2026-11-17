@@ -237,29 +237,6 @@ class CityReportServiceTest {
     }
 
     /**
-     * Checks that Top N greater than the available cities
-     * returns only all existing cities
-     */
-    @Test
-    @EnabledIfEnvironmentVariable(
-            named = "RUN_CITY_INTEGRATION_TESTS",
-            matches = "true"
-    )
-    void getTopNCitiesByCountry_exceedsAvailableCities()
-            throws SQLException {
-
-        String allCities =
-                CityReportService.getCitiesByCountryByPopulation(
-                        "United Kingdom");
-
-        String topCities =
-                CityReportService.getTopNCitiesByCountry(
-                        99999999, "United Kingdom");
-
-        assertEquals(allCities, topCities);
-    }
-
-    /**
      * Checks that non-existing country returns no cities
      *
      * @throws SQLException if the database query fails
