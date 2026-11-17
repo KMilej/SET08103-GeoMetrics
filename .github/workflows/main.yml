@@ -96,6 +96,7 @@ jobs:
         env:
           RUN_COUNTRY_INTEGRATION_TESTS: "true"
           RUN_CITY_INTEGRATION_TESTS: "true"
+          RUN_DB_URL_TESTS: "true"
         run: mvn test
       - name: Stop MySQL
         if: always()
