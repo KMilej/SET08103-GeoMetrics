@@ -3,6 +3,7 @@ package com.napier.sem.repositories;
 
 import com.napier.sem.database.DatabaseConnection;
 import com.napier.sem.models.City;
+import com.napier.sem.models.Country;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -21,13 +22,11 @@ public class PopReportRepository
      */
     public List<City> getCityPopulation(String cityName) {
         List<City> cities = new ArrayList<>();
-        // Fixed: Moved WHERE before ORDER BY
+
         String sql = "SELECT ID, Name, Population FROM city WHERE Name = ? ORDER BY Name";
 
         try (Connection connect = DatabaseConnection.connect();
              PreparedStatement stmt = connect.prepareStatement(sql)) { // Removed executeQuery from try-with-resources
-
-            // Fixed: Set the cityName parameter into the statement
             stmt.setString(1, cityName);
 
             try (ResultSet rs = stmt.executeQuery()) {
@@ -145,5 +144,30 @@ public class PopReportRepository
         return 0;
     }
 
+    public List<Country> getCountryPopulation(String countryName) {
+        List<Country> countries = new ArrayList<>();
+
+        String sql = "SELECT Name, Population FROM country WHERE Name = ? ORDER BY Name";
+
+        try (Connection connect = DatabaseConnection.connect();
+             PreparedStatement stmt = connect.prepareStatement(sql)) { // Removed executeQuery from try-with-resources
+
+            stmt.setString(1, countryName);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Country country = new Country(
+
+                            rs.getString("Name"),
+                            rs.getInt("Population")
+                    );
+                    countries.add(country);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to fetch countries", e);
+        }
+        return countries;
+    }
 }
 

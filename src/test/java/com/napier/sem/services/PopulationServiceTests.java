@@ -205,7 +205,7 @@ class PopulationServiceTest {
     }
 
     /**
-     * Verifies that {@link PopulationService#getContinentPopulation(Continent)} retrieves
+     * Verifies that  retrieves
      * the continent population total under typical system flows.
      *
      * @throws SQLException if an unexpected database issue arises
@@ -213,18 +213,18 @@ class PopulationServiceTest {
     @Test
     void testGetContinentPopulation_Success() throws SQLException {
         // Arrange
-        Continent continent = Continent.EUROPE; // Assuming your Continent enum holds 'Europe'
+        String continent = "Europe";
         long expectedPopulation = 740_000_000L;
 
         when(mockResultSet.next()).thenReturn(true);
         when(mockResultSet.getLong("Total")).thenReturn(expectedPopulation);
 
         // Act
-        long actualPopulation = populationService.getContinentPopulation(continent);
+        long actualPopulation = populationService.getContinentPopulation(Continent.EUROPE);
 
         // Assert
         assertEquals(expectedPopulation, actualPopulation);
-        verify(mockPreparedStatement).setString(1, continent.name());
+        verify(mockPreparedStatement).setString(1, "EUROPE");
     }
 
 

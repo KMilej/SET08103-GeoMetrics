@@ -16,6 +16,7 @@ import static com.napier.sem.services.LanguageReportService.getLanguagePopulatio
 import java.sql.SQLException;
 import static com.napier.sem.services.LanguageReportService.getLanguagePopulationReport;
 
+
 public class App {
     public static void main(String[] args) throws SQLException {
         // UC01 - Country Reports
