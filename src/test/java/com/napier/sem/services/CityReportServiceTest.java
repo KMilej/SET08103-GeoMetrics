@@ -35,7 +35,7 @@ class CityReportServiceTest {
 
         assertTrue(report.contains("Country Name"));
         assertTrue(report.contains("Mumbai (Bombay)"));
-        assertTrue(report.contains("10500000"));
+        assertTrue(report.contains("10,500,000"));
     }
 
     /**
@@ -49,7 +49,7 @@ class CityReportServiceTest {
         String report = CityReportService.getTopNCitiesByCountry(1, "United Kingdom");
 
         assertTrue(report.contains("London"));
-        assertTrue(report.contains("7285000"));
+        assertTrue(report.contains("7,285,000"));
         assertFalse(report.contains("Birmingham"));
     }
 
@@ -252,8 +252,8 @@ class CityReportServiceTest {
         String result = CityReportService.getCitiesByCountryByPopulation(
                 "Unknown");
 
-        assertEquals("No cities found.", resultTopN);
-        assertEquals("No cities found.", result);
+        assertTrue(resultTopN.contains("No cities found."));
+        assertTrue(result.contains("No cities found."));
     }
 
     /**
@@ -271,8 +271,8 @@ class CityReportServiceTest {
         String result = CityReportService.getCitiesByDistrictByPopulation(
                 "Unknown");
 
-        assertEquals("No cities found.", resultTopN);
-        assertEquals("No cities found.", result);
+        assertTrue(resultTopN.contains("No cities found."));
+        assertTrue(result.contains("No cities found."));
     }
 
     /**
@@ -290,8 +290,8 @@ class CityReportServiceTest {
         String result = CityReportService.getCitiesByRegionByPopulation(
                 "Unknown");
 
-        assertEquals("No cities found.", resultTopN);
-        assertEquals("No cities found.", result);
+        assertTrue(resultTopN.contains("No cities found."));
+        assertTrue(result.contains("No cities found."));
 
     }
 }

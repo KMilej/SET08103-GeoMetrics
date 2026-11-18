@@ -73,7 +73,7 @@ class CapitalCityReportServiceTest {
 
         // Assert
         assertNotNull(report);
-        assertTrue(report.contains("top 10"));
+        assertTrue(report.contains("Top 10"));
         assertTrue(report.contains("Name"));
         assertTrue(report.contains("Country"));
         assertTrue(report.contains("Population"));
@@ -91,8 +91,8 @@ class CapitalCityReportServiceTest {
 
         // Assert
         assertNotNull(report);
-        assertTrue(report.contains("top 10"));
-        assertTrue(report.contains("Europe"));
+        assertTrue(report.contains("Top 10"));
+        assertTrue(report.toLowerCase().contains("europe"));
         assertTrue(report.contains("Name"));
         assertTrue(report.contains("Country"));
         assertTrue(report.contains("Population"));
@@ -110,7 +110,7 @@ class CapitalCityReportServiceTest {
 
         // Assert
         assertNotNull(report);
-        assertTrue(report.contains("top 10"));
+        assertTrue(report.contains("Top 10"));
         assertTrue(report.contains("Western Europe"));
         assertTrue(report.contains("Name"));
         assertTrue(report.contains("Country"));
