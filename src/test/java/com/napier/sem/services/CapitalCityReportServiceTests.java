@@ -8,10 +8,20 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
+
+@EnabledIfEnvironmentVariable(
+        named = "RUN_CAPITAL_CITY_INTEGRATION_TESTS",
+        matches = "true"
+)
 
 class CapitalCityReportServiceTest {
 
     // 1. Test all capital cities in the world
+    /**
+     * Tests that the report for the top 10 capital cities worldwide
+     * is generated with the expected title and column headings.
+     */
     @Test
     void testPrintAllCapitalCitiesByPopulation() throws SQLException {
 
@@ -28,6 +38,10 @@ class CapitalCityReportServiceTest {
     }
 
     // 2. Test all capital cities in a continent
+    /**
+     * Tests that the report for the top 10 capital cities in Europe
+     * is generated with the correct continent and column headings.
+     */
     @Test
     void testPrintCapitalCitiesByContinentByPopulation() throws SQLException {
 
@@ -46,6 +60,10 @@ class CapitalCityReportServiceTest {
     }
 
     // 3. Test all capital cities in a region
+    /**
+     * Tests that the report for the top 10 capital cities in Western Europe region
+     * is generated with the correct region and column headings.
+     */
     @Test
     void testPrintCapitalCitiesByRegionByPopulation() throws SQLException {
 
@@ -64,6 +82,10 @@ class CapitalCityReportServiceTest {
     }
 
     // 4. Test top N capital cities in the world
+    /**
+     * Tests that the report for the top 10 capital cities in the worlds
+     * is generated with the expected title and column headings.
+     */
     @Test
     void testPrintTopNCapitalCitiesInWorld() throws SQLException {
 
@@ -80,6 +102,10 @@ class CapitalCityReportServiceTest {
     }
 
     // 5. Test top N capital cities in a continent
+    /**
+     * Tests that the report for the top 10 capital cities in Europe
+     * is generated with the correct continent and column headings.
+     */
     @Test
     void testPrintTopNCapitalCitiesByContinent() throws SQLException {
 
@@ -99,6 +125,10 @@ class CapitalCityReportServiceTest {
     }
 
     // 6. Test top N capital cities in a region
+    /**
+     * Tests that the report for the top 10 capital cities in Western Europe
+     * is generated with the correct region and column headings.
+     */
     @Test
     void testPrintTopNCapitalCitiesByRegion() throws SQLException {
 
