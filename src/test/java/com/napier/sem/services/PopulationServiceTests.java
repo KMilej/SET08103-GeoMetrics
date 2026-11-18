@@ -220,7 +220,7 @@ class PopulationServiceTest {
         when(mockResultSet.getLong("Total")).thenReturn(expectedPopulation);
 
         // Act
-        long actualPopulation = populationService.getContinentPopulation(String.valueOf(continent));
+        long actualPopulation = populationService.getContinentPopulation(Continent.valueOf(String.valueOf(continent)));
 
         // Assert
         assertEquals(expectedPopulation, actualPopulation);
@@ -241,7 +241,7 @@ class PopulationServiceTest {
 
         // Act & Assert
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            populationService.getContinentPopulation(String.valueOf(Continent.ASIA));
+            populationService.getContinentPopulation(Continent.valueOf(String.valueOf(Continent.ASIA)));
         });
 
         assertTrue(exception.getMessage().contains("Failed to fetch continent population"));

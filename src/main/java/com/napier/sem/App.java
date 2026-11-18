@@ -67,7 +67,7 @@ public class App {
         // UC05 - Population Information
         PopulationService populationService = new PopulationService();
         populationService.getWorldPopulation();
-        populationService.getContinentPopulation(String.valueOf(Continent.EUROPE));
+        populationService.getContinentPopulation(Continent.EUROPE);
         populationService.getRegionPopulation("Western Europe");
         populationService.getCountryPopulation("United Kingdom");
         populationService.getDistrictPopulation("Scotland");

@@ -7,6 +7,9 @@ import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test Class for the App Class to check that reports are fetched properly
+ */
 public class AppTest {
 
 
