@@ -25,7 +25,7 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-  # directory: ./target/site/jacoco
+          files: ./target/site/jacoco/jacoco.xml
   #  verbose: true # optional (default = false)
 
   IntegrationTests:
