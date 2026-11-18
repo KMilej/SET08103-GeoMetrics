@@ -8,7 +8,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
+@EnabledIfEnvironmentVariable(
+        named = "RUN_CAPITAL_CITY_INTEGRATION_TESTS",
+        matches = "true"
+)
 public class CapitalCityRepositoryTests {
 
     // Test 1.1 getCapitalCities -

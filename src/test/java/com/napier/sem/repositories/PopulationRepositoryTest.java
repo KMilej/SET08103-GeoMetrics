@@ -9,6 +9,12 @@ import java.util.List;
 import com.napier.sem.repositories.PopulationRepository.PopulationDistributionData;
 import com.napier.sem.services.PopulationDistributionService;
 import com.napier.sem.models.Continent;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
+
+@EnabledIfEnvironmentVariable(
+        named = "RUN_POPULATION_INTEGRATION_TESTS",
+        matches = "true"
+)
 
 class PopulationDistributionRepositoryTest {
 
