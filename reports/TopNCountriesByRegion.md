@@ -15,4 +15,5 @@ No.   | Code  | Name                                          | Continent       
 8     | MCO   | Monaco                                        | Europe          | Western Europe             |        34,000 | Monaco-Ville
 9     | LIE   | Liechtenstein                                 | Europe          | Western Europe             |        32,300 | Vaduz
 ======================================================================================================================================
+
 ```

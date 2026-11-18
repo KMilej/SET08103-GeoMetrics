@@ -52,4 +52,5 @@ No.   | Code  | Name                                          | Continent       
 45    | SJM   | Svalbard and Jan Mayen                        | Europe          | Nordic Countries           |         3,200 | Longyearbyen
 46    | VAT   | Holy See (Vatican City State)                 | Europe          | Southern Europe            |         1,000 | Città del Vaticano
 ======================================================================================================================================
+
 ```
