@@ -161,4 +161,78 @@ class CityReportRepositoryTest {
         assertEquals("Dundee", cities.get(3).getName());
         assertEquals("Scotland", cities.get(3).getDistrict());
     }
+
+
+    /**
+     * Checks that cities are ordered by population
+     * from highest to lowest.
+     *
+     * @throws SQLException if database access fails
+     */
+    @Test
+    void getAllCitiesByPopulation_checksDescendingOrder()
+            throws SQLException {
+
+        List<City> cities = repository.getAllCitiesByPopulation();
+
+        assertTrue(!cities.isEmpty());
+
+        for (int i = 1; i < cities.size(); i++) {
+            assertTrue(
+                    cities.get(i - 1).getPopulation()
+                            >= cities.get(i).getPopulation()
+            );
+        }
+    }
+
+    /**
+     * Checks that requesting more cities than available
+     * returns all existing cities.
+     *
+     * @throws SQLException if database access fails
+     */
+    @Test
+    void getTopNCitiesInWorld_largeNReturnsAll()
+            throws SQLException {
+
+        List<City> allCities = repository.getAllCitiesByPopulation();
+        List<City> topCities = repository.getTopNCitiesInWorld(100000);
+
+        assertEquals(allCities.size(), topCities.size());
+    }
+
+    /**
+     * Checks that an unknown country
+     * returns an empty list.
+     *
+     * @throws SQLException if database access fails
+     */
+    @Test
+    void getCitiesByCountryByPopulation_unknownCountry()
+            throws SQLException {
+
+        List<City> cities =
+                repository.getCitiesByCountryByPopulation("Unknown Country");
+
+        assertTrue(cities.isEmpty());
+    }
+
+    /**
+     * Checks that a Top N request greater than the
+     * available cities returns only existing records.
+     *
+     * @throws SQLException if database access fails
+     */
+    @Test
+    void getTopNCitiesByCountry_largeNReturnsAvailable()
+            throws SQLException {
+
+        List<City> allCities =
+                repository.getCitiesByCountryByPopulation("United Kingdom");
+
+        List<City> topCities =
+                repository.getTopNCitiesByCountry(100000, "United Kingdom");
+
+        assertEquals(allCities.size(), topCities.size());
+    }
 }

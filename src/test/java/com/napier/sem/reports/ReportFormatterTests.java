@@ -97,7 +97,7 @@ class ReportFormatterTest {
 
         // Assert
         assertNotNull(report);
-        assertTrue(report.contains("top 2"));
+        assertTrue(report.contains("Top 2"));
         assertTrue(report.contains("London"));
         assertTrue(report.contains("Paris"));
     }
@@ -116,7 +116,7 @@ class ReportFormatterTest {
 
         // Assert
         assertNotNull(report);
-        assertTrue(report.contains("top 2"));
+        assertTrue(report.contains("Top 2"));
         assertTrue(report.contains("Europe"));
         assertTrue(report.contains("London"));
     }
@@ -135,7 +135,7 @@ class ReportFormatterTest {
 
         // Assert
         assertNotNull(report);
-        assertTrue(report.contains("top 2"));
+        assertTrue(report.contains("Top 2"));
         assertTrue(report.contains("Western Europe"));
         assertTrue(report.contains("Paris"));
     }

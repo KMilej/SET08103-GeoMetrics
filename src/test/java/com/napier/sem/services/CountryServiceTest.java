@@ -66,13 +66,13 @@ class CountryServiceTest {
     void printAllCountriesByPopulation_formatsReportWithCountryData() {
         String report = CountryService.printAllCountriesByPopulation();
 
-        assertTrue(report.contains("All the countries in the world"));
+        assertTrue(report.contains("All Countries by Population"));
         assertTrue(report.contains("Code"));
         assertTrue(report.contains("Capital"));
         assertTrue(report.contains("1,277,558,000"));
         assertTrue(report.contains("Peking"));
         // 4 lines of title and header, then one line per country
-        assertEquals(239 + 4, report.lines().count());
+        assertEquals(239 + 7, report.lines().count());
     }
 
     /**
@@ -84,11 +84,13 @@ class CountryServiceTest {
         String report = CountryService.printCountriesByContinentByPopulation(Continent.EUROPE);
         List<String> lines = report.lines().toList();
 
-        assertTrue(report.contains("All the countries in a continent"));
-        assertTrue(lines.get(4).startsWith("RUS"));
+        assertTrue(report.contains("Countries"));
+        assertTrue(report.toLowerCase().contains("europe"));
+        assertTrue(lines.stream().anyMatch(
+                line -> line.matches("^\\s*1\\s*\\|\\s*RUS\\s*\\|.*")));
         assertTrue(report.contains("Moscow"));
         assertFalse(report.contains("China"));
-        assertEquals(46 + 4, lines.size());
+        assertEquals(46 + 7, lines.size());
     }
 
     /**
@@ -100,8 +102,9 @@ class CountryServiceTest {
         String report = CountryService.printCountriesByRegionByPopulation("Western Europe");
         List<String> lines = report.lines().toList();
 
-        assertTrue(report.contains("All the countries in a region"));
-        assertTrue(lines.get(4).startsWith("DEU"));
+        assertTrue(report.contains("Countries"));
+        assertTrue(report.contains("Western Europe"));
+        assertTrue(lines.stream().anyMatch(line -> line.matches("^\\s*1\\s*\\|\\s*DEU\\s*\\|.*")));
         assertTrue(report.contains("France"));
         assertFalse(report.contains("Russian Federation"));
     }
@@ -115,7 +118,10 @@ class CountryServiceTest {
     void printCountriesByRegionByPopulation_unknownRegionGivesHeaderOnly() {
         String report = CountryService.printCountriesByRegionByPopulation("Unknown region");
 
-        assertEquals(4, report.lines().count());
+        assertNotNull(report);
+        assertTrue(report.contains("Unknown region"));
+        assertTrue(report.contains("Code"));
+        assertTrue(report.contains("No countries found."));
     }
 
     /**
@@ -126,12 +132,12 @@ class CountryServiceTest {
     void printTopNCountriesInWorld_printsOnlyRequestedCountries() {
         String report = CountryService.printTopNCountriesInWorld(3);
 
-        assertTrue(report.contains("The top N populated countries in the world"));
+        assertTrue(report.contains("Top 3"));
         assertTrue(report.contains("China"));
         assertTrue(report.contains("India"));
         assertTrue(report.contains("United States"));
         assertFalse(report.contains("Indonesia"));
-        assertEquals(3 + 4, report.lines().count());
+        assertEquals(3 + 7, report.lines().count());
     }
 
     /**
@@ -142,7 +148,8 @@ class CountryServiceTest {
     void printTopNCountriesByContinent_printsOnlyRequestedCountries() {
         String report = CountryService.printTopNCountriesByContinent(2, Continent.EUROPE);
 
-        assertTrue(report.contains("The top N populated countries in a continent"));
+        assertTrue(report.contains(("Top 2")));
+        assertTrue(report.toLowerCase().contains("europe"));
         assertTrue(report.contains("Russian Federation"));
         assertTrue(report.contains("Germany"));
         assertFalse(report.contains("France"));
@@ -156,7 +163,7 @@ class CountryServiceTest {
     void printTopNCountriesByRegion_printsOnlyRequestedCountry() {
         String report = CountryService.printTopNCountriesByRegion(1, "Western Europe");
 
-        assertTrue(report.contains("The top N populated countries in a region"));
+        assertTrue(report.contains("Top 1"));
         assertTrue(report.contains("Germany"));
         assertFalse(report.contains("France"));
     }
