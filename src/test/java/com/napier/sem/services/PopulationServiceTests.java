@@ -10,6 +10,8 @@ import org.mockito.MockedStatic;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,6 +31,8 @@ class PopulationServiceTest {
     private PreparedStatement mockPreparedStatement;
     private ResultSet mockResultSet;
     private AutoCloseable closeable; // Added to manage the Mockito session lifecycle
+    private PrintStream originalOut;
+    private PrintStream suppressedOut;
 
     /**
      * Initializes the service under test and creates default stubbed chains
@@ -38,6 +42,9 @@ class PopulationServiceTest {
      */
     @BeforeEach
     void setUp() throws SQLException {
+        originalOut = System.out;
+        suppressedOut = new PrintStream(OutputStream.nullOutputStream());
+        System.setOut(suppressedOut);
         // Open the Mockito session to process annotations cleanly without strict rules
         closeable = MockitoAnnotations.openMocks(this);
 
@@ -63,6 +70,8 @@ class PopulationServiceTest {
      */
     @AfterEach
     void tearDown() throws Exception {
+        System.setOut(originalOut);
+        suppressedOut.close();
         // Deregister the static mock block to prevent memory leaks across test files
         mockedDatabaseConnection.close();
         // Close the mock session to release framework resources cleanly
@@ -196,7 +205,7 @@ class PopulationServiceTest {
     }
 
     /**
-     * Verifies that {@link PopulationService#getContinentPopulation(Continent)} retrieves
+     * Verifies that  retrieves
      * the continent population total under typical system flows.
      *
      * @throws SQLException if an unexpected database issue arises
@@ -204,18 +213,18 @@ class PopulationServiceTest {
     @Test
     void testGetContinentPopulation_Success() throws SQLException {
         // Arrange
-        Continent continent = Continent.EUROPE; // Assuming your Continent enum holds 'Europe'
+        String continent = "Europe";
         long expectedPopulation = 740_000_000L;
 
         when(mockResultSet.next()).thenReturn(true);
         when(mockResultSet.getLong("Total")).thenReturn(expectedPopulation);
 
         // Act
-        long actualPopulation = populationService.getContinentPopulation(continent);
+        long actualPopulation = populationService.getContinentPopulation(Continent.EUROPE);
 
         // Assert
         assertEquals(expectedPopulation, actualPopulation);
-        verify(mockPreparedStatement).setString(1, continent.name());
+        verify(mockPreparedStatement).setString(1, "EUROPE");
     }
 
 

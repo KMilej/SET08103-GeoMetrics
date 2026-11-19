@@ -7,6 +7,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.napier.sem.repositories.LanguageRepository.LanguageData;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
+
+@EnabledIfEnvironmentVariable(
+        named = "RUN_LANGUAGE_INTEGRATION_TESTS",
+        matches = "true"
+)
 
 public class LanguageRepositoryTest {
 

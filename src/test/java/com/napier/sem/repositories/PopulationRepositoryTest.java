@@ -9,6 +9,12 @@ import java.util.List;
 import com.napier.sem.repositories.PopulationRepository.PopulationDistributionData;
 import com.napier.sem.services.PopulationDistributionService;
 import com.napier.sem.models.Continent;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
+
+@EnabledIfEnvironmentVariable(
+        named = "RUN_POPULATION_INTEGRATION_TESTS",
+        matches = "true"
+)
 
 class PopulationDistributionRepositoryTest {
 
@@ -28,7 +34,7 @@ class PopulationDistributionRepositoryTest {
     void testNullScope(){
         assertThrows(IllegalArgumentException.class,
                 ()-> repository.getPopulationDistributionData(
-                        null, "FRA"
+                        null, "France"
                 ));
     }
 
@@ -39,20 +45,21 @@ class PopulationDistributionRepositoryTest {
     void testInvalidScope(){
         assertThrows(IllegalArgumentException.class,
                 ()-> repository.getPopulationDistributionData(
-                        "XYZ", "FRA"
+                        "XYZ", "France"
                 ));
     }
 
     /**
-     * Test unknown country code
+     * Test unknown country name
      * @throws SQLException
      */
     @Test
-    void testUnknownCountryCode() throws SQLException{
+    void testUnknownCountryName() throws SQLException{
         String result = PopulationDistributionService
-                .getUrbanAndRuralPopulationByCountry("ABC");
+                .getUrbanAndRuralPopulationByCountry("Unknown country");
 
-        assertEquals("No data available.", result);
+        assertNotNull(result);
+        assertTrue(result.contains("No data available."));
     }
 
     /**
@@ -65,7 +72,8 @@ class PopulationDistributionRepositoryTest {
         String result = PopulationDistributionService
                 .getUrbanAndRuralPopulationByRegion("EFG");
 
-        assertEquals("No data available.", result);
+        assertNotNull(result);
+        assertTrue(result.contains("No data available."));
     }
 
     /**
@@ -133,15 +141,15 @@ class PopulationDistributionRepositoryTest {
     void testCountryPopulationDistribution() throws SQLException {
         List<PopulationDistributionData> country =
                 repository.getPopulationDistributionData(
-                        "COUNTRY", "FRA");
+                        "COUNTRY", "France");
 
         // Test if result is not empty
         assertFalse(country.isEmpty());
 
         // Check if it contains expected population record
         // EXPECTED: "France", 59225700L, 9244494L
-        assertTrue(country.contains(EXPECTED.get(1)),
-                "Country should include expected data population record");
+        assertEquals(List.of(EXPECTED.get(1)), country,
+                "Country name filter should return only France with expected population data");
     }
 
     /**

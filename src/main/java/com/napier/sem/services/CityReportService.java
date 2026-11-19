@@ -8,6 +8,7 @@ package com.napier.sem.services;
 
 import com.napier.sem.models.City;
 import com.napier.sem.models.Continent;
+import com.napier.sem.reports.ReportFormatter;
 import com.napier.sem.repositories.CityReportRepository;
 
 import java.sql.SQLException;
@@ -33,28 +34,18 @@ public class CityReportService {
             return "No cities found.";
         }
 
-        StringBuilder report = new StringBuilder();
-        report.append(String.format(
-                "%-35s %-12s %-25s %12s%n",
-                "City", "Country Code", "District", "Population"));
+        return ReportFormatter.formatCities(
+                "All Cities in the World by Population",
+                cities
+        );
 
-        for (City city : cities) {
-            report.append(String.format(
-                    "%-35s %-12s %-25s %12d%n",
-                    city.getName(),
-                    city.getCountryCode(),
-                    city.getDistrict(),
-                    city.getPopulation()));
-        }
-
-        return report.toString();
     }
 
     /**
      * Creates a city report for a continent.
      *
      * @param continent the selected continent
-     * @return the report text, or a message if no cities are found
+     * @return the formatted city report
      * @throws SQLException if the database query fails
      * @throws IllegalArgumentException if the continent is null
      */
@@ -64,14 +55,17 @@ public class CityReportService {
         }
         CityReportRepository repository = new CityReportRepository();
         List<City> cities = repository.getCitiesByContinentByPopulation(continent);
-        return formatCityReport(cities);
+        return ReportFormatter.formatCities(
+                "All Cities in " + continent + " by Population",
+                cities
+        );
     }
 
     /**
      * Creates a city report for a region.
      *
      * @param region the region name, for example Western Europe
-     * @return the report text, or a message if no cities are found
+     * @return the formatted city report
      * @throws SQLException if the database query fails
      * @throws IllegalArgumentException if the region is null or blank
      */
@@ -79,29 +73,35 @@ public class CityReportService {
         checkLocation(region, "Region");
         CityReportRepository repository = new CityReportRepository();
         List<City> cities = repository.getCitiesByRegionByPopulation(region);
-        return formatCityReport(cities);
+        return ReportFormatter.formatCities(
+                "All Cities in " + region + " by Population",
+                cities
+        );
     }
 
     /**
      * Creates a city report for a country.
      *
-     * @param countryCode the country code, for example GBR
-     * @return the report text, or a message if no cities are found
+     * @param countryName the country name, for example United Kingdom
+     * @return the formatted city report
      * @throws SQLException if the database query fails
-     * @throws IllegalArgumentException if the country code is null or blank
+     * @throws IllegalArgumentException if the country name is null or blank
      */
-    public static String getCitiesByCountryByPopulation(String countryCode) throws SQLException {
-        checkLocation(countryCode, "Country code");
+    public static String getCitiesByCountryByPopulation(String countryName) throws SQLException {
+        checkLocation(countryName, "Country name");
         CityReportRepository repository = new CityReportRepository();
-        List<City> cities = repository.getCitiesByCountryByPopulation(countryCode);
-        return formatCityReport(cities);
+        List<City> cities = repository.getCitiesByCountryByPopulation(countryName);
+        return ReportFormatter.formatCities(
+                "All Cities in " + countryName + " by Population",
+                cities
+        );
     }
 
     /**
      * Creates a city report for a district.
      *
      * @param district the district name, for example Scotland
-     * @return the report text, or a message if no cities are found
+     * @return the formatted report
      * @throws SQLException if the database query fails
      * @throws IllegalArgumentException if the district is null or blank
      */
@@ -109,14 +109,17 @@ public class CityReportService {
         checkLocation(district, "District");
         CityReportRepository repository = new CityReportRepository();
         List<City> cities = repository.getCitiesByDistrictByPopulation(district);
-        return formatCityReport(cities);
+        return ReportFormatter.formatCities(
+                "All Cities in " + district + " by Population",
+                cities
+        );
     }
 
     /**
      * Creates a report of the top N cities in the world.
      *
      * @param topN the maximum number of cities to show
-     * @return the report text, or a message if no cities are found
+     * @return the formatted report
      * @throws SQLException if the database query fails
      * @throws IllegalArgumentException if N is zero or negative
      */
@@ -124,7 +127,10 @@ public class CityReportService {
         checkTopN(topN);
         CityReportRepository repository = new CityReportRepository();
         List<City> cities = repository.getTopNCitiesInWorld(topN);
-        return formatCityReport(cities);
+        return ReportFormatter.formatCities(
+                "Top " + topN + " Cities in the World by Population",
+                cities
+        );
     }
 
     /**
@@ -132,7 +138,7 @@ public class CityReportService {
      *
      * @param topN the maximum number of cities to show
      * @param continent the selected continent
-     * @return the report text, or a message if no cities are found
+     * @return the formatted city report
      * @throws SQLException if the database query fails
      * @throws IllegalArgumentException if N is not positive or the continent is null
      */
@@ -143,7 +149,11 @@ public class CityReportService {
         }
         CityReportRepository repository = new CityReportRepository();
         List<City> cities = repository.getTopNCitiesByContinent(topN, continent);
-        return formatCityReport(cities);
+        return ReportFormatter.formatCities(
+                "Top " + topN + " Cities in " + continent
+                        + " by Population",
+                cities
+        );
     }
 
     /**
@@ -151,7 +161,7 @@ public class CityReportService {
      *
      * @param topN the maximum number of cities to show
      * @param region the region name
-     * @return the report text, or a message if no cities are found
+     * @return the formatted report
      * @throws SQLException if the database query fails
      * @throws IllegalArgumentException if N is not positive or the region is null or blank
      */
@@ -160,24 +170,32 @@ public class CityReportService {
         checkLocation(region, "Region");
         CityReportRepository repository = new CityReportRepository();
         List<City> cities = repository.getTopNCitiesByRegion(topN, region);
-        return formatCityReport(cities);
+        return ReportFormatter.formatCities(
+                "Top " + topN + " Cities in " + region
+                        + " by Population",
+                cities
+        );
     }
 
     /**
      * Creates a report of the top N cities in a country.
      *
      * @param topN the maximum number of cities to show
-     * @param countryCode the country code, for example GBR
-     * @return the report text, or a message if no cities are found
+     * @param countryName the country name, for example United Kingdom
+     * @return the formatted report, or a message if no cities are found
      * @throws SQLException if the database query fails
-     * @throws IllegalArgumentException if N is not positive or the country code is null or blank
+     * @throws IllegalArgumentException if N is not positive or the country name is null or blank
      */
-    public static String getTopNCitiesByCountry(int topN, String countryCode) throws SQLException {
+    public static String getTopNCitiesByCountry(int topN, String countryName) throws SQLException {
         checkTopN(topN);
-        checkLocation(countryCode, "Country code");
+        checkLocation(countryName, "Country name");
         CityReportRepository repository = new CityReportRepository();
-        List<City> cities = repository.getTopNCitiesByCountry(topN, countryCode);
-        return formatCityReport(cities);
+        List<City> cities = repository.getTopNCitiesByCountry(topN, countryName);
+        return ReportFormatter.formatCities(
+                "Top " + topN + " Cities in " + countryName
+                        + " by Population",
+                cities
+        );
     }
 
     /**
@@ -194,7 +212,11 @@ public class CityReportService {
         checkLocation(district, "District");
         CityReportRepository repository = new CityReportRepository();
         List<City> cities = repository.getTopNCitiesByDistrict(topN, district);
-        return formatCityReport(cities);
+        return ReportFormatter.formatCities(
+                "Top " + topN + " Cities in " + district
+                        + " by Population",
+                cities
+        );
     }
 
     /**
@@ -233,17 +255,9 @@ public class CityReportService {
             return "No cities found.";
         }
 
-        StringBuilder report = new StringBuilder();
-        report.append(String.format(
-                "%-35s %-12s %-25s %12s%n",
-                "City", "Country Code", "District", "Population"));
-
-        for (City city : cities) {
-            report.append(String.format(
-                    "%-35s %-12s %-25s %12d%n",
-                    city.getName(), city.getCountryCode(),
-                    city.getDistrict(), city.getPopulation()));
-        }
-        return report.toString();
+        return ReportFormatter.formatCities(
+                "Cities by Population",
+                cities
+        );
     }
 }
